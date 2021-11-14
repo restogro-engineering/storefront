@@ -29,8 +29,15 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 import { ProductListControlsComponent } from './components/product-list-controls/product-list-controls.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductSearchBarComponent } from './components/product-search-bar/product-search-bar.component';
+import { MainPostersComponent } from './components/main-posters/main-posters.component';
+import { TopBrandsComponent } from './components/top-brands/top-brands.component';
+import { CategoriesImagesComponent } from './components/categories-images/categories-images.component';
+import { TopSellersComponent } from './components/top-sellers/top-sellers.component';
+import { DealOfDayComponent } from './components/deal-of-day/deal-of-day.component';
+import { NewArrivalsComponent } from './components/new-arrivals/new-arrivals.component';
 import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -49,6 +56,12 @@ const CORE_COMPONENTS = [
     ProductListControlsComponent,
     ProductSearchBarComponent,
     AssetGalleryComponent,
+    MainPostersComponent,
+    TopBrandsComponent,
+    TopSellersComponent,
+    CategoriesImagesComponent,
+    DealOfDayComponent,
+    NewArrivalsComponent
 ];
 
 let apolloCache: InMemoryCache;
@@ -62,6 +75,7 @@ let providedCacheState: any | undefined;
         HttpClientModule,
         SharedModule,
         BrowserModule,
+        NgImageSliderModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

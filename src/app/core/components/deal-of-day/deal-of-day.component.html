@@ -1,0 +1,17 @@
+<div class="">
+    <div class="text-banner-title">Deal of the day</div>
+    <div class="product-list">
+        <ng-container *ngIf="topSellersLoaded$ | async; else placeholders">
+            <vsf-product-card
+                *ngFor="let product of topSellers$ | async"
+                [product]="product"
+            ></vsf-product-card>
+        </ng-container>
+        <ng-template #placeholders>
+            <vsf-product-card
+                *ngFor="let product of placeholderProducts"
+                [product]="product"
+            ></vsf-product-card>
+        </ng-template>
+    </div>
+</div>

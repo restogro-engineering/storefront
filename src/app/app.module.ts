@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, NgModule } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser';
+import { NgImageSliderModule } from 'ng-image-slider';
 import { NavigationEnd, Router, RouterModule, UrlSerializer } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { filter } from 'rxjs/operators';
@@ -30,6 +31,7 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
             enabled: environment.production,
             registrationStrategy: 'registerWithDelay:5000',
         }),
+        NgImageSliderModule
     ],
     bootstrap: [AppComponent],
 })

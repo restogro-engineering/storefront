@@ -1,0 +1,19 @@
+<div class="">
+    <div class="text-banner-title">Featured Categories</div>
+    <ng-image-slider
+        [infinite]="false"
+        [autoSlide]="1"
+        [imageSize]="{ width: '20%', height: 300,space:20 }"
+        slideImage="1"
+        [images]="imageObject"
+        (imageClick)="imageClick($event)"
+        #nav
+    >
+    </ng-image-slider>
+
+    <vsf-collection-card
+            *ngFor="let collection of collections$ | async"
+            [collection]="collection"
+        >
+        </vsf-collection-card>
+</div>

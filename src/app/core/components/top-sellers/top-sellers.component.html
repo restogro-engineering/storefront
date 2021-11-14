@@ -1,0 +1,26 @@
+<div class="">
+    <div class="text-banner-title">Top sellers</div>
+    <!-- <ng-image-slider
+        [infinite]="false"
+        [autoSlide]="1"
+        [imageSize]="{ width: '20%', height: 300,space:20 }"
+        slideImage="1"
+        [images]="imageObject"
+        #nav
+    >
+    </ng-image-slider> -->
+    <div class="product-list">
+            <ng-container *ngIf="topSellersLoaded$ | async; else placeholders">
+                <vsf-product-card
+                    *ngFor="let product of topSellers$ | async"
+                    [product]="product"
+                ></vsf-product-card>
+            </ng-container>
+            <ng-template #placeholders>
+                <vsf-product-card
+                    *ngFor="let product of placeholderProducts"
+                    [product]="product"
+                ></vsf-product-card>
+            </ng-template>
+        </div>
+</div>
