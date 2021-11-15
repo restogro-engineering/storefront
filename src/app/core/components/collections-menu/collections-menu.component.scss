@@ -37,13 +37,14 @@
     }
 
     .level-2-link {
-
     }
 }
 
 .nav-link {
-    &:hover, &.active {
+    &:hover,
+    &.active {
         background-color: white;
+        border-bottom: 3px solid red;
     }
 }
 

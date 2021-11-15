@@ -6,6 +6,7 @@
         [imageSize]="{ width: '10%', height: 200,space:20 }"
         slideImage="1"
         [images]="imageObject"
+        (imageClick)="imageClick($event)"
         #nav
     >
     </ng-image-slider>
