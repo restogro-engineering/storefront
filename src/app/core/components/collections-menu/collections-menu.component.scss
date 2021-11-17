@@ -37,6 +37,7 @@
     }
 
     .level-2-link {
+        text-decoration: none;
     }
 }
 
@@ -50,4 +51,9 @@
 
 .level-1-block {
     margin-right: $spacer * 2;
+}
+
+.level-1-block:nth-child(even) {
+    background: #f5f5f6;
+    padding: 0px 10px;
 }

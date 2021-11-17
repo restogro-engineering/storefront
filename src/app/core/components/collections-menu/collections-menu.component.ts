@@ -126,7 +126,7 @@ export class CollectionsMenuComponent implements OnInit, OnDestroy {
 
     private closeOverlay() {
         if (typeof this.closeFn === 'function') {
-            this.closeFn();
+            // this.closeFn();
         }
     }
 

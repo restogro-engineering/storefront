@@ -21,6 +21,7 @@
         <div class="container d-flex flex-wrap">
             <div class="level-1-block" *ngFor="let level1 of activeCollection.children">
                 <vsf-collection-card [collection]="level1"></vsf-collection-card>
+                <!-- <span>{{level1 | json}}</span> -->
                 <ng-container *ngFor="let level2 of level1.children">
                     <a class="level-2-link"
                        [routerLink]="['/category', level2.slug]"
