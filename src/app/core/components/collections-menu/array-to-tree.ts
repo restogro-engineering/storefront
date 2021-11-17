@@ -1,6 +1,14 @@
-export type HasParent = { id: string; parent?: { id: string; } | null };
-export type TreeNode<T extends HasParent> = T & { children: Array<TreeNode<T>>; };
-export type RootNode<T extends HasParent> = { id?: string; children: Array<TreeNode<T>>; };
+export type HasParent = {
+    id: string;
+    parent?: { id: string; name: string } | null;
+};
+export type TreeNode<T extends HasParent> = T & {
+    children: Array<TreeNode<T>>;
+};
+export type RootNode<T extends HasParent> = {
+    id?: string;
+    children: Array<TreeNode<T>>;
+};
 
 /**
  * Builds a tree from an array of nodes which have a parent.
@@ -12,13 +20,13 @@ export function arrayToTree<T extends HasParent>(nodes: T[]): RootNode<T> {
 
     // First map the nodes of the array to an object -> create a hash table.
     for (const node of nodes) {
-        mappedArr[node.id] = {...(node as any), children: []};
+        mappedArr[node.id] = { ...(node as any), children: [] };
     }
 
+    debugger;
     for (const id of nodes.map(n => n.id)) {
-
         if (mappedArr.hasOwnProperty(id)) {
-            const mappedElem = mappedArr[id];
+            const mappedElem: any = mappedArr[id];
             const parent = mappedElem.parent;
             if (!parent) {
                 continue;
@@ -29,14 +37,17 @@ export function arrayToTree<T extends HasParent>(nodes: T[]): RootNode<T> {
                 if (mappedArr[parent.id]) {
                     mappedArr[parent.id].children.push(mappedElem);
                 } else {
-                    mappedArr[parent.id] = {children: [mappedElem]} as any;
+                    mappedArr[parent.id] = { children: [mappedElem] } as any;
                 }
             } else {
-                topLevelNodes.push(mappedElem);
+                if (mappedElem.name !== "landing page")
+                    topLevelNodes.push(mappedElem);
             }
         }
     }
     // tslint:disable-next-line:no-non-null-assertion
-    const rootId = topLevelNodes.length ? topLevelNodes[0].parent!.id : undefined;
-    return {id: rootId, children: topLevelNodes};
+    const rootId = topLevelNodes.length
+        ? topLevelNodes[0].parent!.id
+        : undefined;
+    return { id: rootId, children: topLevelNodes };
 }
