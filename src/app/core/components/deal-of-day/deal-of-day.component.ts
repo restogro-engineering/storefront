@@ -23,8 +23,7 @@ export class DealOfDayComponent implements OnInit {
 
     @ViewChild("nav") slider: NgImageSliderComponent;
     constructor(
-        private dataService: DataService,
-        private sanitizer: DomSanitizer
+        private dataService: DataService        
     ) {}
 
     imageObject = [];

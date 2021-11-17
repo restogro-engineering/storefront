@@ -19,6 +19,17 @@
     font-weight: 500;
 }
 
-.custom-image-main{
-    border-radius: 50%;
+.top-brand-container {
+    .ng-image-slider-container {
+        border-radius: 50%;
+        .img-div {
+            border-radius: 50%;
+        }
+        .image-popup {
+            border-radius: 50% !important;
+        }
+        .image {
+            border-radius: 50% !important;
+        }
+    }
 }

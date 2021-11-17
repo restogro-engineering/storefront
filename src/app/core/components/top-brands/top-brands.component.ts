@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, Input } from "@angular/core";
+import { Component, ViewChild, OnInit, Input, ViewEncapsulation } from "@angular/core";
 import { gql } from "apollo-angular";
 import { NgImageSliderComponent } from "ng-image-slider";
 import { DataService } from "../../providers/data/data.service";
@@ -8,14 +8,20 @@ import { Router } from "@angular/router";
 @Component({
     selector: "vsf-top-brands",
     templateUrl: "./top-brands.component.html",
-    styleUrls: ["./top-brands.component.scss"]
+    styleUrls: ["./top-brands.component.scss"],
+    encapsulation: ViewEncapsulation.None
 })
-export class TopBrandsComponent {
+export class TopBrandsComponent implements OnInit {
     @Input()
     imageObject: any = [];
 
     @ViewChild("nav") slider: NgImageSliderComponent;
-    constructor(private dataService: DataService, public router: Router) {}
+    constructor(public router: Router) {}
+
+
+    ngOnInit(){
+                
+    }
 
     prevImageClick() {
         this.slider.prev();

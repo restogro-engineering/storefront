@@ -21,9 +21,7 @@ export function arrayToTree<T extends HasParent>(nodes: T[]): RootNode<T> {
     // First map the nodes of the array to an object -> create a hash table.
     for (const node of nodes) {
         mappedArr[node.id] = { ...(node as any), children: [] };
-    }
-
-    debugger;
+    }    
     for (const id of nodes.map(n => n.id)) {
         if (mappedArr.hasOwnProperty(id)) {
             const mappedElem: any = mappedArr[id];

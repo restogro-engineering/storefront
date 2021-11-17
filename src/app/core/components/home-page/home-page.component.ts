@@ -12,8 +12,7 @@ import { DataService } from "../../providers/data/data.service";
 })
 export class HomePageComponent implements OnInit {
     mainPosters: any = [];
-    topBrands: any = [];
-    dealOfDay: any = [];
+    topBrands: any = [];    
     readonly placeholderProducts = Array.from({ length: 12 }).map(() => null);
     constructor(private dataService: DataService) {}
 
@@ -46,21 +45,11 @@ export class HomePageComponent implements OnInit {
                             this.topBrands.push({
                                 image: element.featuredAsset.source,
                                 thumbImage: element.featuredAsset.source,
-                                title: "",
+                                title: element.name,
                                 ...element
                             });
                         });
-                    }
-                    if (type.name === "Deal of the Day") {
-                        type.children.forEach((element: any) => {
-                            this.dealOfDay.push({
-                                image: element.featuredAsset.source,
-                                thumbImage: element.featuredAsset.source,
-                                title: "",
-                                ...element
-                            });
-                        });
-                    }
+                    }                   
                 });
             });
     }
