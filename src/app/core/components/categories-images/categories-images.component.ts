@@ -25,7 +25,12 @@ export class CategoriesImagesComponent {
             .pipe(
                 map(data =>
                     data.collections.items.filter((collection: any) => {
-                        if (collection.parent && collection.parent.name !== '__root_collection__') {                            
+                        if (
+                            collection.parent &&
+                            collection.parent.name !== "__root_collection__" &&
+                            collection.assets &&
+                            collection.assets.length > 0
+                        ) {
                             this.imageObject.push({
                                 image: collection.assets[0].preview,
                                 thumbImage: collection.assets[0].source,

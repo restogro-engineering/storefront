@@ -1,5 +1,8 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, Input } from "@angular/core";
 import { NgImageSliderComponent } from "ng-image-slider";
+import { DataService } from "../../providers/data/data.service";
+import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "vsf-main-posters",
@@ -7,29 +10,11 @@ import { NgImageSliderComponent } from "ng-image-slider";
     styleUrls: ["./main-posters.component.scss"]
 })
 export class MainPostersComponent {
+    @Input()
+    imageObject: any = [];
+
     @ViewChild("nav") slider: NgImageSliderComponent;
-    imageObject = [
-        {
-            image:
-                "https://rukminim1.flixcart.com/flap/844/140/image/296e1504bce3ee6a.jpg?q=50",
-            thumbImage:
-                "https://rukminim1.flixcart.com/flap/844/140/image/296e1504bce3ee6a.jpg?q=50",
-            title: "Hummingbirds are amazing creatures"
-        },
-        {
-            image:
-                "https://rukminim1.flixcart.com/flap/3376/560/image/a0f90bf38b918bcd.jpg?q=50",
-            thumbImage:
-                "https://rukminim1.flixcart.com/flap/3376/560/image/a0f90bf38b918bcd.jpg?q=50",
-            title: "Example with title."
-        },
-        {
-            image:
-                "https://rukminim1.flixcart.com/flap/844/140/image/296e1504bce3ee6a.jpg?q=50",
-            thumbImage:
-                "https://rukminim1.flixcart.com/flap/844/140/image/296e1504bce3ee6a.jpg?q=50"
-        }
-    ];
+    constructor(public router: Router) {}
 
     prevImageClick() {
         this.slider.prev();
@@ -37,5 +22,9 @@ export class MainPostersComponent {
 
     nextImageClick() {
         this.slider.next();
+    }
+
+    imageClick(data: any) {
+        this.router.navigate(["/category", this.imageObject[data].slug]);
     }
 }

@@ -1,27 +1,31 @@
-import { Component, ViewChild, ChangeDetectionStrategy, OnInit } from "@angular/core";
-import { gql } from 'apollo-angular';
+import {
+    Component,
+    ViewChild,
+    ChangeDetectionStrategy,
+    OnInit
+} from "@angular/core";
+import { gql } from "apollo-angular";
 import { NgImageSliderComponent } from "ng-image-slider";
-import { DataService } from '../../providers/data/data.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { DataService } from "../../providers/data/data.service";
+import { Observable } from "rxjs";
+import { map, shareReplay } from "rxjs/operators";
 
 @Component({
     selector: "vsf-new-arrivals",
     templateUrl: "./new-arrivals.component.html",
     styleUrls: ["./new-arrivals.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewArrivalsComponent implements OnInit  {
+export class NewArrivalsComponent implements OnInit {
     topSellers$: Observable<any[]>;
     topSellersLoaded$: Observable<boolean>;
 
     @ViewChild("nav") slider: NgImageSliderComponent;
-    constructor(private dataService: DataService, private sanitizer: DomSanitizer) { }
+    constructor(
+        private dataService: DataService        
+    ) {}
 
-    imageObject = [
-       
-    ];
+    imageObject = [];
 
     prevImageClick() {
         this.slider.prev();
@@ -31,29 +35,31 @@ export class NewArrivalsComponent implements OnInit  {
         this.slider.next();
     }
 
-    ngOnInit() {       
-        this.topSellers$ = this.dataService.query(GET_TOP_SELLERS).pipe(
-            map(data => data.search.items),
-            shareReplay(1),
-        );
+    ngOnInit() {
+        this.topSellers$ = this.dataService
+            .query(NEW_ARRIVALS, {
+                input: {
+                    facetValueIds: ["42"],
+                    take: 10,
+                    groupByProduct: true,
+                    sort: {
+                        price: "ASC"
+                    }
+                }
+            })
+            .pipe(
+                map(data => data.search.items),
+                shareReplay(1)
+            );
         this.topSellersLoaded$ = this.topSellers$.pipe(
-            map(items => 0 < items.length),
+            map(items => 0 < items.length)
         );
-        
     }
-
 }
 
-
-const GET_TOP_SELLERS = gql`
-    query GetTopSellers {
-        search(input: {
-            take: 8,
-            groupByProduct: true,
-            sort: {
-                price: ASC
-            }
-        }) {
+const NEW_ARRIVALS = gql`
+    query GetNewArrivals($input: SearchInput!) {
+        search(input: $input) {
             items {
                 productId
                 slug
