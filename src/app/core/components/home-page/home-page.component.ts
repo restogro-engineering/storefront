@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit {
             })
             .subscribe(data => {
                 data.collections.items[0].children.forEach((type: any) => {
-                    if (type.name === "Main posters") {    
+                    if (type.slug === "main-posters") {    
                         type.children.forEach((element: any) => {
                             this.mainPosters.push({
                                 image: element.featuredAsset.source,
@@ -38,7 +38,7 @@ export class HomePageComponent implements OnInit {
                         });
                     }
 
-                    if (type.name === "top-brands") {
+                    if (type.slug === "top-brands") {
                         type.children.forEach((element: any) => {
                             this.topBrands.push({
                                 image: element.featuredAsset.source,
@@ -62,7 +62,8 @@ const HOME_PAGE_DATA = gql`
                 slug
                 children {
                     id
-                    name                                        
+                    name 
+                    slug                                       
                     children {
                         id
                         name
