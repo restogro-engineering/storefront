@@ -40,7 +40,7 @@ export class DealOfDayComponent implements OnInit {
         this.topSellers$ = this.dataService
             .query(GET_DEAL_OF_DAY, {
                 input: {
-                    facetValueIds: ["41"],
+                    facetValueIds: ["40"],
                     take: 10,
                     groupByProduct: true,
                     sort: {

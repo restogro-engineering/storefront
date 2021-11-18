@@ -38,7 +38,7 @@ export function arrayToTree<T extends HasParent>(nodes: T[]): RootNode<T> {
                     mappedArr[parent.id] = { children: [mappedElem] } as any;
                 }
             } else {
-                if (mappedElem.name !== "landing page")
+                if (mappedElem.name !== "offer zone")
                     topLevelNodes.push(mappedElem);
             }
         }

@@ -39,7 +39,7 @@ export class NewArrivalsComponent implements OnInit {
         this.topSellers$ = this.dataService
             .query(NEW_ARRIVALS, {
                 input: {
-                    facetValueIds: ["42"],
+                    facetValueIds: ["41"],
                     take: 10,
                     groupByProduct: true,
                     sort: {

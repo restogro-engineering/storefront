@@ -2,11 +2,13 @@
     background-color: #192436;
     border-bottom: 1px solid #e9ecef;
 
-    > .container {
+    > .container-fluid {
         display: flex;
         align-items: center;
-        padding: 6px;
+        padding: 0px 20px;
+        height: 80px;
     }
+
 }
 
 .logo-link {

@@ -36,7 +36,8 @@
 .child-categories {
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-bottom: $spacer;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e9ecef;
 
     vsf-collection-card {
         flex: 1;
