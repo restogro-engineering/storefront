@@ -14,6 +14,16 @@ export class HomePageComponent implements OnInit {
     readonly placeholderProducts = Array.from({ length: 12 }).map(() => null);
     constructor(private dataService: DataService) {}
 
+    compare(a: any, b: any) {
+        if (a.position < b.position) {
+            return -1;
+        }
+        if (a.position > b.position) {
+            return 1;
+        }
+        return 0;
+    }
+
     ngOnInit() {
         this.dataService
             .query(HOME_PAGE_DATA, {
@@ -27,8 +37,12 @@ export class HomePageComponent implements OnInit {
             })
             .subscribe(data => {
                 data.collections.items[0].children.forEach((type: any) => {
-                    if (type.slug === "main-posters") {    
-                        type.children.forEach((element: any) => {
+                    if (type.slug === "main-posters") {
+                        let mainPostersList: any = JSON.parse(
+                            JSON.stringify(type.children)
+                        );
+                        mainPostersList.sort(this.compare);
+                        mainPostersList.forEach((element: any) => {
                             this.mainPosters.push({
                                 image: element.featuredAsset.source,
                                 thumbImage: element.featuredAsset.source,
@@ -39,7 +53,11 @@ export class HomePageComponent implements OnInit {
                     }
 
                     if (type.slug === "top-brands") {
-                        type.children.forEach((element: any) => {
+                        let topBrandsList: any = JSON.parse(
+                            JSON.stringify(type.children)
+                        );
+                        topBrandsList.sort(this.compare);
+                        topBrandsList.forEach((element: any) => {
                             this.topBrands.push({
                                 image: element.featuredAsset.source,
                                 thumbImage: element.featuredAsset.source,
@@ -62,8 +80,8 @@ const HOME_PAGE_DATA = gql`
                 slug
                 children {
                     id
-                    name 
-                    slug                                       
+                    name
+                    slug
                     children {
                         id
                         name
