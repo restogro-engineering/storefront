@@ -43,6 +43,17 @@ export const CART_FRAGMENT = gql`
                 type
             }
         }
+        payments {
+            id
+            createdAt
+            updatedAt
+            method
+            amount
+            state
+            transactionId
+            errorMessage
+            __typename
+          }
         totalQuantity
         subTotal
         subTotalWithTax
