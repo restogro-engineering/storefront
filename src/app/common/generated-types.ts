@@ -3120,7 +3120,7 @@ export namespace SignIn {
   export type Variables = SignInMutationVariables;
   export type Mutation = SignInMutation;
   export type Login = (NonNullable<SignInMutation['login']>);
-  export type CurrentUserInlineFragment = (DiscriminateUnion<(NonNullable<SignInMutation['login']>), { __typename?: 'CurrentUser' }>);
+  export type CurrentUserInlineFragment = (DiscriminateUnion<(NonNullable<SignInMutation['login']>), { __typename?: 'CurrentUser' }>);  
 }
 
 export namespace GetActiveChannel {
@@ -4045,6 +4045,11 @@ export type SignInMutationVariables = Exact<{
   emailAddress: Scalars['String'];
   password: Scalars['String'];
   rememberMe: Scalars['Boolean'];
+}>;
+
+export type SendOtpMutationVariables = Exact<{
+  strategy: Scalars['String'];
+  phoneNumber: Scalars['String'];  
 }>;
 
 

@@ -31,10 +31,12 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductSearchBarComponent } from './components/product-search-bar/product-search-bar.component';
 import { MainPostersComponent } from './components/main-posters/main-posters.component';
 import { TopBrandsComponent } from './components/top-brands/top-brands.component';
+import { OurServicesComponent } from './components/our-services/our-services.component';
 import { CategoriesImagesComponent } from './components/categories-images/categories-images.component';
 import { TopSellersComponent } from './components/top-sellers/top-sellers.component';
 import { DealOfDayComponent } from './components/deal-of-day/deal-of-day.component';
 import { NewArrivalsComponent } from './components/new-arrivals/new-arrivals.component';
+import { WishListToggleComponent } from './components/wishlist-toggle/wishlist-toggle.component';
 import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
 import { NgImageSliderModule } from 'ng-image-slider';
@@ -61,7 +63,9 @@ const CORE_COMPONENTS = [
     TopSellersComponent,
     CategoriesImagesComponent,
     DealOfDayComponent,
-    NewArrivalsComponent
+    OurServicesComponent,
+    NewArrivalsComponent,
+    WishListToggleComponent
 ];
 
 let apolloCache: InMemoryCache;

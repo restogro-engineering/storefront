@@ -69,8 +69,9 @@ export class CheckoutPaymentComponent implements OnInit {
     }
 
     payWithRazor(val:any,order:any) {
+        debugger;
         const options: any = {
-          key: process.env.RZ_KEY,
+          key: 'rzp_test_V8va0hWULN0uxp',
           amount: 125500, // amount should be in paise format to display Rs 1255 without decimal point
           currency: 'INR',
           name: 'Hegmadental', // company name or product name

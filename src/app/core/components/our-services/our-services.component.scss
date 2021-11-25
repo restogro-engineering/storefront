@@ -1,0 +1,17 @@
+@import "variables";
+
+.our-service-container {
+    .services-image {
+        width: calc(100vw - 20px);
+        padding-left: 20px;
+    }
+    .text-banner-title {
+        text-transform: uppercase;
+        color: #3e4152;
+        letter-spacing: 0.15em;
+        font-size: 1.8em;
+        margin: 50px 0 10px 30px;
+        max-height: 5em;
+        font-weight: 500;
+    }
+}

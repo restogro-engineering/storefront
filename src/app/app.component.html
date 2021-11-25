@@ -1,26 +1,42 @@
 <vsf-layout>
-
     <vsf-layout-header>
         <div class="header">
             <div class="container-fluid">
                 <vsf-mobile-menu-toggle></vsf-mobile-menu-toggle>
-                <a [routerLink]="['/']" class="logo-link d-none d-md-inline-block ">
-                    <img src="assets/icons/logo.png" class="logo" alt="hegmadental">
+                <a
+                    [routerLink]="['/']"
+                    class="logo-link d-none d-md-inline-block "
+                >
+                    <img
+                        src="assets/icons/logo.png"
+                        class="logo"
+                        alt="hegmadental"
+                    />
                 </a>
                 <div class="flex-grow-1 d-none d-sm-block"></div>
-                <vsf-product-search-bar class="flex-grow-1"></vsf-product-search-bar>
+                <vsf-product-search-bar
+                    class="flex-grow-1"
+                ></vsf-product-search-bar>
                 <vsf-account-link class="mr-2"></vsf-account-link>
                 <vsf-cart-toggle (toggle)="openCartDrawer()"></vsf-cart-toggle>
+                <vsf-wishlist-toggle
+                    (toggle)="openCartDrawer()"
+                ></vsf-wishlist-toggle>
             </div>
             <vsf-collections-menu></vsf-collections-menu>
         </div>
     </vsf-layout-header>
-    <vsf-collections-menu-mobile [visible]="mobileNavVisible$ | async"></vsf-collections-menu-mobile>
-    <vsf-cart-drawer [visible]="cartDrawerVisible$ | async" (close)="closeCartDrawer()"></vsf-cart-drawer>
+    <vsf-collections-menu-mobile
+        [visible]="mobileNavVisible$ | async"
+    ></vsf-collections-menu-mobile>
+    <vsf-cart-drawer
+        [visible]="cartDrawerVisible$ | async"
+        (close)="closeCartDrawer()"
+    ></vsf-cart-drawer>
     <div class="contents">
         <vsf-home-page *ngIf="isHomePage$ | async; else main"></vsf-home-page>
         <ng-template #main>
-                <router-outlet></router-outlet>
+            <router-outlet></router-outlet>
         </ng-template>
     </div>
 
@@ -51,11 +67,18 @@
                     <fa-icon size="2x" [icon]="['fab', 'youtube']"></fa-icon>
                 </div>
                 <div class="mailist mt-5 d-flex justify-content-around">
-                    <div class="lead">Subscribe to our mailing list for exclusive news and offers!</div>
-                    <button type="button" class="btn btn-outline-secondary btn-lg">Subscribe</button>
+                    <div class="lead">
+                        Subscribe to our mailing list for exclusive news and
+                        offers!
+                    </div>
+                    <button
+                        type="button"
+                        class="btn btn-outline-secondary btn-lg"
+                    >
+                        Subscribe
+                    </button>
                 </div>
             </div>
-        </div>        
+        </div>
     </vsf-layout-footer>
-
 </vsf-layout>

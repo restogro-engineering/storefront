@@ -1,38 +1,138 @@
-<form #signInForm="ngForm"
-      (submit)="signIn()">
-    <vsf-centered-card>
-            <input class="form-control"
-                   placeholder="Email address"
-                   name="emailAddress"
-                   type="email"
-                   email
-                   required
-                   [(ngModel)]="emailAddress">
-            <input class="form-control mt-1"
-                   placeholder="Password"
-                   type="password"
-                   name="password"
-                   required
-                   [(ngModel)]="password">
+<form #signInForm="ngForm" (submit)="signIn()">
+    <vsf-centered-card *ngIf="nativeAuth">
+        <input
+            class="form-control"
+            placeholder="Email address"
+            name="emailAddress"
+            type="email"
+            email
+            required
+            [(ngModel)]="emailAddress"
+        />
+        <input
+            class="form-control mt-1"
+            placeholder="Password"
+            type="password"
+            name="password"
+            required
+            [(ngModel)]="password"
+        />
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" [(ngModel)]="rememberMe">
-          <label class="form-check-label" for="rememberMe">
-            Remember me
-          </label>
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="rememberMe"
+                name="rememberMe"
+                [(ngModel)]="rememberMe"
+            />
+            <label class="form-check-label" for="rememberMe">
+                Remember me
+            </label>
         </div>
 
-        <button class="btn btn-primary btn-block mt-3"
-                [disabled]="signInForm.invalid || signInForm.pristine"
-                type="submit">
+        <button
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="signInForm.invalid || signInForm.pristine"
+            type="submit"
+        >
             Sign In
         </button>
-        <div class="alert alert-warning invalid-credentials" role="alert"  [class.visible]="invalidCredentials">
-            Invalid credentials. Please try again.<br>
-            <a [routerLink]="['/account/forgotten-password', { email: this.emailAddress }]">I've forgotten my password</a>
+        <div></div>
+        <div
+            class="alert alert-warning invalid-credentials"
+            role="alert"
+            [class.visible]="invalidCredentials"
+        >
+            Invalid credentials. Please try again.<br />
+            <a
+                [routerLink]="[
+                    '/account/forgotten-password',
+                    { email: this.emailAddress }
+                ]"
+                >I've forgotten my password</a
+            >
         </div>
 
         <div *ngIf="displayRegisterLink" class="register-link">
-            <a [routerLink]="['/account/register']">No account? Register here</a>
+            <a (click)="toggleAuth()" class="link">Login with Mobile(OTP)</a>
+        </div>
+
+        <div *ngIf="displayRegisterLink" class="register-link">
+            <a [routerLink]="['/account/register']"
+                >No account? Register here</a
+            >
+        </div>
+    </vsf-centered-card>
+</form>
+
+<form #signInForm="ngForm" (submit)="getOTP()">
+    <vsf-centered-card *ngIf="!nativeAuth">
+        <input
+            class="form-control"
+            placeholder="Mobile number"
+            name="mobileNumber"
+            type="number"
+            number
+            required
+            *ngIf="!sentOTP"
+            [(ngModel)]="mobileNumber"
+        />
+        <input
+            class="form-control"
+            placeholder="Enter OTP"
+            name="otp"
+            type="number"
+            number
+            required
+            *ngIf="sentOTP"
+            [(ngModel)]="otp"
+        />
+        <button
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="validateMobile()"
+            type="submit"
+            *ngIf="!sentOTP"
+        >
+            Get OTP
+        </button>
+        <button
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="signInForm.invalid || signInForm.pristine"
+            type="submit"
+            *ngIf="sentOTP"
+        >
+            Submit
+        </button>
+        <div *ngIf="displayRegisterLink" class="register-link">
+            <a (click)="reSendOTP()" class="link" *ngIf="sentOTP">
+                Resend OTP to {{ mobileNumber }}</a
+            >
+        </div>
+
+        <div
+            class="alert alert-warning invalid-credentials"
+            role="alert"
+            [class.visible]="invalidCredentials"
+        >
+            Invalid credentials. Please try again.<br />
+            <a
+                [routerLink]="[
+                    '/account/forgotten-password',
+                    { email: this.emailAddress }
+                ]"
+                >I've forgotten my password</a
+            >
+        </div>
+        <div *ngIf="displayRegisterLink" class="register-link">
+            <a (click)="toggleAuth()" class="link">
+                Login with email and password</a
+            >
+        </div>
+
+        <div *ngIf="displayRegisterLink" class="register-link">
+            <a [routerLink]="['/account/register']"
+                >No account? Register here</a
+            >
         </div>
     </vsf-centered-card>
 </form>
