@@ -1,7 +1,10 @@
-import {gql} from 'apollo-angular';
+import { gql } from "apollo-angular";
 
-
-import { ASSET_FRAGMENT, CART_FRAGMENT, ERROR_RESULT_FRAGMENT } from '../../../common/graphql/fragments.graphql';
+import {
+    ASSET_FRAGMENT,
+    CART_FRAGMENT,
+    ERROR_RESULT_FRAGMENT
+} from "../../../common/graphql/fragments.graphql";
 
 export const GET_PRODUCT_DETAIL = gql`
     query GetProductDetail($slug: String!) {
@@ -45,7 +48,7 @@ export const ADD_TO_CART = gql`
         addItemToOrder(productVariantId: $variantId, quantity: $qty) {
             ...Cart
             ...ErrorResult
-            ...on InsufficientStockError {
+            ... on InsufficientStockError {
                 order {
                     ...Cart
                 }
@@ -54,4 +57,13 @@ export const ADD_TO_CART = gql`
     }
     ${CART_FRAGMENT}
     ${ERROR_RESULT_FRAGMENT}
+`;
+
+export const ADD_TO_WISHLIST = gql`
+    mutation AddToWishList($productVariantId: ID!) {
+        addToWishList(productVariantId: $productVariantId) {
+            description
+            code
+        }
+    }
 `;

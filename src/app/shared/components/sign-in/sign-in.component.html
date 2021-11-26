@@ -85,7 +85,7 @@
             number
             required
             *ngIf="sentOTP"
-            [(ngModel)]="otp"
+            [(ngModel)]="userOtp"
         />
         <button
             class="btn btn-primary btn-block mt-3"
@@ -93,8 +93,9 @@
             type="submit"
             *ngIf="!sentOTP"
         >
-            Get OTP
+            Get OTP 
         </button>
+        sentOTP  {{sentOTP}}
         <button
             class="btn btn-primary btn-block mt-3"
             [disabled]="signInForm.invalid || signInForm.pristine"

@@ -1,20 +1,18 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { from, interval, merge, Observable, timer, zip } from "rxjs";
 import {
-    delay,
     distinctUntilChanged,
     map,
-    refCount,
-    share,
     shareReplay,
     switchMap
 } from "rxjs/operators";
 
-import { GetCartTotals } from "../../../common/generated-types";
 import { DataService } from "../../providers/data/data.service";
 import { StateService } from "../../providers/state/state.service";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-import { GET_CART_TOTALS } from "./wishlist-toggle.graphql";
+import { GET_WISHLIST_DETAIL } from "./wishlist-toggle.graphql";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "vsf-wishlist-toggle",
@@ -25,11 +23,17 @@ export class WishListToggleComponent implements OnInit {
     @Output() toggle = new EventEmitter<void>();
     cart$: Observable<{ total: number; quantity: number }>;
     cartChangeIndication$: Observable<boolean>;
+    faHeart = faHeart;
 
     constructor(
         private dataService: DataService,
-        private stateService: StateService
+        private stateService: StateService,
+        private router: Router
     ) {}
+
+    goToWishlist() {
+        this.router.navigate(["/wishlist"]);
+    }
 
     ngOnInit() {
         this.cart$ = merge(
@@ -37,16 +41,18 @@ export class WishListToggleComponent implements OnInit {
             this.stateService.select(state => state.signedIn)
         ).pipe(
             switchMap(() =>
-                this.dataService.query<GetCartTotals.Query>(
-                    GET_CART_TOTALS,
+                this.dataService.query<any>(
+                    GET_WISHLIST_DETAIL,
                     {},
                     "network-only"
                 )
             ),
-            map(({ activeOrder }) => {
+            map(({ getWishList }) => {
+                debugger;
+                const { items } = getWishList;
                 return {
-                    total: activeOrder ? activeOrder.totalWithTax : 0,
-                    quantity: activeOrder ? activeOrder.totalQuantity : 0
+                    total: items ? items.length : 0,
+                    quantity: items ? items.length : 0
                 };
             }),
             shareReplay(1)

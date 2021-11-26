@@ -1,0 +1,138 @@
+import {
+    Component,
+    EventEmitter,
+    OnInit,
+    Output,
+    ViewChild,
+    TemplateRef
+} from "@angular/core";
+import { from, interval, merge, Observable, timer, zip } from "rxjs";
+import {
+    delay,
+    distinctUntilChanged,
+    map,
+    refCount,
+    share,
+    shareReplay,
+    switchMap
+} from "rxjs/operators";
+
+import { DataService } from "../../providers/data/data.service";
+import { StateService } from "../../providers/state/state.service";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+
+import {
+    GET_WISHLIST_DETAIL,
+    REMOVE_FROM_WISHLIST
+} from "../wishlist-toggle/wishlist-toggle.graphql";
+import { GetProductDetail, AddToCart } from "src/app/common/generated-types";
+import { ADD_TO_CART } from "../product-detail/product-detail.graphql";
+import { NotificationService } from "../../providers/notification/notification.service";
+
+@Component({
+    selector: "vsf-wishlis",
+    templateUrl: "./wishlist.component.html",
+    styleUrls: ["./wishlist.component.scss"]
+})
+export class WishListComponent implements OnInit {
+    @Output() toggle = new EventEmitter<void>();
+    wishListItems$: Observable<{ total: number; quantity: number }>;
+    cartChangeIndication$: Observable<boolean>;
+    faWindowClose = faWindowClose;
+
+    @ViewChild("addedToCartTemplate", { static: true })
+    private addToCartTemplate: TemplateRef<any>;
+
+    constructor(
+        private dataService: DataService,
+        private stateService: StateService,
+        private notificationService: NotificationService
+    ) {}
+
+    ngOnInit() {
+        this.loadData();
+    }
+
+    loadData() {
+        this.wishListItems$ = merge(
+            this.stateService.select(state => state.activeOrderId),
+            this.stateService.select(state => state.signedIn)
+        ).pipe(
+            switchMap(() =>
+                this.dataService.query<any>(
+                    GET_WISHLIST_DETAIL,
+                    {},
+                    "network-only"
+                )
+            ),
+            map(({ getWishList }) => {
+                const { items } = getWishList;
+                return items || [];
+            }),
+            shareReplay(1)
+        );
+        this.cartChangeIndication$ = this.wishListItems$.pipe(
+            map(cart => cart.quantity),
+            distinctUntilChanged(),
+            switchMap(() =>
+                zip(from([true, false]), timer(0, 1000), val => val)
+            )
+        );
+    }
+
+    getSelectedVariants(variantId: any, variants: any) {
+        return variants.find((v: any) => v.id === variantId);
+    }
+
+    removeFromWishlist(id: any) {
+        this.dataService
+            .mutate<AddToCart.Mutation, any>(REMOVE_FROM_WISHLIST, {
+                productVariantId: id
+            })
+            .subscribe(response => {
+                console.log(response);
+                this.loadData();
+            });
+    }
+
+    addToCart(variant: GetProductDetail.Variants, qty: number) {
+        this.dataService
+            .mutate<AddToCart.Mutation, AddToCart.Variables>(ADD_TO_CART, {
+                variantId: variant.id,
+                qty
+            })
+            .subscribe(({ addItemToOrder }) => {
+                switch (addItemToOrder.__typename) {
+                    case "Order":
+                        this.stateService.setState(
+                            "activeOrderId",
+                            addItemToOrder ? addItemToOrder.id : null
+                        );
+                        if (variant) {
+                            debugger;
+                            this.notificationService
+                                .notify({
+                                    title: "Added to cart",
+                                    type: "info",
+                                    duration: 3000,
+                                    templateRef: this.addToCartTemplate,
+                                    templateContext: {
+                                        variant,
+                                        quantity: qty
+                                    }
+                                })
+                                .subscribe();
+                        }
+                        break;
+                    case "OrderModificationError":
+                    case "OrderLimitError":
+                    case "NegativeQuantityError":
+                    case "InsufficientStockError":
+                        this.notificationService
+                            .error(addItemToOrder.message)
+                            .subscribe();
+                        break;
+                }
+            });
+    }
+}

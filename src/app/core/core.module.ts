@@ -37,9 +37,11 @@ import { TopSellersComponent } from './components/top-sellers/top-sellers.compon
 import { DealOfDayComponent } from './components/deal-of-day/deal-of-day.component';
 import { NewArrivalsComponent } from './components/new-arrivals/new-arrivals.component';
 import { WishListToggleComponent } from './components/wishlist-toggle/wishlist-toggle.component';
+import { WishListComponent } from './components/wishlist/wishlist.component';
 import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { MatChipsModule } from '@angular/material/chips';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -65,7 +67,8 @@ const CORE_COMPONENTS = [
     DealOfDayComponent,
     OurServicesComponent,
     NewArrivalsComponent,
-    WishListToggleComponent
+    WishListToggleComponent,
+    WishListComponent
 ];
 
 let apolloCache: InMemoryCache;
@@ -79,7 +82,8 @@ let providedCacheState: any | undefined;
         HttpClientModule,
         SharedModule,
         BrowserModule,
-        NgImageSliderModule
+        NgImageSliderModule,
+        MatChipsModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

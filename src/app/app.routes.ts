@@ -1,28 +1,36 @@
-import { Route } from '@angular/router';
+import { Route } from "@angular/router";
 
-import { ProductDetailComponent } from './core/components/product-detail/product-detail.component';
-import { ProductListComponent } from './core/components/product-list/product-list.component';
+import { ProductDetailComponent } from "./core/components/product-detail/product-detail.component";
+import { ProductListComponent } from "./core/components/product-list/product-list.component";
+import { WishListComponent } from "./core/components/wishlist/wishlist.component";
 
 export const routes: Route[] = [
     {
-        path: 'category/:slug',
+        path: "category/:slug",
         component: ProductListComponent,
-        pathMatch: 'full',
+        pathMatch: "full"
     },
     {
-        path: 'search',
-        component: ProductListComponent,
+        path: "search",
+        component: ProductListComponent
     },
     {
-        path: 'product/:slug',
-        component: ProductDetailComponent,
+        path: "product/:slug",
+        component: ProductDetailComponent
     },
     {
-        path: 'account',
-        loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        path: "account",
+        loadChildren: () =>
+            import("./account/account.module").then(m => m.AccountModule)
     },
     {
-        path: 'checkout',
-        loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule),
+        path: "checkout",
+        loadChildren: () =>
+            import("./checkout/checkout.module").then(m => m.CheckoutModule)
     },
+    {
+        path: "wishlist",
+        component: WishListComponent,
+        pathMatch: "full"
+    }
 ];

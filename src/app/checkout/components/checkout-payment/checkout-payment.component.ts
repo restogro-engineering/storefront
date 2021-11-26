@@ -53,8 +53,7 @@ export class CheckoutPaymentComponent implements OnInit {
             .subscribe(async ({ addPaymentToOrder }) => {
                 switch (addPaymentToOrder?.__typename) {
                     case 'Order':
-                        const order:any = addPaymentToOrder;
-                        debugger
+                        const order:any = addPaymentToOrder;                        
                         this.payWithRazor(order.payments && order.payments[0].transactionId,order);                       
                         break;
                     case 'OrderPaymentStateError':
@@ -68,8 +67,7 @@ export class CheckoutPaymentComponent implements OnInit {
             });
     }
 
-    payWithRazor(val:any,order:any) {
-        debugger;
+    payWithRazor(val:any,order:any) {        
         const options: any = {
           key: 'rzp_test_V8va0hWULN0uxp',
           amount: 125500, // amount should be in paise format to display Rs 1255 without decimal point

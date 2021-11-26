@@ -1,10 +1,10 @@
 <div *ngIf="cart$ | async as cart">
     <button
         class="position-relative btn-dark btn ml-2"
-        (click)="toggle.emit()"
+        (click)="goToWishlist()"
         title="cart"
     >
-        <fa-icon icon="user-circle" class="ml-1"></fa-icon>
+        <fa-icon [icon]="faHeart"></fa-icon>
         <span
             class="badge badge-pill badge-primary qty-indicator"
             [class.empty]="cart.quantity === 0"

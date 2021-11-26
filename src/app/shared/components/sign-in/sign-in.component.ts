@@ -26,25 +26,26 @@ export class SignInComponent {
     emailAddress: string;
     mobileNumber: string;
     password: string;
-    otp: string;
+    userOtp: string;
     rememberMe = false;
     invalidCredentials = false;
-    sentOTP = false;
+    sentOTP: boolean = false;
 
     constructor(
         private dataService: DataService,
         private stateService: StateService,
         private router: Router,
         private changeDetector: ChangeDetectorRef
-    ) {}
+    ) {        
+    }
 
-    signIn() {
+    signIn() {        
         let payload = {};
         if (this.sentOTP) {
             payload = {
                 sms: {
                     phoneNumber: "+91 " + this.mobileNumber,
-                    otp: this.otp
+                    otp: this.userOtp
                 }
             };
         } else {
@@ -77,7 +78,7 @@ export class SignInComponent {
             });
     }
 
-    reSendOTP() {
+    reSendOTP() {        
         this.getOTP();
     }
 
@@ -94,38 +95,29 @@ export class SignInComponent {
         return false;
     }
 
-    getOTP() {
+    getOTP() {        
         if (this.sentOTP) {
             this.signIn();
             return;
         }
-        this.sentOTP = !this.sentOTP;
+        this.sentOTP = true;
         this.dataService
             .mutate<any, any>(GET_OTP, {
                 strategy: "sms",
                 phoneNumber: "+91 " + this.mobileNumber
             })
             .subscribe(({ sendOTP }) => {
-                debugger;
                 if (sendOTP.success) {
-                    this.sentOTP = !this.sentOTP;
+                    
                 }
-
-                // switch (sendOTP.__typename) {
-                //     case "AuthAttemptResponse":
-
-                //         break;
-                //     case "NativeAuthStrategyError":
-                //     case "InvalidCredentialsError":
-                //         this.displayCredentialsError();
-                //         break;
-                // }
             });
     }
+
     toggleAuth() {
         this.nativeAuth = !this.nativeAuth;
         this.sentOTP = false;
     }
+
     private displayCredentialsError() {
         this.invalidCredentials = false;
         this.changeDetector.markForCheck();

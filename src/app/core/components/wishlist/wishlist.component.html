@@ -1,0 +1,88 @@
+<div class="wish-list-container">
+    <div *ngIf="wishListItems$ | async as items">
+        <ng-container *ngIf="items.length !== 0; else noResults">
+            <div class="product-card" *ngFor="let item of items">
+                <a
+                    [routerLink]="['/product', item.product.slug]"
+                    class="image-wrapper"
+                >
+                    <img
+                        class="product-image"
+                        [src]="item.product?.featuredAsset?.source"
+                    />
+                </a>
+                <div class="remove-icon" (click)="removeFromWishlist(item.id)">
+                    <fa-icon [icon]="faWindowClose"></fa-icon>
+                </div>
+                <div class="info-container">
+                    <div class="title">{{ item.product.name }}</div>
+                    <div class="desc">{{ item.product.description }}</div>
+                    <div>
+                        {{
+                            getSelectedVariants(item.id, item.product.variants)
+                                .priceWithTax | formatPrice
+                        }}
+                    </div>
+                    <div>
+                        <mat-chip-list>
+                            <mat-chip>{{
+                                getSelectedVariants(
+                                    item.id,
+                                    item.product.variants
+                                ).name
+                            }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+
+                    <button
+                        class="btn btn-primary btn-lg"
+                        (click)="
+                            addToCart(
+                                getSelectedVariants(
+                                    item.id,
+                                    item.product.variants
+                                ),
+                                1
+                            )
+                        "
+                    >
+                        Add to cart
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #noResults>
+    <div class="no-results col-12">
+        <p class="h1">No results</p>
+        <fa-icon icon="sad-cry" size="10x"></fa-icon>
+    </div>
+</ng-template>
+<ng-template
+    #addedToCartTemplate
+    let-variant="variant"
+    let-quantity="quantity"
+    let-close="closeFn"
+>
+    <div class="add-to-cart-notification">
+        <div class="thumb mr-2">
+            <img
+                class=""
+                [src]="
+                    (variant.featuredAsset?.preview ||
+                        product.featuredAsset?.preview) + '?preset=tiny'
+                "
+                alt="product thumbnail"
+            />
+        </div>
+        <div>{{ quantity }} x {{ variant.name }}</div>
+    </div>
+    <button
+        class="btn btn-sm btn-outline-primary btn-block"
+        (click)="viewCartFromNotification(close)"
+    >
+        View cart
+    </button>
+</ng-template>

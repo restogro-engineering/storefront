@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, NgModule } from '@angular/core';
 import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser';
 import { NgImageSliderModule } from 'ng-image-slider';
+import {MatChipsModule} from '@angular/material/chips';
 import { NavigationEnd, Router, RouterModule, UrlSerializer } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { filter } from 'rxjs/operators';
@@ -13,6 +14,7 @@ import { routes } from './app.routes';
 import { HomePageComponent } from './core/components/home-page/home-page.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const STATE_KEY = makeStateKey<any>('apollo.state');
 
@@ -31,7 +33,9 @@ const STATE_KEY = makeStateKey<any>('apollo.state');
             enabled: environment.production,
             registrationStrategy: 'registerWithDelay:5000',
         }),
-        NgImageSliderModule
+        NgImageSliderModule,
+        BrowserAnimationsModule,
+        MatChipsModule
     ],
     bootstrap: [AppComponent],
 })
