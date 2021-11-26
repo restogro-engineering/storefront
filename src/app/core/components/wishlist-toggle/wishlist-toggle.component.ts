@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { from, interval, merge, Observable, timer, zip } from "rxjs";
+import { from, merge, Observable, timer, zip } from "rxjs";
 import {
     distinctUntilChanged,
     map,
@@ -37,7 +37,7 @@ export class WishListToggleComponent implements OnInit {
 
     ngOnInit() {
         this.cart$ = merge(
-            this.stateService.select(state => state.activeOrderId),
+            this.stateService.select(state => state.wishlistVariantId),
             this.stateService.select(state => state.signedIn)
         ).pipe(
             switchMap(() =>
@@ -48,8 +48,8 @@ export class WishListToggleComponent implements OnInit {
                 )
             ),
             map(({ getWishList }) => {
-                debugger;
                 const { items } = getWishList;
+                this.stateService.setState("wishListItems", items);
                 return {
                     total: items ? items.length : 0,
                     quantity: items ? items.length : 0

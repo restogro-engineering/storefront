@@ -11,8 +11,8 @@
                         [src]="item.product?.featuredAsset?.source"
                     />
                 </a>
-                <div class="remove-icon" (click)="removeFromWishlist(item.id)">
-                    <fa-icon [icon]="faWindowClose"></fa-icon>
+                <div class="remove-icon" (click)="removeFromWishlist(item.id)">                   
+                    <mat-icon aria-hidden="false">delete</mat-icon>
                 </div>
                 <div class="info-container">
                     <div class="title">{{ item.product.name }}</div>

@@ -10,6 +10,7 @@ export const GET_WISHLIST_DETAIL = gql`
                     id
                     name
                     description
+                    slug
                     featuredAsset {
                         id
                         source

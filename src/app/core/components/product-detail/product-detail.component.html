@@ -16,10 +16,12 @@
             <div class="col-12 col-md-6" #zoomPreviewArea>
                 <h2 class="display-4 product-name">
                     {{ product.name }}
-                    <fa-icon
-                        [icon]="faHeart"
+                    <div
+                        class="fav-icon"
                         (click)="addToWishList(selectedVariant)"
-                    ></fa-icon>
+                    >
+                        <mat-icon aria-hidden="false">favorite_border</mat-icon>
+                    </div>
                 </h2>
                 <div class="purchase-options">
                     <div

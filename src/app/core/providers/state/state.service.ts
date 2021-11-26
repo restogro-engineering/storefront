@@ -9,6 +9,7 @@ export interface AppState {
     lastCollectionSlug: string | null;
     mobileNavMenuIsOpen: boolean;
     cartDrawerOpen: boolean;
+    wishListItems: any;
 }
 
 export const initialState: AppState = {
@@ -17,7 +18,8 @@ export const initialState: AppState = {
     wishlistVariantId: null,
     lastCollectionSlug: null,
     mobileNavMenuIsOpen: false,
-    cartDrawerOpen: false
+    cartDrawerOpen: false,
+    wishListItems: []
 };
 
 /**

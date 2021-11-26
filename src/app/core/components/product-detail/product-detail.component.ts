@@ -8,7 +8,6 @@ import {
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { filter, map, switchMap, withLatestFrom } from "rxjs/operators";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { AddToCart, GetProductDetail } from "../../../common/generated-types";
 import { notNullOrUndefined } from "../../../common/utils/not-null-or-undefined";
 import { DataService } from "../../providers/data/data.service";
@@ -30,8 +29,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     product: GetProductDetail.Product;
     selectedAsset: { id: string; preview: string };
     selectedVariant: GetProductDetail.Variants;
-    qty = 1;
-    faHeart = faHeart;
+    wishList: any =[];
+    qty = 1;    
     breadcrumbs: GetProductDetail.Breadcrumbs[] | null = null;
     @ViewChild("addedToCartTemplate", { static: true })
     private addToCartTemplate: TemplateRef<any>;
@@ -92,12 +91,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             .mutate<AddToCart.Mutation, any>(ADD_TO_WISHLIST, {
                 productVariantId: variant.id
             })
-            .subscribe((response: any) => {
-                console.log(response);
-                this.stateService.setState(
-                    "activeOrderId",
-                    response ? response.id : null
-                );
+            .subscribe(() => {
+                this.stateService.setState("wishlistVariantId", variant.id);
             });
     }
 
@@ -115,7 +110,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                             addItemToOrder ? addItemToOrder.id : null
                         );
                         if (variant) {
-                            debugger;
                             this.notificationService
                                 .notify({
                                     title: "Added to cart",

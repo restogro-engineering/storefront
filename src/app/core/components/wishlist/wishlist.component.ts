@@ -50,33 +50,8 @@ export class WishListComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.loadData();
-    }
-
-    loadData() {
-        this.wishListItems$ = merge(
-            this.stateService.select(state => state.activeOrderId),
-            this.stateService.select(state => state.signedIn)
-        ).pipe(
-            switchMap(() =>
-                this.dataService.query<any>(
-                    GET_WISHLIST_DETAIL,
-                    {},
-                    "network-only"
-                )
-            ),
-            map(({ getWishList }) => {
-                const { items } = getWishList;
-                return items || [];
-            }),
-            shareReplay(1)
-        );
-        this.cartChangeIndication$ = this.wishListItems$.pipe(
-            map(cart => cart.quantity),
-            distinctUntilChanged(),
-            switchMap(() =>
-                zip(from([true, false]), timer(0, 1000), val => val)
-            )
+        this.wishListItems$ = this.stateService.select(
+            state => state.wishListItems
         );
     }
 
@@ -89,9 +64,8 @@ export class WishListComponent implements OnInit {
             .mutate<AddToCart.Mutation, any>(REMOVE_FROM_WISHLIST, {
                 productVariantId: id
             })
-            .subscribe(response => {
-                console.log(response);
-                this.loadData();
+            .subscribe(() => {
+                this.stateService.setState("wishlistVariantId", id);
             });
     }
 
@@ -104,12 +78,12 @@ export class WishListComponent implements OnInit {
             .subscribe(({ addItemToOrder }) => {
                 switch (addItemToOrder.__typename) {
                     case "Order":
+                        this.removeFromWishlist(variant.id);
                         this.stateService.setState(
                             "activeOrderId",
                             addItemToOrder ? addItemToOrder.id : null
                         );
                         if (variant) {
-                            debugger;
                             this.notificationService
                                 .notify({
                                     title: "Added to cart",
