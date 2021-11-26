@@ -6,26 +6,14 @@ import {
     ViewChild,
     TemplateRef
 } from "@angular/core";
-import { from, interval, merge, Observable, timer, zip } from "rxjs";
-import {
-    delay,
-    distinctUntilChanged,
-    map,
-    refCount,
-    share,
-    shareReplay,
-    switchMap
-} from "rxjs/operators";
+import { Observable } from "rxjs";
 
 import { DataService } from "../../providers/data/data.service";
 import { StateService } from "../../providers/state/state.service";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
-import {
-    GET_WISHLIST_DETAIL,
-    REMOVE_FROM_WISHLIST
-} from "../wishlist-toggle/wishlist-toggle.graphql";
-import { GetProductDetail, AddToCart } from "src/app/common/generated-types";
+import { REMOVE_FROM_WISHLIST } from "../wishlist-toggle/wishlist-toggle.graphql";
+import { GetProductDetail, AddToCart } from "../../../common/generated-types";
 import { ADD_TO_CART } from "../product-detail/product-detail.graphql";
 import { NotificationService } from "../../providers/notification/notification.service";
 
