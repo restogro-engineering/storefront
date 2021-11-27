@@ -1,6 +1,64 @@
 <ng-container *ngIf="activeCustomer$ | async as customer">
-    <h2 class="display-4">
-        {{ customer.firstName }} {{ customer.lastName }}
-    </h2>
-    <p class="lead">{{ customer.emailAddress }}</p>
+    <div class="dashboard-list">
+        <div
+            class="dash-box"
+            [routerLink]="['./', 'orders']"
+            routerLinkActive="active"
+        >
+            <img
+                class="link-icon"
+                src="https://constant.myntassets.com/mymyntra/assets/img/profile-orders.png"
+            />
+            <span class="dash-labels">Orders</span>
+            <span class="dash-desc">Check your order status</span>
+        </div>
+
+        <div class="dash-box">
+            <img
+                class="link-icon"
+                src="https://constant.myntassets.com/mymyntra/assets/img/profile-collections.png"
+            />
+            <span class="dash-labels">Collection & Wishlist</span>
+            <span class="dash-desc">All your curated products</span>
+        </div>
+
+        <div
+            class="dash-box"
+            [routerLink]="['./', 'address-book']"
+            routerLinkActive="active"
+        >
+            <img
+                class="link-icon"
+                src="https://constant.myntassets.com/mymyntra/assets/img/profile-address.png"
+            />
+            <span class="dash-labels">Addresses</span>
+            <span class="dash-desc">Save address for hassel free checkout</span>
+        </div>
+
+        <div
+            class="dash-box"
+            [routerLink]="['./', 'details']"
+            routerLinkActive="active"
+        >
+            <img
+                class="link-icon"
+                src="https://constant.myntassets.com/mymyntra/assets/img/profile-edit.png"
+            />
+            <span class="dash-labels">Profile detials</span>
+            <span class="dash-desc">Change your profile details</span>
+        </div>
+
+        <div
+            class="dash-box"
+            [routerLink]="['./', 'change-credentials']"
+            routerLinkActive="active"
+        >
+            <img
+                class="link-icon"
+                src="https://constant.myntassets.com/mymyntra/assets/img/profile-edit.png"
+            />
+            <span class="dash-labels">Change password</span>
+            <span class="dash-desc">Check your profile password</span>
+        </div>
+    </div>
 </ng-container>

@@ -24,8 +24,7 @@ import { NotificationService } from "../../providers/notification/notification.s
 })
 export class WishListComponent implements OnInit {
     @Output() toggle = new EventEmitter<void>();
-    wishListItems$: Observable<{ total: number; quantity: number }>;
-    cartChangeIndication$: Observable<boolean>;
+    wishListItems$: Observable<{ total: number; quantity: number }>;    
     faWindowClose = faWindowClose;
 
     @ViewChild("addedToCartTemplate", { static: true })

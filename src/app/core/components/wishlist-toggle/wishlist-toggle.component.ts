@@ -21,8 +21,9 @@ import { Router } from "@angular/router";
 })
 export class WishListToggleComponent implements OnInit {
     @Output() toggle = new EventEmitter<void>();
-    cart$: Observable<{ total: number; quantity: number }>;
-    cartChangeIndication$: Observable<boolean>;
+    wishlist$: Observable<{ total: number; quantity: number }>;
+    wishlistChangeIndication$: Observable<boolean>;
+    isSignedIn$: Observable<boolean>;
     faHeart = faHeart;
 
     constructor(
@@ -36,7 +37,7 @@ export class WishListToggleComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.cart$ = merge(
+        this.wishlist$ = merge(
             this.stateService.select(state => state.wishlistVariantId),
             this.stateService.select(state => state.signedIn)
         ).pipe(
@@ -57,8 +58,8 @@ export class WishListToggleComponent implements OnInit {
             }),
             shareReplay(1)
         );
-        this.cartChangeIndication$ = this.cart$.pipe(
-            map(cart => cart.quantity),
+        this.wishlistChangeIndication$ = this.wishlist$.pipe(
+            map(wishlist => wishlist.quantity),
             distinctUntilChanged(),
             switchMap(() =>
                 zip(from([true, false]), timer(0, 1000), val => val)

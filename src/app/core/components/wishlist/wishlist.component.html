@@ -1,7 +1,6 @@
-<div class="wish-list-container">
-    <span class="title">My Wishlist items</span>
-    <div class="wishlits-items">
-        <div *ngIf="wishListItems$ | async as items">
+<div class="wishlist-container">
+    <span class="s-title">My Wishlist items</span>
+    <div class="wishlist-items"  *ngIf="wishListItems$ | async as items">
             <ng-container *ngIf="items.length !== 0; else noResults">
                 <div class="product-card" *ngFor="let item of items">
                     <a
@@ -57,8 +56,7 @@
                         </button>
                     </div>
                 </div>
-            </ng-container>
-        </div>
+            </ng-container>        
     </div>
 </div>
 

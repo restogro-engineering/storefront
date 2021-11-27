@@ -1,40 +1,66 @@
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <div class="col-12 col-md-3"
-             *ngIf="isSignedIn$ | async">
+        <div class="col-12">
+            <ng-container *ngIf="activeCustomer$ | async as customer">
+                <div class="title-row">
+                    <h2>Account</h2>
+                    <span>
+                        {{ customer.firstName }} {{ customer.lastName }}
+                    </span>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 col-md-3 border-right" *ngIf="isSignedIn$ | async">
             <div class="list-group-flush">
-                <a class="list-group-item list-group-item-action"
-                   [routerLink]="['./']"
-                   [routerLinkActiveOptions]="{ exact: true }"
-                   routerLinkActive="active">
+                <a
+                    class="list-group-item list-group-item-action"
+                    [routerLink]="['./']"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    routerLinkActive="active"
+                >
                     Dashboard
                 </a>
-                <a class="list-group-item list-group-item-action"
-                   [routerLink]="['./', 'orders']"
-                   routerLinkActive="active">
+                <a
+                    class="list-group-item list-group-item-action"
+                    [routerLink]="['./', 'orders']"
+                    routerLinkActive="active"
+                >
                     Orders
                 </a>
-                <a class="list-group-item list-group-item-action"
-                   [routerLink]="['./', 'address-book']"
-                   routerLinkActive="active">
+                <a
+                    class="list-group-item list-group-item-action"
+                    [routerLink]="['./', 'address-book']"
+                    routerLinkActive="active"
+                >
                     Address book
                 </a>
-                <a class="list-group-item list-group-item-action"
-                   [routerLink]="['./', 'details']"
-                   routerLinkActive="active">
+                <a
+                    class="list-group-item list-group-item-action"
+                    [routerLink]="['./', 'details']"
+                    routerLinkActive="active"
+                >
                     Personal details
                 </a>
-                <a class="list-group-item list-group-item-action"
-                   [routerLink]="['./', 'change-credentials']"
-                   routerLinkActive="active">
+                <a
+                    class="list-group-item list-group-item-action"
+                    [routerLink]="['./', 'change-credentials']"
+                    routerLinkActive="active"
+                >
                     Change credentials
                 </a>
                 <a class="list-group-item">
-                    <button class="btn btn-warning btn-sm btn-block" (click)="signOut()">Sign out</button>
+                    <button
+                        class="btn btn-warning btn-sm btn-block"
+                        (click)="signOut()"
+                    >
+                        Sign out
+                    </button>
                 </a>
             </div>
         </div>
-        <div class="col-12" [class.col-md-9]="isSignedIn$ | async">
+        <div class="col-8" [class.col-md-9]="isSignedIn$ | async">
             <router-outlet></router-outlet>
         </div>
     </div>

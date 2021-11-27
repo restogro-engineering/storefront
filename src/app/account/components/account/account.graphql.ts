@@ -8,3 +8,16 @@ export const SIGN_OUT = gql`
         }
     }
 `;
+
+
+export const GET_ACCOUNT_OVERVIEW = gql`
+    query GetAccountOverview {
+        activeCustomer {
+            id
+            title
+            firstName
+            lastName
+            emailAddress
+        }
+    }
+`;
