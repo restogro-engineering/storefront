@@ -1,14 +1,18 @@
 .header {
-    background-color: #192436;
+    background-color: #fff;
     border-bottom: 1px solid #e9ecef;
-
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
+    top: 0;
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 10;
     > .container-fluid {
         display: flex;
         align-items: center;
         padding: 0px 20px;
         height: 80px;
     }
-
 }
 
 .logo-link {
@@ -19,7 +23,8 @@
         max-height: 50px;
     }
 
-    &:link, &:visited {
+    &:link,
+    &:visited {
         color: #0e95c7;
         font-size: 22px;
     }

@@ -16,15 +16,12 @@
             <div class="col-12 col-md-6" #zoomPreviewArea>
                 <h2 class="display-4 product-name">
                     {{ product.name }}
-                    <div
-                        class="fav-icon"
-                        (click)="addToWishList(selectedVariant)"
-                    >
-                        <mat-icon aria-hidden="false">favorite_border</mat-icon>
-                    </div>
                 </h2>
+                <div class="price">
+                    {{ selectedVariant?.priceWithTax | formatPrice }}
+                </div>
                 <div class="purchase-options">
-                    <div
+                    <!-- <div
                         class="variant-selector"
                         *ngIf="product.variants.length > 1"
                     >
@@ -38,8 +35,23 @@
                                 >{{ variant.name }}</option
                             >
                         </select>
-                    </div>
-                    <div class="add-to-cart-row">
+                    </div> -->
+
+                    <mat-chip-list selectable="true">
+                        <mat-chip
+                            [selected]="variant.id == selectedVariant.id"
+                            [color]="
+                                variant.id == selectedVariant.id
+                                    ? 'primary'
+                                    : 'accent'
+                            "
+                            *ngFor="let variant of product.variants"
+                            (click)="onVariantSelection(variant)"
+                            >{{ variant.name }}</mat-chip
+                        >
+                    </mat-chip-list>
+
+                    <!-- <div class="add-to-cart-row">
                         <div class="sku">
                             {{ selectedVariant?.sku }}
                         </div>
@@ -56,12 +68,28 @@
                                 class="form-control form-control-lg"
                             />
                         </div>
+                    </div> -->
+                    <div class="add-to-cart-wishlist-row">
                         <button
                             [disabled]="qty === 0"
-                            class="btn btn-primary btn-lg"
+                            class="btn btn-primary btn-lg cw-btns"
                             (click)="addToCart(selectedVariant, qty)"
                         >
+                            <fa-icon
+                                icon="shopping-cart"
+                                class="mr-1"
+                            ></fa-icon>
                             Add to cart
+                        </button>
+                        <button
+                            [disabled]="qty === 0"
+                            class="btn btn-outline-dark btn-lg cw-btns"
+                            (click)="addToWishList(selectedVariant)"
+                        >
+                            <mat-icon aria-hidden="false"
+                                >favorite_border</mat-icon
+                            >
+                            Add to Wishlist
                         </button>
                     </div>
                 </div>

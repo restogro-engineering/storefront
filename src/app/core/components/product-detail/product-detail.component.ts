@@ -29,8 +29,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     product: GetProductDetail.Product;
     selectedAsset: { id: string; preview: string };
     selectedVariant: GetProductDetail.Variants;
-    wishList: any =[];
-    qty = 1;    
+    wishList: any = [];
+    qty = 1;
     breadcrumbs: GetProductDetail.Breadcrumbs[] | null = null;
     @ViewChild("addedToCartTemplate", { static: true })
     private addToCartTemplate: TemplateRef<any>;
@@ -84,6 +84,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         if (this.sub) {
             this.sub.unsubscribe();
         }
+    }
+
+    onVariantSelection(variant: any) {
+        this.selectedVariant = variant;
     }
 
     addToWishList(variant: GetProductDetail.Variants) {

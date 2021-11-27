@@ -1,56 +1,64 @@
 <div class="wish-list-container">
-    <div *ngIf="wishListItems$ | async as items">
-        <ng-container *ngIf="items.length !== 0; else noResults">
-            <div class="product-card" *ngFor="let item of items">
-                <a
-                    [routerLink]="['/product', item.product.slug]"
-                    class="image-wrapper"
-                >
-                    <img
-                        class="product-image"
-                        [src]="item.product?.featuredAsset?.source"
-                    />
-                </a>
-                <div class="remove-icon" (click)="removeFromWishlist(item.id)">                   
-                    <mat-icon aria-hidden="false">delete</mat-icon>
-                </div>
-                <div class="info-container">
-                    <div class="title">{{ item.product.name }}</div>
-                    <div class="desc">{{ item.product.description }}</div>
-                    <div>
-                        {{
-                            getSelectedVariants(item.id, item.product.variants)
-                                .priceWithTax | formatPrice
-                        }}
-                    </div>
-                    <div>
-                        <mat-chip-list>
-                            <mat-chip>{{
-                                getSelectedVariants(
-                                    item.id,
-                                    item.product.variants
-                                ).name
-                            }}</mat-chip>
-                        </mat-chip-list>
-                    </div>
-
-                    <button
-                        class="btn btn-primary btn-lg"
-                        (click)="
-                            addToCart(
-                                getSelectedVariants(
-                                    item.id,
-                                    item.product.variants
-                                ),
-                                1
-                            )
-                        "
+    <span class="title">My Wishlist items</span>
+    <div class="wishlits-items">
+        <div *ngIf="wishListItems$ | async as items">
+            <ng-container *ngIf="items.length !== 0; else noResults">
+                <div class="product-card" *ngFor="let item of items">
+                    <a
+                        [routerLink]="['/product', item.product.slug]"
+                        class="image-wrapper"
                     >
-                        Add to cart
-                    </button>
+                        <img
+                            class="product-image"
+                            [src]="item.product?.featuredAsset?.source"
+                        />
+                    </a>
+                    <div
+                        class="remove-icon"
+                        (click)="removeFromWishlist(item.id)"
+                    >
+                        <mat-icon aria-hidden="false">delete</mat-icon>
+                    </div>
+                    <div class="info-container">
+                        <div class="title">{{ item.product.name }}</div>
+                        <div class="desc">{{ item.product.description }}</div>
+                        <div>
+                            {{
+                                getSelectedVariants(
+                                    item.id,
+                                    item.product.variants
+                                ).priceWithTax | formatPrice
+                            }}
+                        </div>
+                        <div>
+                            <mat-chip-list>
+                                <mat-chip>{{
+                                    getSelectedVariants(
+                                        item.id,
+                                        item.product.variants
+                                    ).name
+                                }}</mat-chip>
+                            </mat-chip-list>
+                        </div>
+
+                        <button
+                            class="btn btn-primary btn-lg"
+                            (click)="
+                                addToCart(
+                                    getSelectedVariants(
+                                        item.id,
+                                        item.product.variants
+                                    ),
+                                    1
+                                )
+                            "
+                        >
+                            Add to cart
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </ng-container>
+            </ng-container>
+        </div>
     </div>
 </div>
 

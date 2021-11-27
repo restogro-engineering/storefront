@@ -32,6 +32,9 @@
 }
 
 .product-name {
+    .fav-icon {
+        font-size: 34px;
+    }
     @include media-breakpoint-down(sm) {
         font-size: 2.5rem;
     }
@@ -42,6 +45,8 @@
 
 .purchase-options {
     margin: $spacer * 2 0;
+    border-top: 1px solid #e9e9eb;
+    padding-top: 20px;
 }
 
 .add-to-cart-row {
@@ -54,6 +59,18 @@
             width: 100%;
             margin-top: $spacer / 2;
         }
+    }
+}
+.add-to-cart-wishlist-row {
+    display: flex;
+    grid-gap: 20px;
+    padding-top: 10px;
+    .cw-btns {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-gap: 5px;
     }
 }
 

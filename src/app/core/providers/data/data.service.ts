@@ -10,10 +10,7 @@ import { filter, map } from "rxjs/operators";
 })
 export class DataService {
     private readonly context = {
-        headers: {
-            secure: false,
-            secureProxy: true
-        }
+        headers: {}
     };
 
     constructor(private apollo: Apollo) {}
