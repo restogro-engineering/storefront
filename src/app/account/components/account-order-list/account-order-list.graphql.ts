@@ -13,6 +13,27 @@ export const GET_ORDER_LIST = gql`
                     state
                     currencyCode
                     total
+                    lines {
+                        id
+                        featuredAsset {
+                          id
+                          source
+                          preview
+                          name
+                        }
+                        unitPrice
+                        discountedUnitPrice
+                        discountedUnitPriceWithTax
+                        unitPriceWithTax
+                        quantity
+                        linePrice
+                        linePriceWithTax
+                        discountedLinePriceWithTax
+                        productVariant {
+                            id
+                            name
+                          }
+                      }
                 }
                 totalItems
             }

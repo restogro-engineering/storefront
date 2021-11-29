@@ -4,7 +4,8 @@ import {
     distinctUntilChanged,
     map,
     shareReplay,
-    switchMap
+    switchMap,
+    take
 } from "rxjs/operators";
 
 import { DataService } from "../../providers/data/data.service";
@@ -13,6 +14,8 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import { GET_WISHLIST_DETAIL } from "./wishlist-toggle.graphql";
 import { Router } from "@angular/router";
+import { GetActiveCustomer } from "../../../common/generated-types";
+import { GET_ACTIVE_CUSTOMER } from "../../../common/graphql/documents.graphql";
 
 @Component({
     selector: "vsf-wishlist-toggle",
@@ -24,6 +27,7 @@ export class WishListToggleComponent implements OnInit {
     wishlist$: Observable<{ total: number; quantity: number }>;
     wishlistChangeIndication$: Observable<boolean>;
     isSignedIn$: Observable<boolean>;
+    activeCustomer$: Observable<GetActiveCustomer.ActiveCustomer | undefined>;
     faHeart = faHeart;
 
     constructor(
@@ -65,5 +69,22 @@ export class WishListToggleComponent implements OnInit {
                 zip(from([true, false]), timer(0, 1000), val => val)
             )
         );
+
+        const getActiveCustomer$ = this.dataService.query<
+            GetActiveCustomer.Query
+        >(GET_ACTIVE_CUSTOMER, {}, "network-only");
+
+        getActiveCustomer$.pipe(take(1)).subscribe(data => {
+            if (data.activeCustomer) {
+                this.stateService.setState("signedIn", true);
+            }
+        });
+
+        this.activeCustomer$ = this.stateService
+            .select(state => state.signedIn)
+            .pipe(
+                switchMap(() => getActiveCustomer$),
+                map(data => data && data.activeCustomer)
+            );
     }
 }

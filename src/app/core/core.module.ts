@@ -42,7 +42,8 @@ import { buildIconLibrary } from './icon-library';
 import { DefaultInterceptor } from './providers/data/interceptor';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -84,8 +85,10 @@ let providedCacheState: any | undefined;
         SharedModule,
         BrowserModule,
         NgImageSliderModule,
-        MatChipsModule,
-        MatIconModule
+        MatChipsModule,        
+        MatFormFieldModule,
+        MatInputModule,
+        
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

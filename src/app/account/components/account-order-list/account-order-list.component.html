@@ -1,4 +1,100 @@
-<table class="table">
+<div class="order-list-container">
+    <div class="filters-row">
+        <div>Showing {{selectedOrderStatus}} orders</div>
+        <div>
+            <mat-icon aria-hidden="false" [matMenuTriggerFor]="menu"
+                >filter_alt</mat-icon
+            >
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let option of filterOptions" (click)="onFilterChange(option)">
+                    {{ option }}
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+    <div class="orders">
+        <div
+            class="order-card"
+            *ngFor="let order of orders$ | async"
+            [routerLink]="['./', order.code]"
+        >
+            <div class="status">
+                <div class="icon-labels">
+                    <div>
+                        <img
+                            class="link-icon"
+                            src="https://constant.myntassets.com/mymyntra/assets/img/profile-orders.png"
+                        />
+                    </div>
+                    <div class="labels">
+                        <span class="primary">{{ order.state }}</span>
+                        <span class="secondary">{{
+                            order.updatedAt | date: "short"
+                        }}</span>
+                    </div>
+                </div>
+
+                <div class="lines-container">
+                    <ng-container
+                        *ngFor="let line of order.lines; trackBy: trackByFn"
+                    >
+                        <div
+                            class="line"
+                            [class.has-discount]="isDiscounted(line)"
+                        >
+                            <div class="thumb">
+                                <img
+                                    [src]="
+                                        line.featuredAsset?.preview +
+                                        '?preset=tiny'
+                                    "
+                                />
+                            </div>
+                            <div class="details">
+                                <div class="name">
+                                    {{ line.productVariant?.name }}
+                                </div>
+                                <div>
+                                    Rate product
+                                    <star-rating
+                                        value="0"
+                                        checkedcolor="red"
+                                        uncheckedcolor="black"
+                                        size="24px"
+                                        readonly="false"
+                                        [totalstars]="5"
+                                        (rate)="onRate($event)"
+                                    ></star-rating>
+                                </div>
+                            </div>
+                            <div class="qty-price">
+                                <div class="qty">
+                                    Quantity : {{ line.quantity }}
+                                </div>
+                                <div class="figures">
+                                    <div class="total">
+                                        <div class="discounted">
+                                            Price :
+                                            {{
+                                                line.discountedLinePriceWithTax
+                                                    | formatPrice
+                                            }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="lines-footer">
+                    <button class="btn btn-outline-info">
+                        Exchange/return item
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <table class="table">
     <thead>
     <tr>
         <th scope="col">Order code</th>
@@ -19,4 +115,6 @@
         <td>{{ order.updatedAt | date: 'short' }}</td>
     </tr>
     </tbody>
-</table>
+</table> -->
+    </div>
+</div>

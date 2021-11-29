@@ -21,22 +21,6 @@
                     {{ selectedVariant?.priceWithTax | formatPrice }}
                 </div>
                 <div class="purchase-options">
-                    <!-- <div
-                        class="variant-selector"
-                        *ngIf="product.variants.length > 1"
-                    >
-                        <select
-                            [(ngModel)]="selectedVariant"
-                            class="form-control"
-                        >
-                            <option
-                                *ngFor="let variant of product.variants"
-                                [ngValue]="variant"
-                                >{{ variant.name }}</option
-                            >
-                        </select>
-                    </div> -->
-
                     <mat-chip-list selectable="true">
                         <mat-chip
                             [selected]="variant.id == selectedVariant.id"
@@ -50,25 +34,6 @@
                             >{{ variant.name }}</mat-chip
                         >
                     </mat-chip-list>
-
-                    <!-- <div class="add-to-cart-row">
-                        <div class="sku">
-                            {{ selectedVariant?.sku }}
-                        </div>
-                        <div class="price">
-                            {{ selectedVariant?.priceWithTax | formatPrice }}
-                        </div>
-                        <div class="qty mr-md-2 ml-2">
-                            <input
-                                type="number"
-                                min="0"
-                                max="99"
-                                placeholder="Qty"
-                                [(ngModel)]="qty"
-                                class="form-control form-control-lg"
-                            />
-                        </div>
-                    </div> -->
                     <div class="add-to-cart-wishlist-row">
                         <button
                             [disabled]="qty === 0"
@@ -97,6 +62,33 @@
                     class="description"
                     [innerHTML]="product.description"
                 ></div>
+                <div class="delivery-option-container">
+                    <h2>DELIVERY OPTIONS <mat-icon class="material-icons-outlined">local_shipping</mat-icon></h2>                    
+                    
+                    <mat-form-field appearance="legacy" floatLabel="false">
+                        <input matInput placeholder="Enter a PIN code" />
+                        <span matSuffix>Check</span>
+                        <mat-hint
+                            >Please enter PIN code to check delivery time & Pay
+                            on Delivery Availability</mat-hint
+                        >
+                    </mat-form-field>
+
+                    <ul class="services-list">
+                        <li>
+                            100% Original Products
+                        </li>
+                        <li>
+                            Pay on delivery might be available
+                        </li>
+                        <li>
+                            Easy 30 days returns and exchanges
+                        </li>
+                        <li>
+                            Try & Buy might be available
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </ng-template>

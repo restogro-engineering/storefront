@@ -1,15 +1,18 @@
-<div *ngIf="wishlist$ | async as wishlist">
-    <button
-        class="position-relative btn-dark btn ml-2"
-        (click)="goToWishlist()"
-        title="wishlist"
-    >
-        <fa-icon [icon]="faHeart"></fa-icon>
-        <span
-            class="badge badge-pill badge-primary qty-indicator"
-            [class.empty]="wishlist.quantity === 0"
-            [class.cart-changed]="wishlistChangeIndication$ | async"
-            >{{ wishlist.quantity }}</span
+<div *ngIf="activeCustomer$ | async as customer; else notLoggedIn">
+    <div *ngIf="wishlist$ | async as wishlist">
+        <button
+            class="position-relative btn-dark btn ml-2"
+            (click)="goToWishlist()"
+            title="wishlist"
         >
-    </button>
+            <fa-icon [icon]="faHeart"></fa-icon>
+            <span
+                class="badge badge-pill badge-primary qty-indicator"
+                [class.empty]="wishlist.quantity === 0"
+                [class.cart-changed]="wishlistChangeIndication$ | async"
+                >{{ wishlist.quantity }}</span
+            >
+        </button>
+    </div>
 </div>
+<ng-template #notLoggedIn> </ng-template>

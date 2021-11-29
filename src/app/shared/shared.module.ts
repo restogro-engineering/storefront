@@ -24,6 +24,8 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AssetPreviewPipe } from './pipes/asset-preview.pipe';
 import { FormatPricePipe } from './pipes/format-price.pipe';
 import { ProductUrlPipe } from './pipes/product-url.pipe';
+import { RatingModule } from 'ng-starrating';
+import {MatIconModule} from '@angular/material/icon';
 
 const SHARED_DECLARATIONS = [
     CartContentsComponent,
@@ -53,6 +55,8 @@ const IMPORTS = [
     ReactiveFormsModule,
     OverlayModule,
     RouterModule,
+    RatingModule,
+    MatIconModule
 ];
 
 @NgModule({
