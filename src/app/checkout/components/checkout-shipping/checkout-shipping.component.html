@@ -1,7 +1,7 @@
 <div class="accordion">
     <div class="card" *ngIf="(signedIn$ | async) && (customerAddresses$ | async)?.length">
         <div class="card-header">
-            <button class="btn btn-light" (click)="step = 'selectAddress'">Select Address</button>
+            <button class="btn btn-light" (click)="step = 'selectAddress'">Select Delivery Address</button>
         </div>
         <div class="card-body collapse" [class.show]="step === 'selectAddress'">
             <div class="d-flex flex-wrap">
@@ -18,6 +18,25 @@
             </div>
         </div>
     </div>
+    <div class="card" *ngIf="(signedIn$ | async) && (customerAddresses$ | async)?.length">
+            <div class="card-header">
+                <button class="btn btn-light" (click)="step = 'selectBillingAddress'">Select Biling Address</button>
+            </div>
+            <div class="card-body collapse" [class.show]="step === 'selectBillingAddress'">
+                <div class="d-flex flex-wrap">
+                    <div class="customer-address"
+                         *ngFor="let address of customerAddresses$ | async"
+                         (click)="setBillingAddress(address)">
+                        <div class="address-line" *ngFor="let line of getLines(address)">
+                            {{ line }}
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-end ml-3 mb-3">
+                        <button class="btn btn-secondary" (click)="createAddress()">Add new address</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="card" *ngIf="!(signedIn$ | async)">
         <div class="card-header">
             <button class="btn btn-light" (click)="step = 'customerDetails'">Customer Details</button>

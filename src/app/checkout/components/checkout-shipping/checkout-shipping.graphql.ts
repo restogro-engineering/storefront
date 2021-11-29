@@ -32,6 +32,23 @@ export const SET_SHIPPING_ADDRESS = gql`
     ${ERROR_RESULT_FRAGMENT}
 `;
 
+export const SET_BIlLLING_ADDRESS = gql`
+    mutation SetOrderBillingAddress($input: CreateAddressInput!) {
+        setOrderBillingAddress(input: $input) {
+            ...Cart
+            ...on Order {
+                billingAddress {
+                    ...OrderAddress
+                }
+            }
+            ...ErrorResult
+        }
+    }
+    ${CART_FRAGMENT}
+    ${ORDER_ADDRESS_FRAGMENT}
+    ${ERROR_RESULT_FRAGMENT}
+`;
+
 export const GET_ELIGIBLE_SHIPPING_METHODS = gql`
     query GetEligibleShippingMethods {
         eligibleShippingMethods {
