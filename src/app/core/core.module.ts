@@ -44,6 +44,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -88,7 +89,7 @@ let providedCacheState: any | undefined;
         MatChipsModule,        
         MatFormFieldModule,
         MatInputModule,
-        
+        MatSelectModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

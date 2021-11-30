@@ -6,8 +6,9 @@
 }
 
 .masthead {
-    // background-color: $light;
-    // min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
     &.search-mode {
         // min-height: 20vh;

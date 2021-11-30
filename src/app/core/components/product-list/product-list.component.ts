@@ -31,6 +31,7 @@ import { GET_COLLECTION, SEARCH_PRODUCTS } from './product-list.graphql';
 styleUrls: ['./product-list.component.scss'],
     })
 export class ProductListComponent implements OnInit {
+    sortByOptions = ["Price- high to low", "Price- low to high", "Customer Ratings", "Delivery date earliest", "Most discounted items","Newly added items first"];
     products$: Observable<SearchProducts.Items[]>;
     totalResults$: Observable<number>;
     collection$: Observable<GetCollection.Collection | undefined>;
