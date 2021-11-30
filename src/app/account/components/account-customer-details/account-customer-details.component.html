@@ -1,25 +1,115 @@
 <ng-container *ngIf="form">
     <form [formGroup]="form">
         <div class="form-group row">
-            <label for="firstName" class="col-sm-3 col-form-label">First name</label>
+            <label for="firstName" class="col-sm-3 col-form-label"
+                >First name</label
+            >
             <div class="col-sm-9">
-                <input class="form-control" formControlName="firstName" id="firstName">
+                <input
+                    class="form-control"
+                    formControlName="firstName"
+                    id="firstName"
+                />
             </div>
         </div>
         <div class="form-group row">
-            <label for="lastName" class="col-sm-3 col-form-label">Last name</label>
+            <label for="lastName" class="col-sm-3 col-form-label"
+                >Last name</label
+            >
             <div class="col-sm-9">
-                <input class="form-control" formControlName="lastName" id="lastName">
+                <input
+                    class="form-control"
+                    formControlName="lastName"
+                    id="lastName"
+                />
             </div>
         </div>
         <div class="form-group row">
-            <label for="phoneNumber" class="col-sm-3 col-form-label">Phone number</label>
+            <label for="phoneNumber" class="col-sm-3 col-form-label"
+                >Phone number</label
+            >
             <div class="col-sm-9">
-                <input class="form-control" formControlName="phoneNumber" id="phoneNumber">
+                <input
+                    class="form-control"
+                    formControlName="phoneNumber"
+                    id="phoneNumber"
+                />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNumber" class="col-sm-3 col-form-label"
+                >Organization</label
+            >
+            <div class="col-sm-9">
+                <input
+                    class="form-control"
+                    formControlName="companyName"
+                    id="companyName"
+                />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNumber" class="col-sm-3 col-form-label"
+                >Profession</label
+            >
+            <div class="col-sm-9">
+                <input
+                    class="form-control"
+                    formControlName="profession"
+                    id="profession"
+                />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNumber" class="col-sm-3 col-form-label"
+                >Gender</label
+            >
+            <div class="col-sm-9">
+                <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender">
+                        <mat-option value="Male">
+                            Male
+                        </mat-option>
+
+                        <mat-option value="Female">
+                            Female
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNumber" class="col-sm-3 col-form-label"
+                >Birth of date</label
+            >
+            <div class="col-sm-9">
+                <input
+                    class="form-control"
+                    type="date"
+                    formControlName="dateofbirth"
+                    id="dateofbirth"
+                />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="phoneNumber" class="col-sm-3 col-form-label"
+                >Company website
+            </label>
+            <div class="col-sm-9">
+                <input
+                    class="form-control"
+                    formControlName="companyWebsite"
+                    id="companyWebsite"
+                />
             </div>
         </div>
     </form>
-    <button class="btn btn-secondary mt-3"
-            [disabled]="form.invalid || form.pristine"
-            (click)="updateDetails()">Update Details</button>
+    <button
+        class="btn btn-secondary mt-3"
+        [disabled]="form.invalid || form.pristine"
+        (click)="updateDetails()"
+    >
+        Update Details
+    </button>
 </ng-container>

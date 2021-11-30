@@ -3194,7 +3194,7 @@ export type UpdateCustomerDetailsMutation = (
   { __typename?: 'Mutation' }
   & { updateCustomer: (
     { __typename?: 'Customer' }
-    & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress' | 'phoneNumber'>
+    & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress' | 'phoneNumber' | 'customFields'>
   ) }
 );
 
@@ -3612,7 +3612,7 @@ export type GetActiveCustomerQuery = (
   { __typename?: 'Query' }
   & { activeCustomer?: Maybe<(
     { __typename?: 'Customer' }
-    & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress' | 'phoneNumber'>
+    & Pick<Customer, 'id' | 'firstName' | 'lastName' | 'emailAddress' | 'phoneNumber' | 'customFields'>
   )> }
 );
 

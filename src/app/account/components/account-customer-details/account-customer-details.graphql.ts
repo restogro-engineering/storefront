@@ -9,6 +9,13 @@ export const UPDATE_CUSTOMER_DETAILS = gql`
             lastName
             emailAddress
             phoneNumber
+            customFields {                
+                profession
+                companyName
+                gender
+                companyWebsite
+                alternatePhoneNumber
+              }
         }
     }
 `;

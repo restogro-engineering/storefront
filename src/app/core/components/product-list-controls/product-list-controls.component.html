@@ -34,28 +34,5 @@
                 </label>
             </li>
         </ul>
-    </div>
-    <div
-        *ngFor="let facet of priceRangeFilters; trackBy: trackById"
-        class="ml-md-3 facet-group"
-        [class.enabled]="activeFacetValueIds.length"
-    >
-        <h6>{{ facet.name | titlecase }}</h6>
-        <ul class="list-unstyled">
-            <li
-                *ngFor="let value of facet.values; trackBy: trackById"
-                [class.active]="isActive(value.id)"
-            >
-                <label class="mb-0 mr-4 mr-md-2"
-                    ><input
-                        [type]="facet.type"
-                        [checked]="isActive(value.id)"
-                        (change)="toggleFacetValueIdInRoute(value.id)"
-                        class="mr-1"
-                    />
-                    {{ value.name }}
-                </label>
-            </li>
-        </ul>
-    </div>
+    </div>    
 </div>

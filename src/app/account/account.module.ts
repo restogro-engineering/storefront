@@ -21,6 +21,7 @@ import { VerifyComponent } from "./components/verify/verify.component";
 import { AccountGuard } from "./providers/account.guard";
 import { SignInGuard } from "./providers/sign-in.guard";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatSelectModule } from "@angular/material/select";
 
 const DECLARATIONS = [
     AccountDashboardComponent,
@@ -41,7 +42,12 @@ const DECLARATIONS = [
 
 @NgModule({
     declarations: DECLARATIONS,
-    imports: [SharedModule, RouterModule.forChild(routes), MatMenuModule],
+    imports: [
+        SharedModule,
+        RouterModule.forChild(routes),
+        MatMenuModule,
+        MatSelectModule
+    ],
     providers: [AccountGuard, SignInGuard]
 })
 export class AccountModule {}
