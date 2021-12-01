@@ -22,6 +22,7 @@ import { AccountGuard } from "./providers/account.guard";
 import { SignInGuard } from "./providers/sign-in.guard";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
+import { MatInputModule } from "@angular/material/input";
 
 const DECLARATIONS = [
     AccountDashboardComponent,
@@ -46,7 +47,8 @@ const DECLARATIONS = [
         SharedModule,
         RouterModule.forChild(routes),
         MatMenuModule,
-        MatSelectModule
+        MatSelectModule,
+        MatInputModule
     ],
     providers: [AccountGuard, SignInGuard]
 })

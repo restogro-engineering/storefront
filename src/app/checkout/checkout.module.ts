@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
+import {MatInputModule} from '@angular/material/input';
 
 import { routes } from './checkout.routes';
 import { CheckoutConfirmationComponent } from './components/checkout-confirmation/checkout-confirmation.component';
@@ -25,6 +26,7 @@ const DECLARATIONS = [
     imports: [
         SharedModule,
         RouterModule.forChild(routes),
+        MatInputModule
     ],
 })
 export class CheckoutModule {

@@ -32,6 +32,23 @@ export class AccountCustomerDetailsComponent implements OnInit {
         private changeDetectorRef: ChangeDetectorRef
     ) {}
 
+    appendZero(number: any) {
+        if (+number < 10) {
+            return "0" + number;
+        }
+        return number;
+    }
+
+    formatDate(date: any) {
+        if (date) {
+            let dateObj = new Date(date);
+            return `${dateObj.getFullYear()}-${this.appendZero(
+                dateObj.getMonth() + 1
+            )}-${this.appendZero(dateObj.getDate())}`;
+        }
+        return null;
+    }
+
     ngOnInit() {
         this.dataService
             .query<GetActiveCustomer.Query>(
@@ -43,8 +60,7 @@ export class AccountCustomerDetailsComponent implements OnInit {
                 map(data => data.activeCustomer),
                 filter(notNullOrUndefined)
             )
-            .subscribe(customer => {
-                debugger;
+            .subscribe(customer => {                
                 const {
                     firstName,
                     lastName,
@@ -63,7 +79,7 @@ export class AccountCustomerDetailsComponent implements OnInit {
                     firstName: firstName,
                     lastName: lastName,
                     phoneNumber: phoneNumber,
-                    dateofbirth: dateofbirth,
+                    dateofbirth: this.formatDate(dateofbirth),
                     profession: profession,
                     companyName: companyName,
                     gender: gender,
@@ -80,7 +96,9 @@ export class AccountCustomerDetailsComponent implements OnInit {
             lastName: formValue.lastName,
             phoneNumber: formValue.phoneNumber,
             customFields: {
-                dateofbirth: new Date(formValue.dateofbirth).getTime(),
+                dateofbirth: formValue.dateofbirth
+                    ? new Date(formValue.dateofbirth).toISOString()
+                    : null,
                 profession: formValue.profession,
                 companyName: formValue.companyName,
                 gender: formValue.gender,

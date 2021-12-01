@@ -2751,6 +2751,7 @@ export type RegisterCustomerInput = {
   password?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
+  customFields?:Maybe<Scalars['JSON']>;
 };
 
 export type SearchInput = {

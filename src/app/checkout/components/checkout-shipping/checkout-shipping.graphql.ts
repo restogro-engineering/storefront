@@ -83,6 +83,14 @@ export const SET_CUSTOMER_FOR_ORDER = gql`
                     emailAddress
                     firstName
                     lastName
+                    customFields {
+                        dateofbirth
+                        profession
+                        companyName
+                        gender
+                        companyWebsite
+                        alternatePhoneNumber
+                      }
                 }
             }
             ...ErrorResult

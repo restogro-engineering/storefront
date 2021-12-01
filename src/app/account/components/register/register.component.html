@@ -1,34 +1,125 @@
-<form #registerForm="ngForm"
-      (submit)="register()">
+<form #registerForm="ngForm" (submit)="register()">
     <vsf-centered-card>
-            <input class="form-control"
-                   placeholder="First name"
-                   name="firstName"
-                   required
-                   [disabled]="registrationSent"
-                   [(ngModel)]="firstName">
-            <input class="form-control mt-1"
-                   placeholder="Last name"
-                   name="lastName"
-                   required
-                   [disabled]="registrationSent"
-                   [(ngModel)]="lastName">
-            <input class="form-control mt-1"
-                   placeholder="Email address"
-                   name="emailAddress"
-                   required
-                   type="email"
-                   email
-                   [disabled]="registrationSent"
-                   [(ngModel)]="emailAddress">
+        <input
+            class="form-control"
+            placeholder="First name"
+            name="firstName"
+            required
+            [disabled]="registrationSent"
+            [(ngModel)]="firstName"
+        />
+        <input
+            class="form-control mt-1"
+            placeholder="Last name"
+            name="lastName"
+            required
+            [disabled]="registrationSent"
+            [(ngModel)]="lastName"
+        />
+        <input
+            class="form-control mt-1"
+            placeholder="Email address"
+            name="emailAddress"
+            required
+            type="email"
+            email
+            [disabled]="registrationSent"
+            [(ngModel)]="emailAddress"
+        />
 
-        <button class="btn btn-primary btn-block mt-3"
-                [disabled]="registerForm.invalid || registrationSent"
-                type="submit">
+        <input
+            class="form-control mt-1"
+            placeholder="organization"
+            name="companyName"
+            required
+            email
+            [disabled]="registrationSent"
+            [(ngModel)]="companyName"
+        />
+
+        <input
+            class="form-control mt-1"
+            placeholder="Profession"
+            name="profession"
+            required
+            email
+            [disabled]="registrationSent"
+            [(ngModel)]="profession"
+        />
+        <div style="font-size: 9.5px" class="mt-1">
+            <mat-form-field
+                appearance="outline"
+                size="small"
+                class="mr-2 mt-0"
+                [style.width.px]="358"
+                [style.height.px]="40"
+            >
+                <mat-label>Date of birth</mat-label>
+                <input type="date" matInput [(ngModel)]="dateofbirth" />
+            </mat-form-field>
+        </div>
+
+        <input
+            class="form-control mt-1"
+            placeholder="PhoneNumber"
+            name="phoneNumber"
+            required
+            type="number"
+            email
+            [disabled]="registrationSent"
+            [(ngModel)]="phoneNumber"
+        />
+
+        <input
+            class="form-control mt-1"
+            placeholder="Alternate PhoneNumber"
+            name="alternatePhoneNumber"
+            required
+            type="number"
+            email
+            [disabled]="registrationSent"
+            [(ngModel)]="alternatePhoneNumber"
+        />
+
+        <input
+            class="form-control mt-1"
+            placeholder="Company Website"
+            name="companyWebsite"
+            required
+            email
+            [disabled]="registrationSent"
+            [(ngModel)]="companyWebsite"
+        />
+
+        <div style="font-size: 9.5px" class="mt-1">
+            <mat-form-field
+                appearance="outline"
+                [style.width.px]="358"
+                [style.height.px]="40"
+            >
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                    <mat-option value="Male">
+                        Male
+                    </mat-option>
+
+                    <mat-option value="Female">
+                        Female
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <button
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="registerForm.invalid || registrationSent"
+            type="submit"
+        >
             Register
         </button>
         <div *ngIf="registrationSent" class="registration-sent">
-            Great! Now check your email ({{ emailAddress }}) to complete registration.
+            Great! Now check your email ({{ emailAddress }}) to complete
+            registration.
         </div>
     </vsf-centered-card>
 </form>

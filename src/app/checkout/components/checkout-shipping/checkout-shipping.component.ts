@@ -72,10 +72,17 @@ export class CheckoutShippingComponent implements OnInit {
         | "selectBillingAddress"
         | "customerDetails"
         | "editAddress"
+        | "editBillingAddress"
         | "selectMethod" = "selectAddress";
     firstName = "";
     lastName = "";
     emailAddress = "";
+    dateofbirth = "";
+    profession = "";
+    companyName = "";
+    gender = "";
+    companyWebsite = "";
+    alternatePhoneNumber = "";
 
     constructor(
         private dataService: DataService,
@@ -184,8 +191,14 @@ export class CheckoutShippingComponent implements OnInit {
                 }
             )
             .subscribe(data => {
-                this.step = "selectBillingAddress";
-                this.changeDetector.markForCheck();
+                this.signedIn$.subscribe(stats => {
+                    if (stats) {
+                        this.step = "selectBillingAddress";
+                    } else {
+                        this.step = "editBillingAddress";
+                    }
+                    this.changeDetector.markForCheck();
+                });
             });
     }
 
@@ -247,7 +260,12 @@ export class CheckoutShippingComponent implements OnInit {
                     input: {
                         emailAddress: this.emailAddress,
                         firstName: this.firstName,
-                        lastName: this.lastName
+                        lastName: this.lastName,
+                        customFields: {
+                            dateofbirth: new Date(this.dateofbirth).getTime(),
+                            profession: this.profession,
+                            companyName: this.companyName
+                        }
                     }
                 })
                 .pipe(
