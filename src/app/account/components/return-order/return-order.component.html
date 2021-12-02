@@ -1,0 +1,53 @@
+<div class="retrun-order-container container">
+    <ng-container *ngIf="order$ | async as order">
+        <div class="header">
+            <h2>Order {{ order.code }}</h2>
+            <button class="btn btn-outline-primary">
+                Return order
+            </button>
+        </div>
+
+        <div class="order-card">
+            <div class="lines-container">
+                <ng-container
+                    *ngFor="let line of order.lines; trackBy: trackByFn"
+                >
+                    <div class="line" [class.has-discount]="isDiscounted(line)">
+                        <div class="thumb">
+                            <img
+                                [src]="
+                                    line.featuredAsset?.preview + '?preset=tiny'
+                                "
+                            />
+                        </div>
+                        <div class="details">
+                            <div class="name">
+                                {{ line.productVariant?.name }}
+                            </div>
+                        </div>
+                        <div class="qty-price">
+                            <div class="qty">
+                                Quantity : {{ line.quantity }}
+                            </div>
+                            <div class="figures">
+                                <div class="total">
+                                    <div class="discounted">
+                                        Price :
+                                        {{
+                                            line.discountedLinePriceWithTax
+                                                | formatPrice
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-link">
+                            Return item
+                        </button>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+</div>

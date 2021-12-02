@@ -23,6 +23,7 @@ import { SignInGuard } from "./providers/sign-in.guard";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
+import { ReturnOrderComponent } from './components/return-order/return-order.component';
 
 const DECLARATIONS = [
     AccountDashboardComponent,
@@ -38,7 +39,8 @@ const DECLARATIONS = [
     ResetPasswordComponent,
     ForgottenPasswordComponent,
     ChangeEmailAddressComponent,
-    TrackOrderDetailComponent
+    TrackOrderDetailComponent,
+    ReturnOrderComponent
 ];
 
 @NgModule({

@@ -47,6 +47,16 @@ export class AccountOrderListComponent implements OnInit {
         this.onFilterChange("All");
     }
 
+    getRetunLastDate(date: string) {
+        let dateObj = new Date(date);
+        return dateObj.setDate(dateObj.getDate() + 15);
+    }
+
+    isRetunDisabled(date: string) {
+        let dateObj = new Date(date);
+        dateObj.setDate(dateObj.getDate() + 15) > Date.now();
+    }
+
     onFilterChange(filterValue: any) {
         let filter: any = {
             active: {

@@ -27,6 +27,8 @@
                 grid-gap: 20px;
                 padding: 10px;
                 align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid #d2d6d9;
                 .details {
                     display: flex;
                     flex-direction: column;

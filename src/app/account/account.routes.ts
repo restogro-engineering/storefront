@@ -18,6 +18,7 @@ import { VerifyComponent } from "./components/verify/verify.component";
 import { AccountGuard } from "./providers/account.guard";
 import { SignInGuard } from "./providers/sign-in.guard";
 import { TrackOrderDetailComponent } from "./components/track-order-detail/track-order-detail.component";
+import { ReturnOrderComponent } from './components/return-order/return-order.component';
 
 export const routes: Routes = [
     {
@@ -95,5 +96,9 @@ export const routes: Routes = [
     {
         path: "track-order/:code",
         component: TrackOrderDetailComponent
+    },
+    {
+        path: "orders/return/:type/:code",
+        component: ReturnOrderComponent
     }
 ];

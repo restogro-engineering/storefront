@@ -9,6 +9,7 @@ export const GET_ORDER_LIST = gql`
                 items {
                     id
                     updatedAt
+                    createdAt
                     code
                     state
                     currencyCode
