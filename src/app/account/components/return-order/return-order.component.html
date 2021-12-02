@@ -2,7 +2,10 @@
     <ng-container *ngIf="order$ | async as order">
         <div class="header">
             <h2>Order {{ order.code }}</h2>
-            <button class="btn btn-outline-primary">
+            <button
+                class="btn btn-outline-primary"
+                (click)="openDialog('order', order)"
+            >
                 Return order
             </button>
         </div>
@@ -42,7 +45,10 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-link">
+                        <button
+                            class="btn btn-link"
+                            (click)="openDialog('item', line)"
+                        >
                             Return item
                         </button>
                     </div>

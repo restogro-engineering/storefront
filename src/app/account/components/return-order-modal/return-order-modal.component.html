@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Do you want to cancel {{ data.type }}</h1>
+<div mat-dialog-content style="font-size: 12px">
+    <mat-form-field appearance="outline" class="full-width-field">
+        <mat-label>Reason for retuen</mat-label>
+        <mat-select [(ngModel)]="reasonOption">
+            <mat-option [value]="op" *ngFor="let op of retrunReasons">
+                {{ op }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field
+        appearance="outline"
+        *ngIf="reasonOption === 'Other'"
+        class="full-width-field"
+    >
+        <mat-label>Reason for retuen</mat-label>
+        <input type="textarea" matInput />
+    </mat-form-field>
+</div>
+<div mat-dialog-actions class="buttons-containers">
+    <button class="btn btn-link" (click)="onNoClick()" >
+        Cancel
+    </button>
+    <button class="btn btn-outline-primary"  [disabled]="reasonOption === ''">
+        Return
+    </button>
+</div>
