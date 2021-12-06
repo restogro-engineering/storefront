@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <div class="lines-container">
+                <div class="lines-container" [routerLink]="['/account/orders', order.code]">
                     <ng-container
                         *ngFor="let line of order.lines; trackBy: trackByFn"
                     >
