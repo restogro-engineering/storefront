@@ -52,7 +52,7 @@ export class WishListComponent implements OnInit {
                 productVariantId: id
             })
             .subscribe(() => {
-                this.stateService.setState("wishlistVariantId", id);
+                this.stateService.setState("wishlistVariantId", Math.random().toString());
             });
     }
 
