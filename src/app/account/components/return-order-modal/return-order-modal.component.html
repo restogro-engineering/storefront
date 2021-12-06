@@ -14,14 +14,18 @@
         class="full-width-field"
     >
         <mat-label>Reason for retuen</mat-label>
-        <input type="textarea" matInput />
+        <input type="textarea" matInput [(ngModel)]="otherReason" />
     </mat-form-field>
 </div>
 <div mat-dialog-actions class="buttons-containers">
-    <button class="btn btn-link" (click)="onNoClick()" >
+    <button class="btn btn-link" (click)="onNoClick()">
         Cancel
     </button>
-    <button class="btn btn-outline-primary"  [disabled]="reasonOption === ''">
+    <button
+        class="btn btn-outline-primary"
+        [disabled]="reasonOption === ''"
+        (click)="onReturn()"
+    >
         Return
     </button>
 </div>

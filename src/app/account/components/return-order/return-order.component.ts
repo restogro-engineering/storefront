@@ -17,8 +17,7 @@ import { ReturnOrderModalComponent } from "../return-order-modal/return-order-mo
 })
 export class ReturnOrderComponent implements OnInit {
     order$: Observable<GetOrder.OrderByCode | undefined>;
-    animal: string;
-    name: string;
+    selectedLines: any = [];
     constructor(
         private dataService: DataService,
         private route: ActivatedRoute,
@@ -40,13 +39,27 @@ export class ReturnOrderComponent implements OnInit {
     openDialog(type: any, order: any): void {
         const dialogRef = this.dialog.open(ReturnOrderModalComponent, {
             width: "360px",
-            data: { type: type, order: order }
+            data: {
+                type: type,
+                order: order,
+                selectedLines: this.selectedLines
+            }
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log("The dialog was closed");
-            this.animal = result;
+            this.selectedLines = result;
+            console.log(" lines ", this.selectedLines);
         });
+    }
+
+    toggleLineSelection(id: any) {
+        if (this.selectedLines.indexOf(id) === -1) {
+            this.selectedLines.push(id);
+        } else {
+            this.selectedLines = this.selectedLines.filter(
+                (i: any) => i !== id
+            );
+        }
     }
 
     ngOnInit() {

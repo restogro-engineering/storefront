@@ -44,13 +44,16 @@
                                 </div>
                             </div>
                         </div>
-
-                        <button
-                            class="btn btn-link"
-                            (click)="openDialog('item', line)"
-                        >
-                            Return item
-                        </button>
+                        <div class="check-box">
+                            <input
+                                type="checkbox"
+                                [checked]="
+                                    (selectedLines || []).indexOf(line.id) !== -1
+                                "
+                                (change)="toggleLineSelection(line.id)"
+                                class="mr-1"
+                            />
+                        </div>
                     </div>
                 </ng-container>
             </div>

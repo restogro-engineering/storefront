@@ -2,7 +2,7 @@
 
 .retrun-order-container {
     padding: 20px;
-    .header{
+    .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -15,9 +15,7 @@
             display: grid;
             grid-template-columns: 1fr 2.5fr 1fr 1fr;
             grid-gap: 20px;
-            padding: 10px;
-            // align-items: center;
-            // justify-content: space-between;
+            padding: 10px;            
             border-bottom: 1px solid #d2d6d9;
             .details {
                 display: flex;
@@ -47,5 +45,10 @@
             padding-top: 10px;
             justify-content: flex-end;
         }
+    }
+    .check-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

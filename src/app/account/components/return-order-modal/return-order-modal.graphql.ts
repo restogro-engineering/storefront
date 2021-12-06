@@ -18,3 +18,14 @@ export const GET_ORDER = gql`
     ${CART_FRAGMENT}
     ${ORDER_ADDRESS_FRAGMENT}
 `;
+
+export const RETURN_ORDER = gql`
+    mutation ReturnOrder($input: ReturnOrderInput!) {
+        returnOrder(input: $input) {
+            ... on Order {
+                id
+                state
+            }
+        }
+    }
+`;
