@@ -262,7 +262,9 @@ export class CheckoutShippingComponent implements OnInit {
                         firstName: this.firstName,
                         lastName: this.lastName,
                         customFields: {
-                            dateofbirth: new Date(this.dateofbirth).getTime(),
+                            dateofbirth: this.dateofbirth
+                                ? new Date(this.dateofbirth).toISOString()
+                                : null,
                             profession: this.profession,
                             companyName: this.companyName
                         }

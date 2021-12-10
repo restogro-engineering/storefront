@@ -41,10 +41,7 @@ export class AccountCustomerDetailsComponent implements OnInit {
 
     formatDate(date: any) {
         if (date) {
-            let dateObj = new Date(date);
-            return `${dateObj.getFullYear()}-${this.appendZero(
-                dateObj.getMonth() + 1
-            )}-${this.appendZero(dateObj.getDate())}`;
+            return new Date(date).toISOString();
         }
         return null;
     }
@@ -60,7 +57,7 @@ export class AccountCustomerDetailsComponent implements OnInit {
                 map(data => data.activeCustomer),
                 filter(notNullOrUndefined)
             )
-            .subscribe(customer => {                
+            .subscribe(customer => {
                 const {
                     firstName,
                     lastName,
