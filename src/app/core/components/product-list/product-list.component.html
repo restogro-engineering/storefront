@@ -1,33 +1,26 @@
 <div class="masthead container" [class.search-mode]="searchTerm$ | async">
     <vsf-collection-breadcrumbs
         [breadcrumbs]="breadcrumbs$ | async"
-    ></vsf-collection-breadcrumbs>
-    <!-- <div class="masthead-bg" [style.background-image]="mastheadBackground$ | async"></div>
-    <div class="container position-relative">
-        <vsf-collection-breadcrumbs [breadcrumbs]="breadcrumbs$ | async"></vsf-collection-breadcrumbs>
-        <h1 class="display-1 collection-name">{{ (collection$ | async)?.name }}</h1>
-        <h1 class="display-4 text-muted" *ngIf="searchTerm$ | async as term">
-             Results for <span class="text-dark">"{{ term }}"</span>
-        </h1>
-    </div> -->
+    ></vsf-collection-breadcrumbs>   
     <div class="row">
-            <div class="col-12">
-                <mat-form-field>
-                    <mat-label>Sort by</mat-label>
-                    <mat-select>
-                        <mat-option
-                            *ngFor="let option of sortByOptions"
-                            [value]="option"
-                        >
-                            {{ option }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
+        <div class="col-12">
+            <mat-form-field>
+                <mat-label>Sort by</mat-label>
+                <mat-select [(ngModel)]="selectedSort">
+                    <mat-option
+                        *ngFor="let option of sortByOptions"
+                        [value]="option.value"
+                        (click)="onSortChange(option.value)"
+                    >
+                        {{ option.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
+    </div>
 </div>
 
-<div class="container">   
+<div class="container">
     <div class="row">
         <div class="col-12 col-md-2">
             <vsf-product-list-controls

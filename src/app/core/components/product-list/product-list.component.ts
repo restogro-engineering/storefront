@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -23,7 +23,7 @@ import { AssetPreviewPipe } from '../../../shared/pipes/asset-preview.pipe';
 import { DataService } from '../../providers/data/data.service';
 import { StateService } from '../../providers/state/state.service';
 
-import { GET_COLLECTION, SEARCH_PRODUCTS } from './product-list.graphql';
+import { GET_COLLECTION, SEARCH_PRODUCTS, SORT_OPTIONS } from './product-list.graphql';
 
 @Component({
     selector: 'vsf-product-list',
@@ -31,13 +31,15 @@ import { GET_COLLECTION, SEARCH_PRODUCTS } from './product-list.graphql';
 styleUrls: ['./product-list.component.scss'],
     })
 export class ProductListComponent implements OnInit {
-    sortByOptions = ["Price- high to low", "Price- low to high", "Customer Ratings", "Delivery date earliest", "Most discounted items","Newly added items first"];
+    sortByOptions = SORT_OPTIONS
     products$: Observable<SearchProducts.Items[]>;
     totalResults$: Observable<number>;
     collection$: Observable<GetCollection.Collection | undefined>;
     facetValues: SearchProducts.FacetValues[] | undefined;
     unfilteredTotalItems = 0;
     activeFacetValueIds$: Observable<string[]>;
+    sort$: Observable<any>;
+    selectedSort:any;    
     searchTerm$: Observable<string>;
     displayLoadMore$: Observable<boolean>;
     loading$: Observable<boolean>;
@@ -49,6 +51,7 @@ export class ProductListComponent implements OnInit {
 
     constructor(private dataService: DataService,
                 private route: ActivatedRoute,
+                private router: Router,
                 private stateService: StateService,
                 private sanitizer: DomSanitizer) { }
 
@@ -64,13 +67,26 @@ export class ProductListComponent implements OnInit {
             shareReplay(1),
         );
         this.activeFacetValueIds$ = this.route.paramMap.pipe(
-            map(pm => getRouteArrayParam(pm, 'facets')),
+            map(pm =>  getRouteArrayParam(pm, 'facets')),
             distinctUntilChanged((x, y) => x.toString() === y.toString()),
-            tap(() => {
+            tap(() => {   
+                debugger;             
                 this.currentPage = 0;
             }),
             shareReplay(1),
         );
+   
+
+        this.sort$ = this.route.paramMap.pipe(
+            map(pm => getRouteArrayParam(pm, 'sort')),
+            distinctUntilChanged((x, y) => x.toString() === y.toString()),
+            tap(() => {
+                debugger;
+                this.currentPage = 0;
+            }),
+            shareReplay(1),
+        );
+
         this.searchTerm$ = this.route.queryParamMap.pipe(
             map(pm => pm.get('search') || ''),
             distinctUntilChanged(),
@@ -115,11 +131,11 @@ export class ProductListComponent implements OnInit {
             }),
         );
 
-        const triggerFetch$ = combineLatest(this.collection$, this.activeFacetValueIds$, this.searchTerm$, this.refresh);
+        const triggerFetch$ = combineLatest(this.collection$, this.activeFacetValueIds$, this.searchTerm$,this.sort$, this.refresh);
         const getInitialFacetValueIds = () => {
             combineLatest(this.collection$, this.searchTerm$).pipe(
                 take(1),
-                switchMap(([collection, term]) => {
+                switchMap(([collection, term]) => {                    
                     return this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
                         input: {
                             term,
@@ -135,11 +151,17 @@ export class ProductListComponent implements OnInit {
                     this.unfilteredTotalItems = data.search.totalItems;
                 });
         };
+
         this.loading$ = merge(
             triggerFetch$.pipe(mapTo(true)),
         );
+
         const queryResult$ = triggerFetch$.pipe(
-            switchMap(([collection, facetValueIds, term]) => {
+            switchMap(([collection, facetValueIds, term,sort]) => {
+                let sortValue;
+                if(sort.length >0 ){
+                    sortValue = sort[0]
+                }
                 return this.dataService.query<SearchProducts.Query, SearchProducts.Variables>(SEARCH_PRODUCTS, {
                     input: {
                         term,
@@ -147,6 +169,9 @@ export class ProductListComponent implements OnInit {
                         collectionId: collection?.id,
                         facetValueIds,
                         take: perPage,
+                        sort:{
+                            price:sortValue
+                        },
                         skip: this.currentPage * perPage,
                     },
                 }).pipe(
@@ -172,7 +197,7 @@ export class ProductListComponent implements OnInit {
 
         const RESET = 'RESET';
         const items$ = this.products$ = queryResult$.pipe(map(data => data.search.items));
-        const reset$ = merge(collectionSlug$, this.activeFacetValueIds$, this.searchTerm$).pipe(
+        const reset$ = merge(collectionSlug$, this.activeFacetValueIds$, this.searchTerm$,this.sort$).pipe(
             mapTo(RESET),
             skip(1),
             share(),
@@ -194,6 +219,30 @@ export class ProductListComponent implements OnInit {
         );
 
     }
+
+    onSortChange(value:any){                 
+        this.activeFacetValueIds$.subscribe((params)=>{            
+            this.router.navigate(
+                [
+                    "./",
+                    {
+                        sort: value,  
+                        facets: params.toString()                 
+                    }
+                ],
+                {
+                    queryParamsHandling: "merge",
+                    relativeTo: this.route,
+                    state: {
+                        noScroll: true
+                    }
+                })
+
+        });
+         
+               
+    }
+    
 
     trackByProductId(index: number, item: SearchProducts.Items) {
         return item.productId;
