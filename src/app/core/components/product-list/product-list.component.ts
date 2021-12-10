@@ -78,10 +78,13 @@ export class ProductListComponent implements OnInit {
    
 
         this.sort$ = this.route.paramMap.pipe(
-            map(pm => getRouteArrayParam(pm, 'sort')),
+            map(pm => {                
+                this.selectedSort = getRouteArrayParam(pm, 'sort');
+                return this.selectedSort;
+            }
+                ),
             distinctUntilChanged((x, y) => x.toString() === y.toString()),
-            tap(() => {
-                debugger;
+            tap(() => {                
                 this.currentPage = 0;
             }),
             shareReplay(1),
