@@ -87,7 +87,7 @@
                         </div>
                     </ng-container>
                 </div>
-                <div class="lines-footer">
+                <div class="lines-footer" [hidden]="returnAvailabel(order.state)">
                     <button
                         class="btn btn-link"
                         [disabled]="isRetunDisabled(order.createdAt)"

@@ -56,6 +56,12 @@ export class AccountOrderListComponent implements OnInit {
         let dateObj = new Date(date);
         dateObj.setDate(dateObj.getDate() + 15) > Date.now();
     }
+    returnAvailabel(state: any): boolean {
+        if (state === "Delivered") {
+            return false;
+        }
+        return true;
+    }
 
     onFilterChange(filterValue: any) {
         let filter: any = {
