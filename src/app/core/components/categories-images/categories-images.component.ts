@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { gql } from "apollo-angular";
 import { Observable } from "rxjs";
-import { map, shareReplay } from "rxjs/operators";
+import { map } from "rxjs/operators";
 
 import { DataService } from "../../providers/data/data.service";
 import { Router } from "@angular/router";
@@ -23,13 +23,13 @@ export class CategoriesImagesComponent {
                 options: {}
             })
             .pipe(
-                map(data =>
-                    data.collections.items.filter((collection: any) => {
-                        if (
-                            collection.parent &&
-                            collection.parent.name !== "__root_collection__" &&
+                map(data => {                    
+                    return data.collections.items.filter((collection: any) => {
+                        if (                            
                             collection.assets &&
-                            collection.assets.length > 0
+                            collection.assets.length > 0 &&
+                            collection?.parent?.slug !== "landing-page" &&
+                            collection?.parent?.parent?.slug !== "landing-page"
                         ) {
                             this.imageObject.push({
                                 image: collection.assets[0].preview,
@@ -38,8 +38,8 @@ export class CategoriesImagesComponent {
                                 slug: collection.slug
                             });
                         }
-                    })
-                )
+                    });
+                })
             );
     }
 
@@ -66,6 +66,9 @@ const GET_COLLECTIONS = gql`
                     id
                     slug
                     name
+                    parent {
+                        slug
+                    }
                 }
                 featuredAsset {
                     id
