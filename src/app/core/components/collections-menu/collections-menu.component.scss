@@ -43,11 +43,12 @@
 }
 
 .nav-link {
+    text-transform: uppercase;
     &:hover,
     &.active {
         background-color: white;
         border-bottom: 3px solid red;
-    }
+    }    
 }
 
 .level-1-block {

@@ -1,12 +1,39 @@
 <div *ngIf="activeCustomer$ | async as customer; else notLoggedIn">
-    <button class="btn btn-dark" [routerLink]="['/account']">
-        <fa-icon icon="user-circle"></fa-icon>
-        <span class="d-none d-sm-inline ml-1">{{ userName(customer) }}</span>
-    </button>
+    <div class="icon-name" [matMenuTriggerFor]="profilelogin">
+        <mat-icon>person_outline</mat-icon>
+        <span>Profile</span>
+    </div>
+    <mat-menu #profilelogin="matMenu" yPosition="below">
+        <div class="profile-login-menu">
+            <span class="font-weight-bold">
+                Hello {{ userName(customer) }}
+            </span>
+            <button class="btn btn-danger mt-3" [routerLink]="['/account']">
+                <fa-icon icon="user-circle"></fa-icon>
+                <span class="d-none d-sm-inline ml-1">{{
+                    userName(customer)
+                }}</span>
+            </button>
+        </div>
+    </mat-menu>
 </div>
 <ng-template #notLoggedIn>
-    <button class="btn btn-dark" [routerLink]="['account/sign-in']">
-        <fa-icon icon="user-circle"></fa-icon>
-        <span class="d-none d-sm-inline ml-1">Sign In/Sign up</span>
-    </button>
+    <div class="icon-name" [matMenuTriggerFor]="profilelogin">
+        <mat-icon>person_outline</mat-icon>
+        <span>Profile</span>
+    </div>
+
+    <mat-menu #profilelogin="matMenu" yPosition="below">
+        <div class="profile-login-menu">
+            <span class="font-weight-bold">
+                Welcome
+            </span>
+            <span>
+                To access account and manage orders
+            </span>
+            <button class="btn btn-danger mt-3" [routerLink]="['account/sign-in']">
+                Sign In/Sign up
+            </button>
+        </div>
+    </mat-menu>
 </ng-template>

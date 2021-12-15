@@ -61,7 +61,7 @@ export class HomePageComponent implements OnInit {
                             this.topBrands.push({
                                 image: element.featuredAsset.source,
                                 thumbImage: element.featuredAsset.source,
-                                title: element.name,
+                                title: "",
                                 ...element
                             });
                         });

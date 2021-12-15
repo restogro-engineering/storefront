@@ -8,3 +8,16 @@ a.btn {
         background-color: $light;
     }
 }
+
+.icon-name{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 5px;
+    align-items: center;
+}
+.profile-login-menu{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 5px;
+    padding: 10px;    
+}
