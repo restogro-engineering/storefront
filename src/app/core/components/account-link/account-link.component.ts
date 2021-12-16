@@ -5,8 +5,10 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { DataService } from '../../providers/data/data.service';
 import { StateService } from '../../providers/state/state.service';
 
-import { GetActiveCustomer } from '../../../common/generated-types';
+import { GetActiveCustomer, SignOut } from '../../../common/generated-types';
 import { GET_ACTIVE_CUSTOMER } from '../../../common/graphql/documents.graphql';
+import { SIGN_OUT } from 'src/app/account/components/account/account.graphql';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'vsf-account-link',
@@ -18,7 +20,9 @@ export class AccountLinkComponent implements OnInit {
 
     activeCustomer$: Observable<GetActiveCustomer.ActiveCustomer | undefined>;
     constructor(private dataService: DataService,
-                private stateService: StateService) {}
+                private stateService: StateService,
+                private router:Router
+                ) {}
 
     ngOnInit() {
         const getActiveCustomer$ = this.dataService.query<GetActiveCustomer.Query>(GET_ACTIVE_CUSTOMER, {}, 'network-only');
@@ -42,6 +46,15 @@ export class AccountLinkComponent implements OnInit {
         } else {
             return emailAddress;
         }
+    }
+
+    signOut() {
+        this.dataService.mutate<SignOut.Mutation>(SIGN_OUT).subscribe({
+            next: () => {
+                this.stateService.setState('signedIn', false);
+                this.router.navigate(['/']);
+            },
+        });
     }
 
 }

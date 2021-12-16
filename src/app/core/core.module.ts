@@ -46,6 +46,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
+import { RouterModule } from '@angular/router';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -91,7 +92,8 @@ let providedCacheState: any | undefined;
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
-        MatMenuModule
+        MatMenuModule,
+        RouterModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },

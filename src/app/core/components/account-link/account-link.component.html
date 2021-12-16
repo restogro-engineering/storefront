@@ -5,15 +5,36 @@
     </div>
     <mat-menu #profilelogin="matMenu" yPosition="below">
         <div class="profile-login-menu">
-            <span class="font-weight-bold">
+            <span class="font-weight-bold border-bottom pb-3">
                 Hello {{ userName(customer) }}
             </span>
-            <button class="btn btn-danger mt-3" [routerLink]="['/account']">
-                <fa-icon icon="user-circle"></fa-icon>
-                <span class="d-none d-sm-inline ml-1">{{
-                    userName(customer)
-                }}</span>
-            </button>
+            <div class="profile-options-list">
+                <div
+                    class="item"
+                    [routerLink]="['./']"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                >
+                    Dashboard
+                </div>
+                <div class="item" [routerLink]="['./', 'orders']">
+                    Orders
+                </div>
+                <div class="item" [routerLink]="['./', 'address-book']">
+                    Address book
+                </div>
+                <div class="item" [routerLink]="['./', 'details']">
+                    Personal details
+                </div>
+                <div
+                    class="item border-bottom"
+                    [routerLink]="['./', 'change-credentials']"
+                >
+                    Change credentials
+                </div>
+                <div class="item" (click)="signOut()">
+                    Sign out
+                </div>
+            </div>
         </div>
     </mat-menu>
 </div>
@@ -31,7 +52,10 @@
             <span>
                 To access account and manage orders
             </span>
-            <button class="btn btn-danger mt-3" [routerLink]="['account/sign-in']">
+            <button
+                class="btn btn-danger mt-3"
+                [routerLink]="['account/sign-in']"
+            >
                 Sign In/Sign up
             </button>
         </div>

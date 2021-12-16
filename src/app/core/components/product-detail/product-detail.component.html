@@ -15,8 +15,11 @@
             </div>
             <div class="col-12 col-md-6" #zoomPreviewArea>
                 <h2 class="display-4 product-name">
-                    {{ product.name }}
+                    Dummy brand
                 </h2>
+                <h4 class="display-4 product-name">
+                    {{ product.name }}
+                </h4>
                 <div class="price">
                     {{ selectedVariant?.priceWithTax | formatPrice }}
                 </div>
@@ -63,8 +66,13 @@
                     [innerHTML]="product.description"
                 ></div>
                 <div class="delivery-option-container">
-                    <h2>DELIVERY OPTIONS <mat-icon class="material-icons-outlined">local_shipping</mat-icon></h2>                    
-                    
+                    <h2>
+                        DELIVERY OPTIONS
+                        <mat-icon class="material-icons-outlined"
+                            >local_shipping</mat-icon
+                        >
+                    </h2>
+
                     <mat-form-field appearance="legacy" floatLabel="false">
                         <input matInput placeholder="Enter a PIN code" />
                         <span matSuffix>Check</span>
