@@ -11,23 +11,23 @@
             <div class="profile-options-list">
                 <div
                     class="item"
-                    [routerLink]="['./']"
+                    [routerLink]="['./account']"
                     [routerLinkActiveOptions]="{ exact: true }"
                 >
                     Dashboard
                 </div>
-                <div class="item" [routerLink]="['./', 'orders']">
+                <div class="item" [routerLink]="['./account', 'orders']">
                     Orders
                 </div>
-                <div class="item" [routerLink]="['./', 'address-book']">
+                <div class="item" [routerLink]="['./account', 'address-book']">
                     Address book
                 </div>
-                <div class="item" [routerLink]="['./', 'details']">
+                <div class="item" [routerLink]="['./account', 'details']">
                     Personal details
                 </div>
                 <div
                     class="item border-bottom"
-                    [routerLink]="['./', 'change-credentials']"
+                    [routerLink]="['./account', 'change-credentials']"
                 >
                     Change credentials
                 </div>
