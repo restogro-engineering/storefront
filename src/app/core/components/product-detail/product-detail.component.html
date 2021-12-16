@@ -20,8 +20,14 @@
                 <h4 class="display-4 product-name">
                     {{ product.name }}
                 </h4>
-                <div class="price">
-                    {{ selectedVariant?.priceWithTax | formatPrice }}
+                <div>
+                    <span class="price">
+                        {{ selectedVariant?.priceWithTax | formatPrice }}
+                    </span>
+                    <span class="price discounted-price">
+                        Rs 250
+                    </span>
+                    <span class=" price product-discountPercentage">(30% OFF)</span>
                 </div>
                 <div class="purchase-options">
                     <mat-chip-list selectable="true">
