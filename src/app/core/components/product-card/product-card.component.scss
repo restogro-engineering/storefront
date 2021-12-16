@@ -17,18 +17,51 @@
     display: block;
     overflow: hidden;
 }
+.info-container {
+    padding: 10px;
+    .discounted-price {
+        text-decoration: line-through;
+        color: #7e818c;
+        font-weight: 400;
+        margin-left: 5px;
+        font-size: 12px;
+    }
+    .product-discountPercentage {
+        color: #ff905a;
+        font-weight: 400;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+}
 
 .product-image {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
         opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0.85;
 }
-
-.product-name {
-    text-align: center;
+.product-brand {
     color: $gray-800;
     display: block;
+    font-weight: bold;
+    &:hover {
+        color: $gray-700;
+        text-decoration: underline;
+        text-decoration-color: $gray-400;
+    }
+}
 
+.product-name {
+    color: $gray-800;
+    display: block;
+    color: #535766;
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 0;
+    margin-top: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 400;
     &:hover {
         color: $gray-700;
         text-decoration: underline;
@@ -38,7 +71,6 @@
 
 .price {
     font-weight: normal;
-    text-align: center;
     color: $gray-600;
 }
 

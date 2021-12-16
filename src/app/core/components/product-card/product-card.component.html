@@ -1,19 +1,40 @@
 <div class="product-card">
     <ng-template [ngIf]="product" [ngIfElse]="placeholder">
         <a [routerLink]="['/product', product.slug]" class="image-wrapper">
-            <img class="product-image" [src]="product.productAsset | assetPreview:200:200">
+            <img
+                class="product-image"
+                [src]="product.productAsset | assetPreview: 200:200"
+            />
         </a>
-        <div class="">
-            <a [routerLink]="['/product', product.slug]" class="product-name">
+        <div class="info-container">
+            <a
+                [routerLink]="['/product', product.slug]"
+                class="product-brand mb-2"
+            >
+                Dummy Brand
+            </a>
+            <a
+                [routerLink]="['/product', product.slug]"
+                class="product-name mb-2"
+            >
                 {{ product.productName }}
             </a>
             <div class="price">
-                <ng-template [ngIf]="product.priceWithTax.min === product.priceWithTax.max" [ngIfElse]="range">
+                <ng-template
+                    [ngIf]="
+                        product.priceWithTax.min === product.priceWithTax.max
+                    "
+                    [ngIfElse]="range"
+                >
                     {{ product.priceWithTax.min | formatPrice }}
                 </ng-template>
                 <ng-template #range>
                     From {{ product.priceWithTax.min | formatPrice }}
                 </ng-template>
+                <span class="discounted-price">
+                    Rs 250
+                </span>
+                <span class="product-discountPercentage">(30% OFF)</span>
             </div>
         </div>
     </ng-template>

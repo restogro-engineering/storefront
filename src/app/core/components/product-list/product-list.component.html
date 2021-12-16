@@ -1,4 +1,4 @@
-<div class="masthead container" [class.search-mode]="searchTerm$ | async">
+<div class="masthead container-fluid" [class.search-mode]="searchTerm$ | async">
     <vsf-collection-breadcrumbs
         [breadcrumbs]="breadcrumbs$ | async"
     ></vsf-collection-breadcrumbs>   
@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-2 border-right">
             <vsf-product-list-controls
@@ -29,7 +29,7 @@
                 [totalResults]="unfilteredTotalItems"
             ></vsf-product-list-controls>
         </div>
-        <div class="col-12 col-md-10">
+        <div class="col-12 col-md-10 ">
             <ng-container *ngIf="collection$ | async as collection">
                 <div
                     *ngIf="collection.children.length"
