@@ -41,6 +41,7 @@
 
     li {
         transition: color 0.2s;
+        margin-bottom: 3px;
         label {
             display: flex;
             align-items: baseline;
@@ -75,3 +76,111 @@ button.facet-name {
     }
 }
 
+.vertical-filters-header {
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin: 0 0 18px;
+    clear: both;
+    color: #282c3f;
+    display: block;
+}
+
+.vertical-filters-label {
+    display: block;
+    width: 95%;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 17px;
+    color: #282c3f;
+}
+
+/* The container */
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    // background-color: #eee;
+    border: 1px solid #c3c2c9;
+    background: #fff;
+}
+
+//   /* On mouse-over, add a grey background color */
+//   .checkbox-container:hover input ~ .checkmark {
+//     background-color: #ccc;
+//   }
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #0c96a0;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: 1;
+    width: 8px;
+    height: 5px;
+    border-color: #fff;
+    border-style: none none solid solid;
+    border-width: 2px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+
+.vertical-filters-label {
+    display: block;
+    width: 95%;
+    font-size: 14px;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 17px;
+    color: #282c3f;
+}

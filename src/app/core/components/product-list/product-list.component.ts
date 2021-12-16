@@ -69,8 +69,7 @@ export class ProductListComponent implements OnInit {
         this.activeFacetValueIds$ = this.route.paramMap.pipe(
             map(pm =>  getRouteArrayParam(pm, 'facets')),
             distinctUntilChanged((x, y) => x.toString() === y.toString()),
-            tap(() => {   
-                debugger;             
+            tap(() => {                              
                 this.currentPage = 0;
             }),
             shareReplay(1),
