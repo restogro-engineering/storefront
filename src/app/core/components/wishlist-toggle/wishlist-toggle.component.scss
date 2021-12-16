@@ -8,6 +8,14 @@ a.btn {
     }
 }
 
+.icon-name{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 5px;
+    align-items: center;
+    cursor: pointer;
+}
+
 .badge.qty-indicator {
     position: absolute;
     right: -2px;

@@ -1,5 +1,13 @@
 @import "variables";
 
+.icon-name{
+    display: flex;
+    flex-direction: column;
+    grid-gap: 5px;
+    align-items: center;
+    cursor: pointer;
+}
+
 a.btn {
     background-color: transparent;
     border: none;
