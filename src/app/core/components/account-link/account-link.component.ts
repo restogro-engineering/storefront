@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-
+import {gql} from 'apollo-angular';
 import { DataService } from '../../providers/data/data.service';
 import { StateService } from '../../providers/state/state.service';
 
 import { GetActiveCustomer, SignOut } from '../../../common/generated-types';
 import { GET_ACTIVE_CUSTOMER } from '../../../common/graphql/documents.graphql';
-import { SIGN_OUT } from 'src/app/account/components/account/account.graphql';
 import { Router } from '@angular/router';
 
 @Component({
@@ -58,3 +57,12 @@ export class AccountLinkComponent implements OnInit {
     }
 
 }
+
+
+const SIGN_OUT = gql`
+    mutation SignOut {
+        logout {
+            success
+        }
+    }
+`;
