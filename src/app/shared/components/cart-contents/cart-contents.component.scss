@@ -74,7 +74,7 @@
 
 .order-tax, .totals, .order-adjustments, .shipping {
     margin-top: $spacer;
-    border-top: 1px dashed #ddd;
+    border-top: 1px solid #ddd;
     padding-top: $spacer;
     display: flex;
     justify-content: space-between;
@@ -102,4 +102,3 @@
 .order-tax {
     font-size: 14px;
 }
-

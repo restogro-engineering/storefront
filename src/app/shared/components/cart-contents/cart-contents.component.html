@@ -15,7 +15,7 @@
                                     (click)="decrement(line)">
                                 <fa-icon aria-label="Remove 1" icon="minus"></fa-icon>
                             </button>
-                            <div class="qty">{{ line.quantity }}</div>
+                            <div class="qty">Qty {{ line.quantity }}</div>
                             <button class="btn btn-sm"
                                     *ngIf="canAdjustQuantities"
                                     (click)="increment(line)">

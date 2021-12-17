@@ -5,6 +5,38 @@
     margin: auto auto $spacer * 2;
 }
 
-.lead{
+.lead {
     cursor: pointer;
+}
+.confirm-order {
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    border-bottom: 1px solid #e9ecef;
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 5%);
+    padding: 20px;
+    .order-info {
+        display: flex;
+        justify-content: space-between;
+        .info-box {
+            display: flex;
+            flex-direction: column;
+            grid-gap: 5px;
+            span:nth-child(1) {
+                color: $gray-700;
+            }
+            span:nth-child(2) {
+                color: $gray-500;
+            }
+            strong {
+                cursor: pointer;
+            }
+        }
+    }
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 30px;
+    }
 }

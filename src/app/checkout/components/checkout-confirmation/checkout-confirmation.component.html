@@ -1,4 +1,4 @@
-<div *ngIf="order$ | async as order">
+<!-- <div *ngIf="order$ | async as order">
     <div class="text-center mb-4">
         <h2 class="display-4">Thank you for your order!</h2>
         <ul class="order-details list-unstyled">
@@ -48,4 +48,56 @@
 </div>
 <ng-container *ngIf="notFound$ | async">
     <h2 class="display-4">Page not found</h2>
-</ng-container>
+</ng-container> -->
+
+<div class="confirm-order" *ngIf="order$ | async as order">
+    <div class="border-bottom pt-3 pb-3">
+        Your order has been confirmed and will be shipping soon
+    </div>
+    <div class="border-bottom order-info pt-3 pb-3">
+        <div class="info-box">
+            <span>Order Date</span>
+            <span> {{ order.updatedAt | date: "medium" }}</span>
+        </div>
+        <div class="info-box">
+            <span>Order Code</span>
+            <strong> {{ order.code }}</strong>
+        </div>
+        <div class="info-box">
+            <span>Order Status</span>
+            <span> {{ order.state }}</span>
+        </div>
+    </div>
+    <div class="pt-3 border-bottom pb-3">
+        <vsf-cart-contents
+            [cart]="order"
+            [canAdjustQuantities]="false"
+        ></vsf-cart-contents>
+    </div>
+    <div *ngIf="!order.customer.user" class="pt-3 border-bottom pb-3">
+        <h3 class="lead">
+            Create an account to enjoy faster checkouts, order tracking, order
+            history and more!
+        </h3>
+
+        <div>
+            <button
+                class="btn btn-primary btn-block"
+                (click)="register()"
+                [disabled]="registrationSent"
+            >
+                Create account
+            </button>
+            <div *ngIf="registrationSent" class="registration-sent">
+                Great! Now check your email ({{ order.customer.emailAddress }})
+                to complete registration.
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center pt-3 pb-3">
+        We will send you shipping confirmation when your item(s) are on the way!
+        We appreciate your business, and hope you enjoy your purchage
+        <h2>Thank you</h2>
+    </div>
+</div>
