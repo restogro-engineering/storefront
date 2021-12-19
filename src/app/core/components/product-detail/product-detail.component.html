@@ -15,7 +15,7 @@
             </div>
             <div class="col-12 col-md-6" #zoomPreviewArea>
                 <h2 class="display-4 product-name">
-                    Dummy brand
+                    {{ selectedVariant?.customFields?.brand }}
                 </h2>
                 <h4 class="display-4 product-name">
                     {{ product.name }}
@@ -27,7 +27,9 @@
                     <span class="price discounted-price">
                         Rs 250
                     </span>
-                    <span class=" price product-discountPercentage">(30% OFF)</span>
+                    <span class=" price product-discountPercentage"
+                        >(30% OFF)</span
+                    >
                 </div>
                 <div class="purchase-options">
                     <mat-chip-list selectable="true">
@@ -71,6 +73,58 @@
                     class="description"
                     [innerHTML]="product.description"
                 ></div>
+                <div class="product-details-container">
+                    <h2>
+                        PRODUCT DETAILS
+                        <mat-icon class="material-icons-outlined"
+                            >featured_play_list</mat-icon
+                        >
+                    </h2>
+                    <div>
+                        Warranty :
+                        {{ selectedVariant?.customFields?.warranty }}
+                    </div>
+                    <div>
+                        Packaging :
+                        {{ selectedVariant?.customFields?.packaging }}
+                    </div>
+                    <div>
+                        Delivery Time :
+                        {{ selectedVariant?.customFields?.deliveryTime }}
+                        wokring days
+                    </div>
+                    <div>
+                        Purchase Certificate Required :
+                        {{
+                            selectedVariant?.customFields
+                                ?.purchaseCertificateRequired
+                        }}
+                    </div>
+                </div>
+
+                <div class="product-details-container">
+                    <h2>
+                        Specifications
+                        <mat-icon class="material-icons-outlined"
+                            >info</mat-icon
+                        >
+                    </h2>
+                    <div class="spec-list">
+                        <div
+                            class="spec-box border-bottom mb-2 mr-4 pb-2 "
+                            *ngFor="let spec of keySpecification"
+                        >
+                          
+                                <div>
+                                    {{ spec.key }}
+                                </div>
+                                <div>
+                                    {{ spec.label }}
+                                </div>
+                           
+                        </div>
+                    </div>
+                </div>
                 <div class="delivery-option-container">
                     <h2>
                         DELIVERY OPTIONS

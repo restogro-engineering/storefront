@@ -22,6 +22,14 @@ export const GET_PRODUCT_DETAIL = gql`
                 price
                 priceWithTax
                 sku
+                customFields {
+                    deliveryTime
+                    purchaseCertificateRequired
+                    brand
+                    warranty
+                    packaging
+                    keySpecification
+                  }
             }
             featuredAsset {
                 ...Asset

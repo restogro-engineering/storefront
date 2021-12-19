@@ -159,3 +159,31 @@
         }
     }
 }
+
+.product-details-container {
+    margin-top: 20px;
+    border-top: 1px solid #e9e9eb;
+    padding: 20px 0px;
+    h2 {
+        display: flex;
+        align-items: center;
+        grid-gap: 10px;
+        margin-bottom: 10px;
+    }
+    .spec-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        .spec-box {
+            display: flex;
+            flex-direction: column;
+            grid-gap: 5px;
+            div:nth-child(1) {
+                color: $gray-500;
+            }
+            div:nth-child(2) {
+                color: $gray-800;
+                font-family: "ProximaNova-Bold";
+            }
+        }
+    }
+}

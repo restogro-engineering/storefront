@@ -28,7 +28,8 @@ import {
 export class ProductDetailComponent implements OnInit, OnDestroy {
     product: GetProductDetail.Product;
     selectedAsset: { id: string; preview: string };
-    selectedVariant: GetProductDetail.Variants;
+    selectedVariant: any;
+    keySpecification: any =[];
     wishList: any = [];
     qty = 1;
     breadcrumbs: GetProductDetail.Breadcrumbs[] | null = null;
@@ -70,8 +71,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 this.product = product;
                 if (this.product.featuredAsset) {
                     this.selectedAsset = this.product.featuredAsset;
-                }
-                this.selectedVariant = product.variants[0];
+                }                
+                // this.onVariantSelection(product.variants[0]);
+                this.onVariantSelection(product.variants[0])
                 const collection = this.getMostRelevantCollection(
                     product.collections,
                     lastCollectionSlug
@@ -88,6 +90,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     onVariantSelection(variant: any) {
         this.selectedVariant = variant;
+        try {
+            this.keySpecification = JSON.parse(
+                this.selectedVariant.customFields.keySpecification
+            );
+        } catch (err) {}
     }
 
     addToWishList(variant: GetProductDetail.Variants) {
