@@ -8,14 +8,14 @@
 .customer-address {
     display: inline-block;
     font-size: $font-size-sm;
-    padding: $spacer;
+    padding: 10px 30px;
     margin-right: $spacer;
     margin-bottom: $spacer;
     border-radius: $border-radius;
     cursor: pointer;
     border: 1px solid $gray-200;
     transition: background-color 0.2s;
-
+    width: 100%;
     &:hover {
         background-color: $light;
     }
@@ -33,4 +33,61 @@
 }
 ::ng-deep .mat-form-field-outline-start {
     border-radius: 0px !important;
+}
+
+.shipping-container {
+    display: flex;
+    .steps-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 600px;
+        flex-direction: column;
+        .step {
+            font-size: 18px;
+            font-family: "ProximaNova-Bold";
+        }
+        .step::before {
+            content: "";
+            border: 1px solid gray;
+            font-weight: bold;
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .line {
+            width: 1px;
+            border-right: 1px dotted #0c96a0;
+            margin: 0 4px;
+            min-height: 60px;
+        }
+        .active::before {
+            background-color: #0c96a0;
+        }
+    }
+    .selected {
+        background-color: gray;
+    }
+}
+.customer-details-form {
+    .d-row {
+        display: flex;
+        grid-gap: 20px;
+    }
+    input {
+        width: 340px;
+    }
+    .btns-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+    input[type="date"]:before {
+        content: attr(placeholder) !important;
+        color: #aaa;
+        margin-right: 0.5em;
+    }
+    input[type="date"]:focus:before,
+    input[type="date"]:valid:before {
+        content: "";
+    }
 }

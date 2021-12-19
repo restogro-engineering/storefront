@@ -56,7 +56,8 @@ export type AddressFormValue = Pick<
 })
 export class CheckoutShippingComponent implements OnInit {
     @ViewChild("addressForm") addressForm: AddressFormComponent;
-
+    selectedDeliveryAddress: any;
+    selectedBillingAddress: any;
     customerAddresses$: Observable<Address.Fragment[]>;
     availableCountries$: Observable<GetAvailableCountries.AvailableCountries[]>;
     eligibleShippingMethods$: Observable<
@@ -66,6 +67,7 @@ export class CheckoutShippingComponent implements OnInit {
         GetShippingAddress.ShippingAddress | null | undefined
     >;
     signedIn$: Observable<boolean>;
+    sameAsDelivery: boolean = false;
     shippingMethodId: string | undefined;
     step:
         | "selectAddress"
@@ -140,10 +142,21 @@ export class CheckoutShippingComponent implements OnInit {
             address.company,
             address.streetLine1,
             address.streetLine2,
-            address.province,
-            address.postalCode,
-            address.country.name
+            address.province +
+                " " +
+                address.country.name +
+                " " +
+                address.postalCode
         ].filter(notNullOrUndefined);
+    }
+
+    onCheckBoxChange() {
+        if (!this.sameAsDelivery) {
+            this.selectedBillingAddress = this.selectedDeliveryAddress;            
+        } else {
+            this.selectedBillingAddress = null;
+        }
+        this.sameAsDelivery = !this.sameAsDelivery;
     }
 
     createAddress() {
@@ -175,6 +188,7 @@ export class CheckoutShippingComponent implements OnInit {
     }
 
     setCustomerDetails() {
+        this.step = "editAddress";
         this.addressForm.addressForm.patchValue({
             fullName: `${this.firstName} ${this.lastName}`
         });
@@ -182,6 +196,10 @@ export class CheckoutShippingComponent implements OnInit {
     }
 
     setShippingAddress(value: AddressFormValue | Address.Fragment) {
+        this.selectedDeliveryAddress = value;
+    }
+
+    deliverHere(value: AddressFormValue | Address.Fragment) {
         const input = this.valueToAddressInput(value);
         this.dataService
             .mutate<SetShippingAddress.Mutation, SetShippingAddress.Variables>(
@@ -203,6 +221,10 @@ export class CheckoutShippingComponent implements OnInit {
     }
 
     setBillingAddress(value: AddressFormValue | Address.Fragment) {
+        this.selectedBillingAddress = value;
+    }
+
+    billingHere(value: AddressFormValue | Address.Fragment) {
         const input = this.valueToAddressInput(value);
         this.dataService
             .mutate<SetShippingAddress.Mutation, SetShippingAddress.Variables>(

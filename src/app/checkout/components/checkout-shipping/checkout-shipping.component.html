@@ -1,26 +1,117 @@
-<div class="accordion">
-    <div
-        class="card"
-        *ngIf="(signedIn$ | async) && (customerAddresses$ | async)?.length"
-    >
-        <div class="card-header">
-            <button class="btn btn-light" (click)="step = 'selectAddress'">
-                Select Delivery Address
-            </button>
+<div class="shipping-container">
+    <div class="steps-container">
+        <div
+            class="step"
+            [class.active]="step === 'customerDetails'"
+            *ngIf="!(signedIn$ | async)"
+        >
+            Customer Details {{ step }}
         </div>
-        <div class="card-body collapse" [class.show]="step === 'selectAddress'">
-            <div class="d-flex flex-wrap">
+        <div class="border-left ml-1" *ngIf="!(signedIn$ | async)">
+            <div *ngIf="step === 'customerDetails'">
+                <form
+                    #customerForm="ngForm"
+                    class="customer-details-form pl-4 pt-4"
+                >
+                    <div class="d-row pb-2">
+                        <input
+                            class="form-control"
+                            placeholder="First Name"
+                            name="firstName"
+                            [(ngModel)]="firstName"
+                            required
+                        />
+                        <input
+                            class="form-control"
+                            placeholder="Last Name"
+                            name="lastName"
+                            [(ngModel)]="lastName"
+                            required
+                        />
+                    </div>
+                    <div class="d-row pb-2">
+                        <input
+                            class="form-control"
+                            placeholder="Email Address"
+                            name="emailAddress"
+                            [(ngModel)]="emailAddress"
+                            required
+                        />
+                        <input
+                            type="date"
+                            class="form-control"
+                            placeholder="Date of birth"
+                            name="emailAddress"
+                            [(ngModel)]="dateofbirth"
+                            (onfocus)="this.type = 'date'"
+                            (onblur)="this.type = 'text'"
+                            required
+                        />
+                    </div>
+                    <div class="d-row pb-2">
+                        <input
+                            class="form-control"
+                            placeholder="Company name"
+                            name="companyName"
+                            [(ngModel)]="companyName"
+                        />
+                        <input
+                            class="form-control"
+                            placeholder="Profession"
+                            name="profession"
+                            [(ngModel)]="profession"
+                        />
+                    </div>
+                    <div class="btns-container">
+                        <button
+                            class="btn btn-primary mt-3"
+                            [disabled]="customerForm.invalid"
+                            (click)="setCustomerDetails()"
+                        >
+                            Next
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div
+            class="step"
+            [class.active]="step === 'selectAddress' || step === 'editAddress'"
+        >
+            DELIVERY ADDRESS
+        </div>
+        <div class="section-container border-left ml-1 pt-4">
+            <div class="ml-4" *ngIf="step === 'selectAddress'">
                 <div
                     class="customer-address"
                     *ngFor="let address of customerAddresses$ | async"
                     (click)="setShippingAddress(address)"
                 >
-                    <div
-                        class="address-line"
-                        *ngFor="let line of getLines(address)"
-                    >
-                        {{ line }}
+                    <div>
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            [checked]="
+                                address.id === selectedDeliveryAddress?.id
+                            "
+                        />
                     </div>
+                    <div>
+                        <div
+                            class="address-line"
+                            *ngFor="let line of getLines(address)"
+                        >
+                            {{ line }}
+                        </div>
+                    </div>
+
+                    <button
+                        [hidden]="address.id !== selectedDeliveryAddress?.id"
+                        class="btn btn-primary mt-2"
+                        (click)="deliverHere(address)"
+                    >
+                        Deliver here
+                    </button>
                 </div>
                 <div class="d-flex align-items-end ml-3 mb-3">
                     <button class="btn btn-secondary" (click)="createAddress()">
@@ -28,214 +119,119 @@
                     </button>
                 </div>
             </div>
+            <div class="ml-4" *ngIf="step === 'editAddress'">
+                <vsf-address-form
+                    #addressForm
+                    [address]="shippingAddress$ | async"
+                    [availableCountries]="availableCountries$ | async"
+                ></vsf-address-form>
+                <button
+                    class="btn btn-secondary mt-3"
+                    [disabled]="addressForm.addressForm.invalid"
+                    (click)="setShippingAddress(addressForm.addressForm.value)"
+                >
+                    Send to this address
+                </button>
+            </div>
         </div>
-    </div>
-    <div
-        class="card"
-        *ngIf="(signedIn$ | async) && (customerAddresses$ | async)?.length"
-    >
-        <div class="card-header">
-            <button
-                class="btn btn-light"
-                (click)="step = 'selectBillingAddress'"
-            >
-                Select Billing Address
-            </button>
+
+        <div
+            class="step"
+            [class.active]="step === 'selectBillingAddress'"
+            (click)="step = 'selectBillingAddress'"
+        >
+            BILLING ADDRESS
+        </div>
+        <div class="section-container border-left ml-1 pt-4">
+            <div class="ml-4" *ngIf="step === 'selectBillingAddress'">
+                <div>
+                    <label>
+                        <input
+                            type="checkbox"
+                            [checked]="sameAsDelivery"
+                            (change)="onCheckBoxChange()"
+                        />
+                        <span class="pl-2">Same as delivery address</span>
+                    </label>
+                </div>
+                <div>
+                    <div
+                        class="customer-address "
+                        *ngFor="let address of customerAddresses$ | async"
+                        (click)="setBillingAddress(address)"
+                    >
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            [checked]="
+                                address.id === selectedBillingAddress?.id
+                            "
+                        />
+                        <div
+                            class="address-line"
+                            *ngFor="let line of getLines(address)"
+                        >
+                            {{ line }}
+                        </div>
+
+                        <button
+                            [hidden]="address.id !== selectedBillingAddress?.id"
+                            class="btn btn-primary mt-2"
+                            (click)="billingHere(address)"
+                        >
+                            Send Bill here
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-end ml-3 mb-3">
+                    <button class="btn btn-secondary" (click)="createAddress()">
+                        Add new address
+                    </button>
+                </div>
+            </div>
         </div>
         <div
-            class="card-body collapse"
-            [class.show]="step === 'selectBillingAddress'"
+            class="step"
+            [class.active]="step === 'selectMethod'"
+            (click)="step = 'selectMethod'"
         >
-            <div class="d-flex flex-wrap">
+            Shipping Method
+        </div>
+        <div
+            class="section-container border-left ml-1 pt-4"
+            *ngIf="step === 'selectMethod'"
+        >
+            <div class="ml-4" *ngIf="step === 'selectMethod'">
                 <div
-                    class="customer-address"
-                    *ngFor="let address of customerAddresses$ | async"
-                    (click)="setBillingAddress(address)"
+                    class="form-check"
+                    *ngFor="let method of eligibleShippingMethods$ | async"
                 >
-                    <div
-                        class="address-line"
-                        *ngFor="let line of getLines(address)"
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        [(ngModel)]="shippingMethodId"
+                        [value]="method.id"
+                        [id]="method.id"
+                    />
+                    <label
+                        class="form-check-label shipping-method"
+                        [for]="method.id"
                     >
-                        {{ line }}
-                    </div>
+                        <div class="description">{{ method.name }}</div>
+                        <div class="price">
+                            {{ method.priceWithTax | formatPrice }}
+                        </div>
+                    </label>
                 </div>
-                <div class="d-flex align-items-end ml-3 mb-3">
-                    <button class="btn btn-secondary" (click)="createAddress()">
-                        Add new address
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card" *ngIf="!(signedIn$ | async)">
-        <div class="card-header">
-            <button class="btn btn-light" (click)="step = 'customerDetails'">
-                Customer Details
-            </button>
-        </div>
-        <div
-            class="card-body collapse"
-            [class.show]="step === 'customerDetails'"
-        >
-            <form #customerForm="ngForm" class="customer-details-form">
-                <div class="d-lg-flex mb-2">
-                    <input
-                        class="form-control mr-2"
-                        placeholder="First Name"
-                        name="firstName"
-                        [(ngModel)]="firstName"
-                        required
-                    />
-                    <input
-                        class="form-control mr-2"
-                        placeholder="Last Name"
-                        name="lastName"
-                        [(ngModel)]="lastName"
-                        required
-                    />
-                    <input
-                        class="form-control"
-                        placeholder="Email Address"
-                        name="emailAddress"
-                        [(ngModel)]="emailAddress"
-                        required
-                    />
-                </div>
-                <div class="d-lg-flex" style="font-size: 9.5px">
-                    <input
-                        class="form-control mr-2"
-                        placeholder="Company name"
-                        name="companyName"
-                        [(ngModel)]="companyName"
-                    />
-
-                    <mat-form-field appearance="outline" size="small" class="mr-2 mt-0"  [style.width.px]=327>
-                        <mat-label>Date of birth</mat-label>
-                        <input type="date" matInput [(ngModel)]="dateofbirth" />
-                    </mat-form-field>
-                    <input
-                        class="form-control"
-                        placeholder="Profession"
-                        name="profession"
-                        [(ngModel)]="profession"
-                    />
-                </div>
-            </form>
-
-            <button
-                class="btn btn-secondary mt-3"
-                [disabled]="customerForm.invalid"
-                (click)="setCustomerDetails()"
-            >
-                Next
-            </button>
-        </div>
-    </div>
-    <div
-        class="card"
-        *ngIf="
-            !(signedIn$ | async) || (customerAddresses$ | async)?.length === 0
-        "
-    >
-        <div class="card-header">
-            <button
-                class="btn btn-light"
-                [disabled]="step === 'customerDetails'"
-                (click)="step = 'editAddress'"
-            >
-                Shipping Address
-            </button>
-        </div>
-        <div class="card-body collapse" [class.show]="step === 'editAddress'">
-            <vsf-address-form
-                #addressForm
-                [address]="shippingAddress$ | async"
-                [availableCountries]="availableCountries$ | async"
-            ></vsf-address-form>
-            <button
-                class="btn btn-secondary mt-3"
-                [disabled]="addressForm.addressForm.invalid"
-                (click)="setShippingAddress(addressForm.addressForm.value)"
-            >
-                Send to this address
-            </button>
-        </div>
-    </div>
-    <div
-        class="card"
-        *ngIf="
-            !(signedIn$ | async) || (customerAddresses$ | async)?.length === 0
-        "
-    >
-        <div class="card-header">
-            <button
-                class="btn btn-light"
-                [disabled]="step === 'customerDetails'"
-                (click)="step = 'editBillingAddress'"
-            >
-                Billing Address
-            </button>
-        </div>
-        <div
-            class="card-body collapse"
-            [class.show]="step === 'editBillingAddress'"
-        >
-            <vsf-address-form
-                #addressForm
-                [address]="shippingAddress$ | async"
-                [availableCountries]="availableCountries$ | async"
-            ></vsf-address-form>
-            <button
-                class="btn btn-secondary mt-3"
-                [disabled]="addressForm.addressForm.invalid"
-                (click)="setBillingAddress(addressForm.addressForm.value)"
-            >
-                Send to this address
-            </button>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <button
-                class="btn btn-light"
-                [disabled]="
-                    step !== 'selectMethod' ||
-                    (eligibleShippingMethods$ | async)?.length === 0
-                "
-                (click)="step = 'selectMethod'"
-            >
-                Shipping Method
-            </button>
-        </div>
-        <div class="card-body collapse" [class.show]="step === 'selectMethod'">
-            <div
-                class="form-check"
-                *ngFor="let method of eligibleShippingMethods$ | async"
-            >
-                <input
-                    class="form-check-input"
-                    type="radio"
-                    [(ngModel)]="shippingMethodId"
-                    [value]="method.id"
-                    [id]="method.id"
-                />
-                <label
-                    class="form-check-label shipping-method"
-                    [for]="method.id"
+                <button
+                    class="btn btn-secondary mt-3"
+                    [disabled]="!shippingMethodId"
+                    (click)="proceedToPayment()"
                 >
-                    <div class="description">{{ method.name }}</div>
-                    <div class="price">
-                        {{ method.priceWithTax | formatPrice }}
-                    </div>
-                </label>
+                    Proceed to payment
+                </button>
             </div>
-            <button
-                class="btn btn-secondary mt-3"
-                [disabled]="!shippingMethodId"
-                (click)="proceedToPayment()"
-            >
-                Proceed to payment
-            </button>
         </div>
     </div>
 </div>
