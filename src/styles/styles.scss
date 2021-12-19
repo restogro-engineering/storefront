@@ -3,6 +3,16 @@
 
 @import "variables";
 
+@font-face {
+    font-family: "ProximaNovaAltLight-Regular";
+    src: url("../assets/fonts/ProximaNovaAltLight.otf") format("truetype");
+}
+
+@font-face {
+    font-family: "ProximaNova-Bold";
+    src: url("../assets/fonts/ProximaNovaFont.otf") format("truetype");
+}
+
 .loading-placeholder {
     position: relative;
     overflow: hidden;
@@ -38,5 +48,11 @@ img[data-zoom] {
     box-shadow: $box-shadow-lg;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: "ProximaNovaAltLight-Regular" !important
+}
