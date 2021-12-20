@@ -1,8 +1,27 @@
-<div class="input-group">
-    <input type="text"
-           [formControl]="searchTerm"
-           (keydown.enter)="doSearch(searchTerm.value)"
-           class="form-control"
-           placeholder="Search..."
-           aria-label="Search input">
+<div class="search-container">
+    <section class="filter-wrapper">
+        <div class="keyword-wrapper">
+            <input
+                type="text"
+                id="keyword"
+                [formControl]="searchTerm"
+                (keydown.enter)="doSearch(searchTerm.value)"
+                class="form-control"
+                placeholder="Search..."
+                aria-label="Search input"
+            />
+        </div>
+
+        <ul class="filter-select">
+            <li
+                *ngFor="let result of results"
+                class="filter-select-list"
+                width="50"
+                height="50"
+                (click)="doSearch(result)"
+            >
+                {{ result }}
+            </li>
+        </ul>
+    </section>
 </div>
