@@ -41,6 +41,7 @@
         display: flex;
         flex-wrap: wrap;
         max-height: 600px;
+        min-width: 600px;
         flex-direction: column;
         .step {
             font-size: 18px;
@@ -64,6 +65,12 @@
         .active::before {
             background-color: #0c96a0;
         }
+        .active {
+            color: #0c96a0;
+        }
+    }
+    .section-container{
+        max-width: 600px;
     }
     .selected {
         background-color: gray;
@@ -75,7 +82,7 @@
         grid-gap: 20px;
     }
     input {
-        width: 340px;
+        width: 270px;
     }
     .btns-container {
         display: flex;

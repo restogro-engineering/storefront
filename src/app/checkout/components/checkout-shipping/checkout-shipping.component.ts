@@ -40,7 +40,8 @@ import {
     SET_SHIPPING_ADDRESS,
     SET_SHIPPING_METHOD,
     TRANSITION_TO_ARRANGING_PAYMENT,
-    SET_BIlLLING_ADDRESS
+    SET_BIlLLING_ADDRESS,
+    GET_BILLING_ADDRESS
 } from "./checkout-shipping.graphql";
 
 export type AddressFormValue = Pick<
@@ -64,6 +65,9 @@ export class CheckoutShippingComponent implements OnInit {
         GetEligibleShippingMethods.EligibleShippingMethods[]
     >;
     shippingAddress$: Observable<
+        GetShippingAddress.ShippingAddress | null | undefined
+    >;
+    billingAddress$: Observable<
         GetShippingAddress.ShippingAddress | null | undefined
     >;
     signedIn$: Observable<boolean>;
@@ -117,6 +121,12 @@ export class CheckoutShippingComponent implements OnInit {
                     data => data.activeOrder && data.activeOrder.shippingAddress
                 )
             );
+        this.billingAddress$ = this.dataService
+            .query<any>(GET_BILLING_ADDRESS)
+            .pipe(
+                map(data => data.activeOrder && data.activeOrder.billingAddress)
+            );
+
         this.eligibleShippingMethods$ = this.shippingAddress$.pipe(
             switchMap(() =>
                 this.dataService.query<GetEligibleShippingMethods.Query>(
@@ -125,6 +135,7 @@ export class CheckoutShippingComponent implements OnInit {
             ),
             map(data => data.eligibleShippingMethods)
         );
+        
         combineLatest(this.signedIn$, this.customerAddresses$)
             .pipe(take(1))
             .subscribe(([signedIn, addresses]) => {
@@ -152,7 +163,7 @@ export class CheckoutShippingComponent implements OnInit {
 
     onCheckBoxChange() {
         if (!this.sameAsDelivery) {
-            this.selectedBillingAddress = this.selectedDeliveryAddress;            
+            this.selectedBillingAddress = this.selectedDeliveryAddress;
         } else {
             this.selectedBillingAddress = null;
         }
@@ -192,7 +203,6 @@ export class CheckoutShippingComponent implements OnInit {
         this.addressForm.addressForm.patchValue({
             fullName: `${this.firstName} ${this.lastName}`
         });
-        this.step = "editAddress";
     }
 
     setShippingAddress(value: AddressFormValue | Address.Fragment) {

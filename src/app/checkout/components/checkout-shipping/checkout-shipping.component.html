@@ -1,18 +1,15 @@
 <div class="shipping-container">
-    <div class="steps-container">
+    <div class="steps-container" *ngIf="!(signedIn$ | async)">
         <div
             class="step"
             [class.active]="step === 'customerDetails'"
-            *ngIf="!(signedIn$ | async)"
+            (click)="(step == 'customerDetails')"
         >
-            Customer Details {{ step }}
+            CUSTOMER DETAILS
         </div>
-        <div class="border-left ml-1" *ngIf="!(signedIn$ | async)">
-            <div *ngIf="step === 'customerDetails'">
-                <form
-                    #customerForm="ngForm"
-                    class="customer-details-form pl-4 pt-4"
-                >
+        <div class="border-left ml-1 section-container border-left ml-1 pb-4">
+            <div *ngIf="step === 'customerDetails'" class="pt-4">
+                <form #customerForm="ngForm" class="customer-details-form pl-4">
                     <div class="d-row pb-2">
                         <input
                             class="form-control"
@@ -76,12 +73,145 @@
         </div>
         <div
             class="step"
-            [class.active]="step === 'selectAddress' || step === 'editAddress'"
+            [class.active]="step === 'editAddress'"
+            (click)="step = 'editAddress'"
         >
             DELIVERY ADDRESS
         </div>
+        <div class="section-container border-left ml-1 pb-4">
+            <div class="ml-4 pt-4" [hidden]="step !== 'editAddress'">
+                <vsf-address-form
+                    #addressForm
+                    [address]="shippingAddress$ | async"
+                    [availableCountries]="availableCountries$ | async"
+                ></vsf-address-form>
+                <div class="d-flex justify-content-end mt-3">
+                    <button
+                        class="btn btn-primary"
+                        [disabled]="addressForm.addressForm.invalid"
+                        (click)="deliverHere(addressForm.addressForm.value)"
+                    >
+                        Send to this address
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="step"
+            [class.active]="step === 'editBillingAddress'"
+            (click)="step = 'editBillingAddress'"
+        >
+            BILLING ADDRESS
+        </div>
         <div class="section-container border-left ml-1 pt-4">
-            <div class="ml-4" *ngIf="step === 'selectAddress'">
+            <div class="ml-4" *ngIf="step === 'editBillingAddress'">
+                <div>
+                    <label>
+                        <input
+                            type="checkbox"
+                            [checked]="sameAsDelivery"
+                            (change)="onCheckBoxChange()"
+                        />
+                        <span class="pl-2">Same as delivery address</span>
+                    </label>
+                </div>
+                <div>
+                    <vsf-address-form
+                        #billingAddressForm
+                        [address]="billingAddress$ | async"
+                        [availableCountries]="availableCountries$ | async"
+                        [hidden]="sameAsDelivery"
+                    ></vsf-address-form>
+                    <vsf-address-form
+                        #billingAddressForm2
+                        [address]="shippingAddress$ | async"
+                        [availableCountries]="availableCountries$ | async"
+                        [hidden]="!sameAsDelivery"
+                    ></vsf-address-form>
+                    <div class="d-flex justify-content-end pb-4">
+                        <button
+                            [hidden]="sameAsDelivery"
+                            class="btn btn-primary mt-3"
+                            [disabled]="billingAddressForm.addressForm.invalid"
+                            (click)="
+                                billingHere(
+                                    billingAddressForm.addressForm.value
+                                )
+                            "
+                        >
+                            Billing address
+                        </button>
+                        <button
+                            [hidden]="!sameAsDelivery"
+                            class="btn btn-primary mt-3"
+                            [disabled]="billingAddressForm2.addressForm.invalid"
+                            (click)="
+                                billingHere(
+                                    billingAddressForm2.addressForm.value
+                                )
+                            "
+                        >
+                            Billing address
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="step"
+            [class.active]="step === 'selectMethod'"
+            (click)="step = 'selectMethod'"
+        >
+            Shipping Method
+        </div>
+        <div
+            class="section-container border-left ml-1 pt-4"
+            *ngIf="step === 'selectMethod'"
+        >
+            <div class="ml-4" *ngIf="step === 'selectMethod'">
+                <div
+                    class="form-check"
+                    *ngFor="let method of eligibleShippingMethods$ | async"
+                >
+                    <input
+                        class="form-check-input"
+                        type="radio"
+                        [(ngModel)]="shippingMethodId"
+                        [value]="method.id"
+                        [id]="method.id"
+                    />
+                    <label
+                        class="form-check-label shipping-method"
+                        [for]="method.id"
+                    >
+                        <div class="description">{{ method.name }}</div>
+                        <div class="price">
+                            {{ method.priceWithTax | formatPrice }}
+                        </div>
+                    </label>
+                </div>
+                <button
+                    class="btn btn-primary mt-3"
+                    [disabled]="!shippingMethodId"
+                    (click)="proceedToPayment()"
+                >
+                    Proceed to payment
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="steps-container" *ngIf="signedIn$ | async">
+        <div
+            class="step"
+            [class.active]="step === 'selectAddress'"
+            (click)="step = 'selectAddress'"
+        >
+            DELIVERY ADDRESS
+        </div>
+        <div class="section-container border-left ml-1 pb-4" >
+            <div class="ml-4 pt-4" *ngIf="step === 'selectAddress'">
                 <div
                     class="customer-address"
                     *ngFor="let address of customerAddresses$ | async"
@@ -113,25 +243,11 @@
                         Deliver here
                     </button>
                 </div>
-                <div class="d-flex align-items-end ml-3 mb-3">
-                    <button class="btn btn-secondary" (click)="createAddress()">
+                <div class="d-flex align-items-end justify-content-end">
+                    <button class="btn btn-primary" (click)="createAddress()">
                         Add new address
                     </button>
                 </div>
-            </div>
-            <div class="ml-4" *ngIf="step === 'editAddress'">
-                <vsf-address-form
-                    #addressForm
-                    [address]="shippingAddress$ | async"
-                    [availableCountries]="availableCountries$ | async"
-                ></vsf-address-form>
-                <button
-                    class="btn btn-secondary mt-3"
-                    [disabled]="addressForm.addressForm.invalid"
-                    (click)="setShippingAddress(addressForm.addressForm.value)"
-                >
-                    Send to this address
-                </button>
             </div>
         </div>
 
@@ -142,8 +258,8 @@
         >
             BILLING ADDRESS
         </div>
-        <div class="section-container border-left ml-1 pt-4">
-            <div class="ml-4" *ngIf="step === 'selectBillingAddress'">
+        <div class="section-container border-left ml-1 pb-4" >
+            <div class="ml-4  pt-4"  *ngIf="step === 'selectBillingAddress'">
                 <div>
                     <label>
                         <input
@@ -184,8 +300,8 @@
                     </div>
                 </div>
 
-                <div class="d-flex align-items-end ml-3 mb-3">
-                    <button class="btn btn-secondary" (click)="createAddress()">
+                <div class="d-flex align-items-end justify-content-end">
+                    <button class="btn btn-primary" (click)="createAddress()">
                         Add new address
                     </button>
                 </div>
@@ -196,13 +312,10 @@
             [class.active]="step === 'selectMethod'"
             (click)="step = 'selectMethod'"
         >
-            Shipping Method
+            SHIPPING METHOD
         </div>
-        <div
-            class="section-container border-left ml-1 pt-4"
-            *ngIf="step === 'selectMethod'"
-        >
-            <div class="ml-4" *ngIf="step === 'selectMethod'">
+        <div class="section-container border-left ml-1 pt-4" *ngIf="step === 'selectMethod'">
+            <div class="ml-4">
                 <div
                     class="form-check"
                     *ngFor="let method of eligibleShippingMethods$ | async"
@@ -225,7 +338,7 @@
                     </label>
                 </div>
                 <button
-                    class="btn btn-secondary mt-3"
+                    class="btn btn-primary mt-3"
                     [disabled]="!shippingMethodId"
                     (click)="proceedToPayment()"
                 >

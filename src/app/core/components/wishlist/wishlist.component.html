@@ -75,7 +75,7 @@
             <img
                 class=""
                 [src]="
-                    (variant.featuredAsset?.preview ||
+                    (getSelectedVariants().featuredAsset?.preview ||
                         product.featuredAsset?.preview) + '?preset=tiny'
                 "
                 alt="product thumbnail"

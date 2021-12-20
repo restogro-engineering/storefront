@@ -26,7 +26,7 @@ export class WishListComponent implements OnInit {
     @Output() toggle = new EventEmitter<void>();
     wishListItems$: Observable<{ total: number; quantity: number }>;    
     faWindowClose = faWindowClose;
-
+    
     @ViewChild("addedToCartTemplate", { static: true })
     private addToCartTemplate: TemplateRef<any>;
 

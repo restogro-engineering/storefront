@@ -15,6 +15,19 @@ export const GET_SHIPPING_ADDRESS = gql`
     ${ORDER_ADDRESS_FRAGMENT}
 `;
 
+export const GET_BILLING_ADDRESS = gql`
+    query GetShippingAddress {
+        activeOrder {
+            id
+            billingAddress {
+                ...OrderAddress
+            }
+        }
+    }
+    ${ORDER_ADDRESS_FRAGMENT}
+`;
+
+
 export const SET_SHIPPING_ADDRESS = gql`
     mutation SetShippingAddress($input: CreateAddressInput!) {
         setOrderShippingAddress(input: $input) {

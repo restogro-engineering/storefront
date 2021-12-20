@@ -15,14 +15,11 @@
     }
 }
 
-.main {
-    flex: 1;
-    margin-right: $spacer;
-}
-
-.summary {
-    min-width: 300px;
-    margin-left: $spacer;
+.checkout-body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    grid-gap: 20px;
 }
 
 
