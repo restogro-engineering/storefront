@@ -210,7 +210,7 @@
         >
             DELIVERY ADDRESS
         </div>
-        <div class="section-container border-left ml-1 pb-4" >
+        <div class="section-container border-left ml-1 pb-4">
             <div class="ml-4 pt-4" *ngIf="step === 'selectAddress'">
                 <div
                     class="customer-address"
@@ -258,8 +258,8 @@
         >
             BILLING ADDRESS
         </div>
-        <div class="section-container border-left ml-1 pb-4" >
-            <div class="ml-4  pt-4"  *ngIf="step === 'selectBillingAddress'">
+        <div class="section-container border-left ml-1 pb-4">
+            <div class="ml-4  pt-4" *ngIf="step === 'selectBillingAddress'">
                 <div>
                     <label>
                         <input
@@ -314,7 +314,10 @@
         >
             SHIPPING METHOD
         </div>
-        <div class="section-container border-left ml-1 pt-4" *ngIf="step === 'selectMethod'">
+        <div
+            class="section-container border-left ml-1 pt-4"
+            *ngIf="step === 'selectMethod'"
+        >
             <div class="ml-4">
                 <div
                     class="form-check"

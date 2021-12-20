@@ -26,6 +26,7 @@ import { FormatPricePipe } from './pipes/format-price.pipe';
 import { ProductUrlPipe } from './pipes/product-url.pipe';
 import { RatingModule } from 'ng-starrating';
 import {MatIconModule} from '@angular/material/icon';
+import { SignInV2Component } from './components/sign-in-v2/sign-in-v2.component';
 
 const SHARED_DECLARATIONS = [
     CartContentsComponent,
@@ -46,6 +47,7 @@ const SHARED_DECLARATIONS = [
     FormatPricePipe,
     ProductUrlPipe,
     AssetPreviewPipe,
+    SignInV2Component
 ];
 
 const IMPORTS = [

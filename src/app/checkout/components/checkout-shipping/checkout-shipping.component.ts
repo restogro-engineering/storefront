@@ -135,15 +135,11 @@ export class CheckoutShippingComponent implements OnInit {
             ),
             map(data => data.eligibleShippingMethods)
         );
-        
+
         combineLatest(this.signedIn$, this.customerAddresses$)
             .pipe(take(1))
-            .subscribe(([signedIn, addresses]) => {
-                this.step = signedIn
-                    ? addresses.length
-                        ? "selectAddress"
-                        : "editAddress"
-                    : "customerDetails";
+            .subscribe(([signedIn, addresses]) => {                
+                this.step = signedIn ? "selectAddress" : "customerDetails";
             });
     }
 
