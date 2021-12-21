@@ -30,6 +30,7 @@ export class SignInComponent {
     rememberMe = false;
     invalidCredentials = false;
     sentOTP: boolean = false;
+    resentCount=0;
 
     constructor(
         private dataService: DataService,
@@ -77,7 +78,9 @@ export class SignInComponent {
             });
     }
 
-    reSendOTP() {
+    reSendOTP() { 
+        this.resentCount++;
+        this.sentOTP = false;       
         this.getOTP();
     }
 
