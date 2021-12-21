@@ -65,7 +65,7 @@
     </vsf-centered-card>
 </form>
 
-<form #signInForm="ngForm" (submit)="getOTP()">
+<form #signInOTPForm="ngForm" (submit)="getOTP()">
     <vsf-centered-card *ngIf="!nativeAuth">
         <input
             class="form-control"
@@ -81,8 +81,7 @@
             class="form-control"
             placeholder="Enter OTP"
             name="otp"
-            type="number"
-            number
+            type="number"            
             required
             *ngIf="sentOTP"
             [(ngModel)]="userOtp"
@@ -96,8 +95,8 @@
             Get OTP 
         </button>        
         <button
-            class="btn btn-primary btn-block mt-3"
-            [disabled]="signInForm.invalid || signInForm.pristine"
+            class="btn btn-primary btn-block mt-3"            
+            [disabled]="signInOTPForm.invalid || signInOTPForm.pristine"
             type="submit"
             *ngIf="sentOTP"
         >
