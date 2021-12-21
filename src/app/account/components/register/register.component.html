@@ -31,8 +31,6 @@
             class="form-control mt-1"
             placeholder="organization"
             name="companyName"
-            required
-            email
             [disabled]="registrationSent"
             [(ngModel)]="companyName"
         />
@@ -41,31 +39,24 @@
             class="form-control mt-1"
             placeholder="Profession"
             name="profession"
-            required
-            email
             [disabled]="registrationSent"
             [(ngModel)]="profession"
         />
-        <div style="font-size: 9.5px" class="mt-1">
-            <mat-form-field
-                appearance="outline"
-                size="small"
-                class="mr-2 mt-0"
-                [style.width.px]="358"
-                [style.height.px]="40"
-            >
-                <mat-label>Date of birth</mat-label>
-                <input type="date" matInput [(ngModel)]="dateofbirth" />
-            </mat-form-field>
-        </div>
+        <input
+            class="form-control mt-1"
+            placeholder="Profession"
+            name="dateofbirth"
+            type="date"            
+            [disabled]="registrationSent"
+            [(ngModel)]="dateofbirth"
+        />
 
         <input
             class="form-control mt-1"
             placeholder="PhoneNumber"
             name="phoneNumber"
             required
-            type="number"
-            email
+            type="number"            
             [disabled]="registrationSent"
             [(ngModel)]="phoneNumber"
         />
@@ -73,10 +64,8 @@
         <input
             class="form-control mt-1"
             placeholder="Alternate PhoneNumber"
-            name="alternatePhoneNumber"
-            required
-            type="number"
-            email
+            name="alternatePhoneNumber"            
+            type="number"            
             [disabled]="registrationSent"
             [(ngModel)]="alternatePhoneNumber"
         />
@@ -84,9 +73,7 @@
         <input
             class="form-control mt-1"
             placeholder="Company Website"
-            name="companyWebsite"
-            required
-            email
+            name="companyWebsite"            
             [disabled]="registrationSent"
             [(ngModel)]="companyWebsite"
         />
@@ -98,7 +85,7 @@
                 [style.height.px]="40"
             >
                 <mat-label>Gender</mat-label>
-                <mat-select formControlName="gender">
+                <mat-select [(ngModel)]="gender" name="gender">
                     <mat-option value="Male">
                         Male
                     </mat-option>

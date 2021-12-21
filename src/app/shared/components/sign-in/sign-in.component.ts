@@ -36,16 +36,15 @@ export class SignInComponent {
         private stateService: StateService,
         private router: Router,
         private changeDetector: ChangeDetectorRef
-    ) {        
-    }
+    ) {}
 
-    signIn() {        
+    signIn() {
         let payload = {};
         if (this.sentOTP) {
             payload = {
                 sms: {
                     phoneNumber: "+91 " + this.mobileNumber,
-                    otp: this.userOtp
+                    otp: `${this.userOtp}`
                 }
             };
         } else {
@@ -78,7 +77,7 @@ export class SignInComponent {
             });
     }
 
-    reSendOTP() {        
+    reSendOTP() {
         this.getOTP();
     }
 
@@ -95,7 +94,7 @@ export class SignInComponent {
         return false;
     }
 
-    getOTP() {        
+    getOTP() {
         if (this.sentOTP) {
             this.signIn();
             return;
@@ -108,7 +107,6 @@ export class SignInComponent {
             })
             .subscribe(({ sendOTP }) => {
                 if (sendOTP.success) {
-                    
                 }
             });
     }

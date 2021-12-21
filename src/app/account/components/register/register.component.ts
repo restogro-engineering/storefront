@@ -34,7 +34,7 @@ export class RegisterComponent {
         private changeDetector: ChangeDetectorRef
     ) {}
 
-    register() {
+    register() {        
         this.dataService
             .mutate<Register.Mutation, Register.Variables>(REGISTER, {
                 input: {
