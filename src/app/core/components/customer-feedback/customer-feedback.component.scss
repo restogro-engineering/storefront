@@ -1,0 +1,34 @@
+@import "variables";
+
+:host {
+    display: block;
+    margin: 0 $spacer;
+}
+
+.top-brand-title {
+    border-radius: 4px;
+}
+
+.text-banner-title {
+    text-transform: uppercase;
+    font-family: "ProximaNova-Bold";
+    color: #3e4152;
+    letter-spacing: 0.15em;
+    font-size: 1.8em;
+    margin: 50px 0 30px 30px;
+    max-height: 5em;
+    font-weight: 500;
+}
+.customer-feedback-list {
+    display: flex;
+    grid-gap: 20px;
+    overflow: scroll;
+    justify-content: center;
+    .customer-feedback {
+        background-color: #fff;
+        border-bottom: 1px solid #e9ecef;
+        box-shadow: 4px 4px 12px 4px rgb(0 0 0 / 5%);
+        padding: 16px 10px;
+        max-width: 400px;
+    }
+}
