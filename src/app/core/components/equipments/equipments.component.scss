@@ -1,0 +1,26 @@
+@import "variables";
+
+:host {
+    display: block;
+    margin: 0 $spacer;
+}
+
+.top-brand-title {
+    border-radius: 4px;
+}
+
+.text-banner-title {
+    text-transform: uppercase;
+    font-family: "ProximaNova-Bold";
+    color: #3e4152;
+    letter-spacing: 0.15em;
+    font-size: 1.8em;
+    margin: 50px 0 30px 30px;
+    max-height: 5em;
+    font-weight: 500;
+}
+.product-list {
+    display: flex;
+    grid-gap: 20px;
+    overflow: scroll;
+}

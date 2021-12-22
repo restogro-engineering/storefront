@@ -36,37 +36,38 @@ export class HomePageComponent implements OnInit {
                 }
             })
             .subscribe(data => {
-                data.collections.items[0].children.forEach((type: any) => {
-                    if (type.slug === "main-posters") {
-                        let mainPostersList: any = JSON.parse(
-                            JSON.stringify(type.children)
-                        );
-                        mainPostersList.sort(this.compare);
-                        mainPostersList.forEach((element: any) => {
-                            this.mainPosters.push({
-                                image: element.featuredAsset.source,
-                                thumbImage: element.featuredAsset.source,
-                                title: "",
-                                ...element
+                data.collections.items.length > 0 &&
+                    data.collections.items[0].children.forEach((type: any) => {
+                        if (type.slug === "main-posters") {
+                            let mainPostersList: any = JSON.parse(
+                                JSON.stringify(type.children)
+                            );
+                            mainPostersList.sort(this.compare);
+                            mainPostersList.forEach((element: any) => {
+                                this.mainPosters.push({
+                                    image: element.featuredAsset.source,
+                                    thumbImage: element.featuredAsset.source,
+                                    title: "",
+                                    ...element
+                                });
                             });
-                        });
-                    }
+                        }
 
-                    if (type.slug === "top-brands") {
-                        let topBrandsList: any = JSON.parse(
-                            JSON.stringify(type.children)
-                        );
-                        topBrandsList.sort(this.compare);
-                        topBrandsList.forEach((element: any) => {
-                            this.topBrands.push({
-                                image: element.featuredAsset.source,
-                                thumbImage: element.featuredAsset.source,
-                                title: "",
-                                ...element
+                        if (type.slug === "top-brands") {
+                            let topBrandsList: any = JSON.parse(
+                                JSON.stringify(type.children)
+                            );
+                            topBrandsList.sort(this.compare);
+                            topBrandsList.forEach((element: any) => {
+                                this.topBrands.push({
+                                    image: element.featuredAsset.source,
+                                    thumbImage: element.featuredAsset.source,
+                                    title: "",
+                                    ...element
+                                });
                             });
-                        });
-                    }
-                });
+                        }
+                    });
             });
     }
 }

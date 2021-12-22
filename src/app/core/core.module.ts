@@ -47,6 +47,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
+import { EquipmentsComponent } from './components/equipments/equipments.component';
+import { TopFilesComponent } from './components/top-files/top-files.component';
+import { InstrumentsComponent } from './components/instruments/instruments.component';
+import { HandpieceStoreComponent } from './components/handpiece-store/handpiece-store.component';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -73,7 +77,11 @@ const CORE_COMPONENTS = [
     OurServicesComponent,
     NewArrivalsComponent,
     WishListToggleComponent,
-    WishListComponent
+    WishListComponent,
+    EquipmentsComponent,
+    TopFilesComponent,
+    InstrumentsComponent,
+    HandpieceStoreComponent
 ];
 
 let apolloCache: InMemoryCache;
