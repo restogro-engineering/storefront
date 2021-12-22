@@ -11,6 +11,7 @@ import { DataService } from "../../providers/data/data.service";
 export class HomePageComponent implements OnInit {
     mainPosters: any = [];
     topBrands: any = [];
+    fCategories: any = [];
     readonly placeholderProducts = Array.from({ length: 12 }).map(() => null);
     constructor(private dataService: DataService) {}
 
@@ -36,6 +37,7 @@ export class HomePageComponent implements OnInit {
                 }
             })
             .subscribe(data => {
+                debugger;
                 data.collections.items.length > 0 &&
                     data.collections.items[0].children.forEach((type: any) => {
                         if (type.slug === "main-posters") {
@@ -45,11 +47,11 @@ export class HomePageComponent implements OnInit {
                             mainPostersList.sort(this.compare);
                             mainPostersList.forEach((element: any) => {
                                 this.mainPosters.push({
-                                    image: element.featuredAsset.source,
-                                    thumbImage: element.featuredAsset.source,
+                                    image: element.featuredAsset.preview,
+                                    thumbImage: element.featuredAsset.preview,
                                     title: "",
                                     ...element
-                                });
+                                });                                
                             });
                         }
 
