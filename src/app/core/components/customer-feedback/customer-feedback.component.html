@@ -1,7 +1,7 @@
 <div class="slideshow-container">
     <div
         class="mySlides"
-        *ngFor="let image of [1, 2, 3, 4, 5, 6, 7]; let index = index"
+        *ngFor="let image of imageObject; let index = index"
         [hidden]="index !== slideIndex"
     >
         <q
@@ -22,6 +22,6 @@
         class="dot"
         [class.active]="index === slideIndex"
         (click)="currentSlide(index)"
-        *ngFor="let image of [1, 2, 3, 4, 5, 6, 7]; let index = index"
+        *ngFor="let image of imageObject; let index = index"
     ></span>
 </div>

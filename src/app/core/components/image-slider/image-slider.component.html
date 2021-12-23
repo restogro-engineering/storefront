@@ -2,9 +2,10 @@
     <div
         class="mySlides"
         *ngFor="let image of imageObject; let index = index"
-        [hidden]="index + 1 !== slideIndex"
+        [hidden]="index !== slideIndex"
     >
         <img [src]="image.thumbImage" style="width:100%" />
+        {{index}}
     </div>
 
     <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
@@ -16,6 +17,7 @@
     <span
         class="dot"
         (click)="currentSlide(index)"
+        [class.active]="index !== slideIndex"
         *ngFor="let image of imageObject; let index = index"
     ></span>
 </div>

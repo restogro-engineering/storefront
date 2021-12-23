@@ -8,8 +8,8 @@ import { Router } from "@angular/router";
 })
 export class CustomerFeedbackComponent implements OnInit {
     @Input()
-    imageObject: any = [];
-    slideIndex: any = 1;
+    imageObject: any = [1, 2, 3, 4, 5, 6, 7];
+    slideIndex: any = 0;
 
     constructor(public router: Router) {}
 
@@ -26,21 +26,13 @@ export class CustomerFeedbackComponent implements OnInit {
     }
 
     showSlides(n: any) {
-        var i;
-        var slides: any = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {
-            this.slideIndex = 1;
+        if (this.imageObject.length <= n) {
+            this.slideIndex = 0;
+        } else if (n < 0) {
+            this.slideIndex = this.imageObject.length - 1;
+        } else {
+            this.slideIndex = n;
         }
-        if (n < 1) {
-            this.slideIndex = slides.length;
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[this.slideIndex - 1].style.display = "block";
-        dots[this.slideIndex - 1].className += " active";
-        this.showSlides = n;
     }
 
     imageClick(data: any) {

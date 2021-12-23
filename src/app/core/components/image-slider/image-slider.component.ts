@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 export class ImageSliderComponent implements OnInit {
     @Input()
     imageObject: any = [];
-    slideIndex: any = 1;
+    slideIndex: any = 0;
 
     constructor(public router: Router) {}
 
@@ -25,24 +25,14 @@ export class ImageSliderComponent implements OnInit {
         this.showSlides((this.slideIndex = n));
     }
 
-    showSlides(n: any) {        
-        var i;
-        var slides: any = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {
-            this.slideIndex = 1;
+    showSlides(n: any) {
+        if (this.imageObject.length <= n) {
+            this.slideIndex = 0;
+        } else if (n < 0) {
+            this.slideIndex = this.imageObject.length - 1;
+        } else {
+            this.slideIndex = n;
         }
-        if (n < 1) {
-            this.slideIndex = slides.length;
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[this.slideIndex - 1].style.display = "block";
-        dots[this.slideIndex - 1].className += " active";
     }
 
     imageClick(data: any) {
