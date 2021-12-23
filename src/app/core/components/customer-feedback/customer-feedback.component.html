@@ -1,7 +1,27 @@
-<div class="customer-feedback-list">
-    <div *ngFor="let i of [1, 2, 3]" class="customer-feedback">
-        Discover 2500+ Feedback designs on Dribbble. ... Feedbacks UI Design
-        dailyui ui pattern ux design ui design ildiesign feedback ui
-        notification subscribed.
+<div class="slideshow-container">
+    <div
+        class="mySlides"
+        *ngFor="let image of [1, 2, 3, 4, 5, 6, 7]; let index = index"
+        [hidden]="index !== slideIndex"
+    >
+        <q
+            >More responses means better, more diverse, and more accurate data
+            from more demographics. Covering all these bases would help any
+            business revolutionize their feedback approach, so incentivizing
+            your surveys is heavily recommended.
+        </q>
+        <p class="author">- John Keats</p>
     </div>
+
+    <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+    <a class="next" (click)="plusSlides(1)">&#10095;</a>
+</div>
+
+<div class="dot-container">
+    <span
+        class="dot"
+        [class.active]="index === slideIndex"
+        (click)="currentSlide(index)"
+        *ngFor="let image of [1, 2, 3, 4, 5, 6, 7]; let index = index"
+    ></span>
 </div>

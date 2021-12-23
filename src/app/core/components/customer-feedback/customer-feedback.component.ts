@@ -1,75 +1,49 @@
-import {
-    Component,
-    ViewChild,
-    ChangeDetectionStrategy,
-    OnInit
-} from "@angular/core";
-import { gql } from "apollo-angular";
-import { NgImageSliderComponent } from "ng-image-slider";
-import { DataService } from "../../providers/data/data.service";
-import { Observable } from "rxjs";
-import { map, shareReplay } from "rxjs/operators";
+import { Component, OnInit, Input } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "vsf-customer-feedback",
     templateUrl: "./customer-feedback.component.html",
-    styleUrls: ["./customer-feedback.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ["./customer-feedback.component.scss"]
 })
 export class CustomerFeedbackComponent implements OnInit {
-    topSellers$: Observable<any[]>;
-    topSellersLoaded$: Observable<boolean>;
+    @Input()
+    imageObject: any = [];
+    slideIndex: any = 1;
 
-    @ViewChild("nav") slider: NgImageSliderComponent;
-    constructor(private dataService: DataService) {}
-
-    imageObject = [];
-
-    prevImageClick() {
-        this.slider.prev();
-    }
-
-    nextImageClick() {
-        this.slider.next();
-    }
+    constructor(public router: Router) {}
 
     ngOnInit() {
-        this.topSellers$ = this.dataService
-            .query(GET_DEAL_OF_DAY, {
-                input: {
-                    facetValueIds: ["77"],
-                    take: 15,
-                    groupByProduct: true
-                }
-            })
-            .pipe(
-                map(data => data.search.items),
-                shareReplay(1)
-            );
-        this.topSellersLoaded$ = this.topSellers$.pipe(
-            map(items => 0 < items.length)
-        );
+        this.showSlides(this.slideIndex);
+    }
+
+    plusSlides(n: any) {
+        this.showSlides((this.slideIndex += n));
+    }
+
+    currentSlide(n: any) {
+        this.showSlides((this.slideIndex = n));
+    }
+
+    showSlides(n: any) {
+        var i;
+        var slides: any = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {
+            this.slideIndex = 1;
+        }
+        if (n < 1) {
+            this.slideIndex = slides.length;
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[this.slideIndex - 1].style.display = "block";
+        dots[this.slideIndex - 1].className += " active";
+        this.showSlides = n;
+    }
+
+    imageClick(data: any) {
+        this.router.navigate(["/category", this.imageObject[data].slug]);
     }
 }
-
-const GET_DEAL_OF_DAY = gql`
-    query GetDealOfTheDay($input: SearchInput!) {
-        search(input: $input) {
-            items {
-                productId
-                slug
-                productAsset {
-                    id
-                    preview
-                }
-                priceWithTax {
-                    ... on PriceRange {
-                        min
-                        max
-                    }
-                }
-                productName
-            }
-        }
-    }
-`;
