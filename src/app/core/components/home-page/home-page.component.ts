@@ -36,8 +36,7 @@ export class HomePageComponent implements OnInit {
                     }
                 }
             })
-            .subscribe(data => {
-                debugger;
+            .subscribe(data => {                
                 data.collections.items.length > 0 &&
                     data.collections.items[0].children.forEach((type: any) => {
                         if (type.slug === "main-posters") {

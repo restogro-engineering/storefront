@@ -25,8 +25,7 @@ export class ImageSliderComponent implements OnInit {
         this.showSlides((this.slideIndex = n));
     }
 
-    showSlides(n: any) {
-        debugger;
+    showSlides(n: any) {        
         var i;
         var slides: any = document.getElementsByClassName("mySlides");
         var dots = document.getElementsByClassName("dot");

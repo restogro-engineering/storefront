@@ -29,3 +29,21 @@
         font-size: 22px;
     }
 }
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    .info-section {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 20px;
+        .s-header {
+            text-transform: uppercase;
+            color: gray;
+        }
+        .item {
+            color: white;
+        }
+    }
+}
