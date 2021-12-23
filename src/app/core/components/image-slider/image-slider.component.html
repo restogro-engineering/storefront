@@ -1,0 +1,21 @@
+<div class="slideshow-container">
+    <div
+        class="mySlides"
+        *ngFor="let image of imageObject; let index = index"
+        [hidden]="index + 1 !== slideIndex"
+    >
+        <img [src]="image.thumbImage" style="width:100%" />
+    </div>
+
+    <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+    <a class="next" (click)="plusSlides(1)">&#10095;</a>
+</div>
+<br />
+
+<div style="text-align:center">
+    <span
+        class="dot"
+        (click)="currentSlide(index)"
+        *ngFor="let image of imageObject; let index = index"
+    ></span>
+</div>

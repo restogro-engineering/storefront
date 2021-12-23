@@ -1,19 +1,19 @@
 <div class="">
     <div class="text-banner-title">Featured Categories</div>
-    <ng-image-slider
-        [infinite]="false"
-        [autoSlide]="1"
-        [imageSize]="{ width: '20%', height: 300,space:20 }"
-        slideImage="1"
-        [images]="imageObject"
-        (imageClick)="imageClick($event)"
-        #nav
-    >
-    </ng-image-slider>
+    <div class="">
 
-    <vsf-collection-card
-            *ngFor="let collection of collections$ | async"
-            [collection]="collection"
+            <vsf-image-slider [imageObject]="imageObject" ></vsf-image-slider>
+
+        <!-- <ng-image-slider
+            [infinite]="false"
+            [autoSlide]="1"
+            [imageSize]="{ width: '100%', height: 300,'z-index':1 }"
+            slideImage="1"
+            [images]="imageObject"
+            (imageClick)="imageClick($event)"
+            #nav
         >
-        </vsf-collection-card>
+        </ng-image-slider> -->
+    </div>
+    
 </div>

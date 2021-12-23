@@ -52,6 +52,7 @@ import { TopFilesComponent } from './components/top-files/top-files.component';
 import { InstrumentsComponent } from './components/instruments/instruments.component';
 import { HandpieceStoreComponent } from './components/handpiece-store/handpiece-store.component';
 import { CustomerFeedbackComponent } from './components/customer-feedback/customer-feedback.component';
+import { ImageSliderComponent } from './components/image-slider/image-slider.component';
 
 const CORE_COMPONENTS = [
     ProductListComponent,
@@ -83,7 +84,8 @@ const CORE_COMPONENTS = [
     TopFilesComponent,
     InstrumentsComponent,
     HandpieceStoreComponent,
-    CustomerFeedbackComponent
+    CustomerFeedbackComponent,
+    ImageSliderComponent
 ];
 
 let apolloCache: InMemoryCache;

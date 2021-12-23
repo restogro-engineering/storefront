@@ -69,6 +69,21 @@ export class HomePageComponent implements OnInit {
                                 });
                             });
                         }
+                        if (type.slug === "featured-categories") {
+                            let fCategories: any = JSON.parse(
+                                JSON.stringify(type.children)
+                            );
+                            fCategories.sort(this.compare);
+                            fCategories.forEach((element: any) => {
+                                this.fCategories.push({
+                                    image: element.featuredAsset.source,
+                                    thumbImage: element.featuredAsset.source,
+                                    title: "",
+                                    ...element
+                                });
+                            });
+                        }
+
                     });
             });
     }
