@@ -26,6 +26,15 @@
             [disabled]="registrationSent"
             [(ngModel)]="emailAddress"
         />
+        <input
+            class="form-control mt-1"
+            placeholder="PhoneNumber"
+            name="phoneNumber"
+            required
+            type="number"
+            [disabled]="registrationSent"
+            [(ngModel)]="phoneNumber"
+        />
 
         <input
             class="form-control mt-1"
@@ -46,26 +55,15 @@
             class="form-control mt-1"
             placeholder="Profession"
             name="dateofbirth"
-            type="date"            
+            type="date"
             [disabled]="registrationSent"
             [(ngModel)]="dateofbirth"
         />
-
-        <input
-            class="form-control mt-1"
-            placeholder="PhoneNumber"
-            name="phoneNumber"
-            required
-            type="number"            
-            [disabled]="registrationSent"
-            [(ngModel)]="phoneNumber"
-        />
-
         <input
             class="form-control mt-1"
             placeholder="Alternate PhoneNumber"
-            name="alternatePhoneNumber"            
-            type="number"            
+            name="alternatePhoneNumber"
+            type="number"
             [disabled]="registrationSent"
             [(ngModel)]="alternatePhoneNumber"
         />
@@ -73,7 +71,7 @@
         <input
             class="form-control mt-1"
             placeholder="Company Website"
-            name="companyWebsite"            
+            name="companyWebsite"
             [disabled]="registrationSent"
             [(ngModel)]="companyWebsite"
         />
@@ -102,7 +100,7 @@
             [disabled]="registerForm.invalid || registrationSent"
             type="submit"
         >
-            Register
+            Register {{ registrationSent }}
         </button>
         <div *ngIf="registrationSent" class="registration-sent">
             Great! Now check your email ({{ emailAddress }}) to complete
