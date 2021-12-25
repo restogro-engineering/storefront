@@ -22,13 +22,13 @@ export const GET_PRODUCT_DETAIL = gql`
                 price
                 priceWithTax
                 sku
-                customFields {
-                    deliveryTime
-                    purchaseCertificateRequired
+                customFields {                    
                     brand
                     warranty
                     packaging
-                    keySpecification
+                    keySpecification                    
+                    discountedPrice
+
                   }
             }
             featuredAsset {

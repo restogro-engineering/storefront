@@ -24,8 +24,11 @@
                     <span class="price">
                         {{ selectedVariant?.priceWithTax | formatPrice }}
                     </span>
-                    <span class="price discounted-price">
-                        Rs 250
+                    <span class="price discounted-price">                        
+                        {{
+                            selectedVariant?.customFields?.discountedPrice
+                                | formatPrice
+                        }}
                     </span>
                     <span class=" price product-discountPercentage"
                         >(30% OFF)</span
@@ -114,14 +117,12 @@
                             class="spec-box border-bottom mb-2 mr-4 pb-2 "
                             *ngFor="let spec of keySpecification"
                         >
-                          
-                                <div>
-                                    {{ spec.key }}
-                                </div>
-                                <div>
-                                    {{ spec.label }}
-                                </div>
-                           
+                            <div>
+                                {{ spec.key }}
+                            </div>
+                            <div>
+                                {{ spec.label }}
+                            </div>
                         </div>
                     </div>
                 </div>

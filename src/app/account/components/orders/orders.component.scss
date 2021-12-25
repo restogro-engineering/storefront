@@ -1,0 +1,16 @@
+@import "variables";
+
+:host {
+    display: block;
+    margin-top: $spacer * 2;
+}
+
+.title-row{
+    border-bottom: 1px solid #d4d5d9;
+    padding: 15px 0px;
+    font-size: 12px;
+    margin-bottom: 10px;
+    h2{
+        margin-bottom: 0px;
+    }
+}

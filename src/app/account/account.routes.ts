@@ -18,7 +18,13 @@ import { VerifyComponent } from "./components/verify/verify.component";
 import { AccountGuard } from "./providers/account.guard";
 import { SignInGuard } from "./providers/sign-in.guard";
 import { TrackOrderDetailComponent } from "./components/track-order-detail/track-order-detail.component";
-import { ReturnOrderComponent } from './components/return-order/return-order.component';
+import { ReturnOrderComponent } from "./components/return-order/return-order.component";
+import { AccountAboutComponent } from "./components/account-about/account-about.component";
+import { CareerComponent } from "./components/career/career.component";
+import { ContactComponent } from "./components/contact/contact.component";
+import { OrdersComponent } from "./components/orders/orders.component";
+import { PaymentsComponent } from "./components/payments/payments.component";
+import { RefundComponent } from "./components/refund/refund.component";
 
 export const routes: Routes = [
     {
@@ -70,6 +76,31 @@ export const routes: Routes = [
                 path: "register",
                 canActivate: [SignInGuard],
                 component: RegisterComponent
+            },
+            {
+                path: "about",
+                canActivate: [SignInGuard],
+                component: AccountAboutComponent
+            },
+            {
+                path: "order-info",
+                canActivate: [SignInGuard],
+                component: OrdersComponent
+            },
+            {
+                path: "payments",
+                canActivate: [SignInGuard],
+                component: PaymentsComponent
+            },
+            {
+                path: "contact",
+                canActivate: [SignInGuard],
+                component: ContactComponent
+            },
+            {
+                path: "refunds",
+                canActivate: [SignInGuard],
+                component: RefundComponent
             },
             {
                 path: "verify",

@@ -42,26 +42,49 @@
             <div class="info-section">
                 <div class="s-header">About</div>
                 <div>
-                    <div class="item">About us</div>
-                    <div class="item">Contact us</div>
-                    <div class="item">Careers</div>
+                    <div class="item" [routerLink]="['./account', 'about']">
+                        About us
+                    </div>
+                    <div class="item" [routerLink]="['./account', 'contact']">
+                        Contact us
+                    </div>
+                    <div class="item" [routerLink]="['./account', 'careers']">
+                        Careers
+                    </div>
                 </div>
             </div>
             <div class="info-section">
                 <div class="s-header">Help</div>
                 <div>
-                    <div class="item">Orders</div>
-                    <div class="item">Refunds</div>
-                    <div class="item">Payments</div>
+                    <div class="item" [routerLink]="['./account', 'order-info']">
+                        Orders
+                    </div>
+                    <div class="item" [routerLink]="['./account', 'refunds']">
+                        Refunds
+                    </div>
+                    <div class="item" [routerLink]="['./account', 'payments']">
+                        Payments
+                    </div>
                 </div>
             </div>
             <div class="info-section">
                 <div class="s-header">Policy</div>
                 <div>
-                    <div class="item">Return policy</div>
-                    <div class="item">Term of use</div>
-                    <div class="item">Privacy</div>
-                    <div class="item">Sitemap</div>
+                    <div class="item" [routerLink]="['./account', 'return']">
+                        Return policy
+                    </div>
+                    <div
+                        class="item"
+                        [routerLink]="['./account', 'term-of-use']"
+                    >
+                        Term of use
+                    </div>
+                    <div class="item" [routerLink]="['./account', 'privacy']">
+                        Privacy
+                    </div>
+                    <div class="item" [routerLink]="['./account', 'sitemap']">
+                        Sitemap
+                    </div>
                 </div>
             </div>
             <div class="info-section">

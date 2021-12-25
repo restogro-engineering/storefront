@@ -26,6 +26,9 @@ import { MatInputModule } from "@angular/material/input";
 import { ReturnOrderComponent } from "./components/return-order/return-order.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ReturnOrderModalComponent } from "./components/return-order-modal/return-order-modal.component";
+import { OrdersComponent } from './components/orders/orders.component';
+import { RefundComponent } from './components/refund/refund.component';
+import { PaymentsComponent } from './components/payments/payments.component';
 
 const DECLARATIONS = [
     AccountDashboardComponent,
@@ -43,7 +46,10 @@ const DECLARATIONS = [
     ChangeEmailAddressComponent,
     TrackOrderDetailComponent,
     ReturnOrderComponent,
-    ReturnOrderModalComponent
+    ReturnOrderModalComponent,
+    OrdersComponent,
+    RefundComponent,
+    PaymentsComponent
 ];
 
 @NgModule({
